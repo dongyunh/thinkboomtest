@@ -1,28 +1,32 @@
-import React, {useState} from 'react'
+import React from 'react'
 import type { NextPage } from 'next'
 import styled from "styled-components";
-import Button from '@mui/material/Button';
+import {Main} from "../src/screens/Main"
 
 const Home: NextPage = () => {
 
   return (
-    <>
-      <HeaderBar>
-        <Button variant="text" >로고</Button>
+    <Main>
+      <>
+      <Main.HeaderBar>
+        <>
+        <Main.Button variant="text" >로고</Main.Button>
         <NavWrapper>
-          <Button variant="text">메인</Button>
-          <Button variant="text">갤러리</Button>
-          <Button variant="text">마이페이지</Button>
+          <Main.Button variant="text">메인</Main.Button>
+          <Main.Button variant="text">갤러리</Main.Button>
+          <Main.Button variant="text">마이페이지</Main.Button>
         </NavWrapper>
-      </HeaderBar>
+        </>
+      </Main.HeaderBar>
       <Grid>
         <CardWrapper>
-          <Card/>
-          <Card/>
-          <Card/>
+          <Main.Card/>
+          <Main.Card/>
+          <Main.Card/>
         </CardWrapper>
       </Grid>
-  </>
+      </>
+  </Main>
   )
 }
 
@@ -36,17 +40,6 @@ justify-content: center;
 align-items: center;
 `
 
-const HeaderBar = styled.header`
-width:100vw;
-height: 80px;
-box-shadow: 0 10px 10px -15px black;
-display:flex;
-justify-content: space-between;
-padding-left: 50px;
-position: fixed;
-background-color: white;
-`
-
 const NavWrapper = styled.div`
 display: flex;
 align-items:center;
@@ -58,14 +51,4 @@ const CardWrapper = styled.div`
 display: flex;
 align-items: center;
 gap:50px
-`
-
-const Card = styled.section`
-height: 315px;
-width: 400px;
-border-radius: 10%;
-box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-:hover{
-  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
-}
 `
