@@ -2,11 +2,11 @@ import React from 'react';
 import {
     useAppDispatch,
     useAppSelector,
-} from "../src/redux/hooks"
+} from "../../src/redux/hooks"
 import {
     getKanyeQuote,
     kanyeQuoteSelector,
-} from "../src/redux/modules/kanye"
+} from "../../src/redux/modules/kanye"
 
 const Kanye = () => {
     const dispatch = useAppDispatch();
