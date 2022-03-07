@@ -3,13 +3,13 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import {useAppDispatch, useAppSelector} from "../src/redux/hooks"
+import {useAppDispatch, useAppSelector} from "../../src/redux/hooks"
 import {
   decrement,
   increment,
   incrementByAmount,
   selectCount,
-} from "../src/redux/modules/counter"
+} from "../../src/redux/modules/counter"
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch()
