@@ -1,8 +1,8 @@
 import React from "react"
-import { WaitingRoom } from "../../src/component/layout/WaitingRoom"
+import  { ChattingRoom }  from "../../src/component/layout/ChattingRoom"
 
 const BrainWriting = () => {
-    return <WaitingRoom />
+    return <ChattingRoom />
 }
 
 export default BrainWriting 

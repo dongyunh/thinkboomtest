@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 const SetNickName = () => {
     const router = useRouter()
-    const [nickName, setNickName] = useState<string>()
+    const [nickName, setNickName] = useState<string>('')
 
     const handleSignUp = () => {
         // axios.post('/api/nickname', {nickname : nickName})
