@@ -1,44 +1,54 @@
-import React, {useState} from 'react'
+import React from 'react'
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import {useAppDispatch, useAppSelector} from "../redux/hooks"
-import {
-  decrement,
-  increment,
-  incrementByAmount,
-  selectCount,
-} from "../redux/modules/counter"
+import styled from "styled-components";
+import {Main} from "../src/component/layout/Main"
 
 const Home: NextPage = () => {
-  const dispatch = useAppDispatch()
-  const count = useAppSelector(selectCount);
-  const [incrementAmount, setIncrementAmount] = useState<number>(0);
 
   return (
-    <>
-      <h1>
-        Welcome to the greatest app in the world
-      </h1>
-      <h2>
-        The current number is {count}
-      </h2>
-      <div>
-        <label>count
-          <input id="count" value={incrementAmount} onChange={(e) => setIncrementAmount(Number(e.target.value))} 
-        type="number"/>
-        </label>
-         <button onClick={() => dispatch(incrementByAmount(Number(incrementAmount)))}>
-            increment by Amount
-        </button>
-      </div>
-      <div>
-        <button onClick={() => dispatch(decrement())}>Decrement by 1</button>
-        <button onClick={() => dispatch(increment())}>Increment by 1</button>
-      </div>
-    </>
+    <Main>
+      <>
+      <Main.HeaderBar>
+        <>
+        <Main.Button variant="text" >로고</Main.Button>
+        <NavWrapper>
+          <Main.Button variant="text">메인</Main.Button>
+          <Main.Button variant="text">갤러리</Main.Button>
+          <Main.Button variant="text">마이페이지</Main.Button>
+        </NavWrapper>
+        </>
+      </Main.HeaderBar>
+      <Grid>
+        <CardWrapper>
+          <Main.Card/>
+          <Main.Card/>
+          <Main.Card/>
+        </CardWrapper>
+      </Grid>
+      </>
+  </Main>
   )
 }
 
 export default Home
+
+const Grid = styled.div`
+width: 100%;
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+`
+
+const NavWrapper = styled.div`
+display: flex;
+align-items:center;
+justify-content: space-evenly;
+width: 30%;
+`
+
+const CardWrapper = styled.div`
+display: flex;
+align-items: center;
+gap:50px
+`
