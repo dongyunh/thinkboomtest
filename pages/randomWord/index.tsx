@@ -1,6 +1,6 @@
 import React from 'react';
 import { StartPage, InteractivePage } from '../../src/component/common';
-import { SelectWord } from '../../src/component/layout/RandomWord/SelectWord';
+import { SelectWord, Setting } from '../../src/component/layout/RandomWord';
 
 const RandomWord = () => {
   const pages = [
@@ -13,9 +13,10 @@ const RandomWord = () => {
       ),
     },
     {
-      component: (
-        <SelectWord/>
-      ),
+      component: <Setting />,
+    },
+    {
+      component: <SelectWord />,
     },
   ];
 
