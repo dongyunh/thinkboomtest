@@ -4,6 +4,7 @@ import styled from "styled-components"
 type CardProps = {
   width : number;
   height : number;
+  children?: React.ReactChild;
 }
 
 type StyleProps = {
@@ -11,8 +12,8 @@ type StyleProps = {
   height : number;
 }
 
-const Card = ({ width, height }: CardProps) => {
-    return <StyledCard width={width} height={height} />
+const Card = ({ width, height, children }: CardProps) => {
+    return <StyledCard width={width} height={height}>{children}</StyledCard>
 }
 
 const StyledCard = styled.section<StyleProps>`

@@ -13,14 +13,11 @@ const SetNickName = () => {
             { nickname : nickName })
             .then((res) => {
                 console.log(res)
-                // localStorage.setItem('nickName', res.data.nickname)
-                // router.push('/brainWriting')
+                // localStorage.setItem('nickName', res.data.token)
+                // router.push('/sixHat/waitingRoom/asdasd')
             })
-        // localStorage.setItem('nickName', nickName)
-        // router.push('/brainWriting')
     }
     
-
     return (
     <>
     <TextField id="outlined-basic" label="닉네임" variant="outlined" onChange={e => setNickName(e.target.value)} />
