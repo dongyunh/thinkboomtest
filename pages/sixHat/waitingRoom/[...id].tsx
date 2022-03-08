@@ -22,17 +22,16 @@ const WaitingRoom = () => {
   const [message, setMessage] = React.useState('');
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
 
   const token =
     typeof window !== 'undefined' ? localStorage.getItem('nickName') : null;
 
+  console.log(token);
+
   useEffect(() => {
     stompClient.connect(
       {
-        headers: {
-          token: token,
-        },
+        token: token,
       },
       () => {
         stompClient.subscribe('/sub/api/chat/room', data => {
@@ -42,7 +41,7 @@ const WaitingRoom = () => {
         });
       },
     );
-  }, [contents]);
+  }, [token]);
 
   const handleEnter = (nickname: string, content: string) => {
     const newMessage: message = { nickname, content };

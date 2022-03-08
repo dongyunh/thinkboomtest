@@ -12,9 +12,8 @@ const SetNickName = () => {
     axios
       .post('http://3.38.151.99/api/nickname', { nickname: nickName })
       .then(res => {
-        console.log(res);
-        // localStorage.setItem('nickName', res.data.token)
-        // router.push('/sixHat/waitingRoom/asdasd')
+        localStorage.setItem('nickName', res.data);
+        router.push('/sixHat/waitingRoom/asdasd');
       });
   };
 
