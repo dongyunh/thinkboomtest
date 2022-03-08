@@ -1,3 +1,3 @@
-export * from "./Card"
-export * from "./HeaderBar"
-export * from './StartPage'
+export * from './Card';
+export * from './HeaderBar';
+export * from './StartPage';
