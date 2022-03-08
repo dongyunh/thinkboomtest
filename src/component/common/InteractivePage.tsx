@@ -8,13 +8,9 @@ type InteractivePage = {
 };
 
 const InteractivePage = ({ currentPage, pages }: InteractivePage) => {
-  return (
-    <div>
-      {pages.map((item, idx) => {
-        if (idx === currentPage) return item.component;
-      })}
-    </div>
-  );
+  return pages.map((item, idx) => {
+    if (idx === currentPage) return <div key={idx}>{item.component}</div>;
+  });
 };
 
 export { InteractivePage };
