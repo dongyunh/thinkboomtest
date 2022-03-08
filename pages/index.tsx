@@ -20,9 +20,9 @@ const Home: NextPage = () => {
       </Main.HeaderBar>
       <Grid>
         <CardWrapper>
-          <Main.Card/>
-          <Main.Card/>
-          <Main.Card/>
+          <Main.Card width={400} height={315} />
+          <Main.Card width={400} height={315} />
+          <Main.Card width={400} height={315} />
         </CardWrapper>
       </Grid>
       </>

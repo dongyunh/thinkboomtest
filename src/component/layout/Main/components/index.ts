@@ -1,3 +1,3 @@
-export * from "./Card"
+export * from "../../../common/Card"
 export * from "../../../common/HeaderBar"
 export * from "./NavWrapper"
