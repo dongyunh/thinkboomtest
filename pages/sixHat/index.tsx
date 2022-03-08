@@ -1,8 +1,8 @@
-import React from "react"
-import  { ChattingRoom }  from "../../src/component/layout/ChattingRoom"
+import React from 'react';
+import { ChattingRoom } from '../../src/component/layout/ChattingRoom';
 
 const BrainWriting = () => {
-    return <ChattingRoom />
-}
+  return <ChattingRoom />;
+};
 
-export default BrainWriting 
+export default BrainWriting;

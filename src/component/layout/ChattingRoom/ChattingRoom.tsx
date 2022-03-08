@@ -1,28 +1,22 @@
-import React, {useEffect} from "react";
-import { Button, TextField } from "@mui/material";
-import styled from "styled-components"
-import { HeaderBar, Card } from "../../common"
-
+import React, { useEffect } from 'react';
+import { Button, TextField } from '@mui/material';
+import styled from 'styled-components';
+import { HeaderBar, Card } from '../../common';
 
 export type message = {
-    nickname: string;
-    content: string;
-  };
-  
+  nickname: string;
+  content: string;
+};
 
 const ChattingRoom = () => {
-
-    return (
+  return (
     <Card width={450} height={600}>
-        <>
+      <>
         <div>안녕! 이건 채팅방이야</div>
         <TextField />
-        </>
+      </>
     </Card>
-    )    
-}
+  );
+};
 
-
-
-
-export  { ChattingRoom }
+export { ChattingRoom };
