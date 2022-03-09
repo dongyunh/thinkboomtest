@@ -9,12 +9,10 @@ const SetNickName = () => {
   const [nickName, setNickName] = useState<string>('');
 
   const handleSignUp = () => {
-    axios
-      .post('http://3.38.151.99/api/nickname', { nickname: nickName })
-      .then(res => {
-        localStorage.setItem('nickName', res.data);
-        router.push('/sixHat/waitingRoom/asdasd');
-      });
+    axios.post('http://3.38.151.99/api/nickname', { nickname: nickName }).then(res => {
+      localStorage.setItem('nickName', res.data.token);
+      router.push('/sixHat/setting/asdasd');
+    });
   };
 
   return (
