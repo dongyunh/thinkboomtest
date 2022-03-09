@@ -3,6 +3,7 @@ import { InteractivePage, StartPage, SettingRoom } from '../../src/component/com
 import { useAppDispatch, useAppSelector } from '../../src/redux/hooks';
 import { updateCurrentPage, sixHatSelector } from '../../src/redux/modules/sixHat';
 
+
 const SixHat = () => {
   const dispatch = useAppDispatch();
   const { currentPage } = useAppSelector(sixHatSelector);
@@ -24,9 +25,6 @@ const SixHat = () => {
     {
       component: <SettingRoom />,
     },
-    // {
-    //   component: <SelectWord />,
-    // },
   ];
 
   return <InteractivePage pages={pages} currentPage={currentPage} />;

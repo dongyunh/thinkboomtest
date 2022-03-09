@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import React from 'react';
 
 type SettingRoomProps = {
@@ -10,7 +11,14 @@ const SettingRoom = ({ onClick }: SettingRoomProps) => {
     onClick();
   };
 
-  return <h1>세팅페이지입니다!</h1>;
+  return (
+    <>
+      <h1>세팅페이지입니다!</h1>
+      <Button variant="contained" onClick={handleClick}>
+        방 만들기
+      </Button>
+    </>
+  );
 };
 
 export { SettingRoom };
