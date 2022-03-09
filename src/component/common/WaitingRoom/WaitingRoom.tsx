@@ -3,7 +3,16 @@ import { Button, TextField } from '@mui/material';
 import styled from 'styled-components';
 import { HeaderBar } from '../../common/HeaderBar';
 
-const WaitingRoom = () => {
+type WaitingRoomProps = {
+  onClick?: () => void;
+};
+
+const WaitingRoom = ({ onClick }: WaitingRoomProps) => {
+  const handleOnclick = () => {
+    if (!onClick) return;
+    onClick();
+  };
+
   return (
     <>
       <HeaderBar>
@@ -13,11 +22,7 @@ const WaitingRoom = () => {
         <Empty />
         <TextFieldWrapper>
           <h2>회의 주제</h2>
-          <TextField
-            id="outlined-basic"
-            label="주제를 입력해주세요"
-            variant="outlined"
-          />
+          <TextField id="outlined-basic" label="주제를 입력해주세요" variant="outlined" />
         </TextFieldWrapper>
         <Button variant="contained">완료</Button>
       </Grid>
