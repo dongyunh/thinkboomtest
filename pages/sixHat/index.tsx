@@ -1,6 +1,5 @@
 import React from 'react';
-import { ChattingRoom } from '../../src/component/layout/ChattingRoom';
-import { InteractivePage, StartPage } from '../../src/component/common';
+import { InteractivePage, StartPage, SettingRoom } from '../../src/component/common';
 import { useAppDispatch, useAppSelector } from '../../src/redux/hooks';
 import { updateCurrentPage, sixHatSelector } from '../../src/redux/modules/sixHat';
 
@@ -22,9 +21,9 @@ const SixHat = () => {
         />
       ),
     },
-    // {
-    //   component: <Setting onClick={() => handleNextPage(2)} />,
-    // },
+    {
+      component: <SettingRoom />,
+    },
     // {
     //   component: <SelectWord />,
     // },
