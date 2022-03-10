@@ -1,34 +1,34 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
-import styled from 'styled-components';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { InteractivePage, WaitingRoom } from '../../../src/component/common';
 import { SelectHat } from '../../../src/component/layout/SixHat';
 import { useAppDispatch, useAppSelector } from '../../../src/redux/hooks';
-import { updateCurrentPage, sixHatSelector } from '../../../src/redux/modules/sixHat';
+import {
+  updateCurrentPage,
+  updateNickname,
+  sixHatSelector,
+} from '../../../src/redux/modules/sixHat';
+import NicknameModal from '../../../src/component/common/NicknameModal';
 
-const SetNickName = () => {
+const SettingPage = () => {
   const router = useRouter();
-  const [nickName, setNickName] = useState<string>('');
   const did = router.query;
+  const [_nickname, setNickname] = useState<string>();
 
   const dispatch = useAppDispatch();
-  const { currentPage } = useAppSelector(sixHatSelector);
+  const { currentPage, nickname } = useAppSelector(sixHatSelector);
 
   const handleNextPage = (pageNum: number) => {
     dispatch(updateCurrentPage(pageNum));
   };
 
-  const handleRouting = (path: string) => {
-    router.push(path);
+  const handleUpdateNickname = (nickname: string) => {
+    dispatch(updateNickname(nickname));
   };
 
-  const handleSignUp = () => {
-    axios.post('http://3.38.151.99/api/nickname', { nickname: nickName }).then(res => {
-      localStorage.setItem('nickName', res.data.token);
-      router.push('/sixHat/setting/asdasd');
-    });
+  const handleRouting = (path: string) => {
+    router.push(path);
   };
 
   const pages = [
@@ -40,7 +40,14 @@ const SetNickName = () => {
     },
   ];
 
-  return <InteractivePage pages={pages} currentPage={currentPage} />;
+  return (
+    <>
+      <InteractivePage pages={pages} currentPage={currentPage} />
+      {!nickname && (
+        <NicknameModal title="항해7팀" inviteMember="정현" onClick={handleUpdateNickname} />
+      )}
+    </>
+  );
 };
 
-export default SetNickName;
+export default SettingPage;
