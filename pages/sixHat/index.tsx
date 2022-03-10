@@ -15,6 +15,7 @@ const SixHat = () => {
 
   const handleMoveSettingPage = () => {
     router.push('/sixHat/setting/asdasd');
+    dispatch(updateCurrentPage(0));
   };
 
   const pages = [

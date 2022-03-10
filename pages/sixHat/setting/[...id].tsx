@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
-import styled from 'styled-components';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { InteractivePage, WaitingRoom } from '../../../src/component/common';
 import { SelectHat } from '../../../src/component/layout/SixHat';
@@ -11,6 +9,7 @@ import {
   updateNickname,
   sixHatSelector,
 } from '../../../src/redux/modules/sixHat';
+import NicknameModal from '../../../src/component/common/NicknameModal';
 
 const SettingPage = () => {
   const router = useRouter();
@@ -22,6 +21,10 @@ const SettingPage = () => {
 
   const handleNextPage = (pageNum: number) => {
     dispatch(updateCurrentPage(pageNum));
+  };
+
+  const handleUpdateNickname = (nickname: string) => {
+    dispatch(updateNickname(nickname));
   };
 
   const handleRouting = (path: string) => {
@@ -37,19 +40,14 @@ const SettingPage = () => {
     },
   ];
 
-  if (!nickname) {
-    return (
-      <>
-        <h1>닉네임 설정을 먼저하세요!</h1>
-        <TextField onChange={e => setNickname(e.target.value)} />
-        <Button onClick={() => _nickname && dispatch(updateNickname(_nickname))}>
-          닉네임설정하기
-        </Button>
-      </>
-    );
-  }
-
-  return <InteractivePage pages={pages} currentPage={currentPage} />;
+  return (
+    <>
+      <InteractivePage pages={pages} currentPage={currentPage} />
+      {!nickname && (
+        <NicknameModal title="항해7팀" inviteMember="정현" onClick={handleUpdateNickname} />
+      )}
+    </>
+  );
 };
 
 export default SettingPage;

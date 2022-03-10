@@ -5,3 +5,4 @@ export * from './InteractivePage';
 export * from './CenterLayout';
 export * from './SettingRoom';
 export * from './WaitingRoom';
+export * from './NicknameModal';
