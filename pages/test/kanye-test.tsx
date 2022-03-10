@@ -1,36 +1,24 @@
 import React from 'react';
-import {
-    useAppDispatch,
-    useAppSelector,
-} from "../../src/redux/hooks"
-import {
-    getKanyeQuote,
-    kanyeQuoteSelector,
-} from "../../src/redux/modules/kanye"
+import { useAppDispatch, useAppSelector } from '../../src/redux/hooks';
+import { getKanyeQuote, kanyeQuoteSelector } from '../../src/redux/modules/kanye';
 
 const Kanye = () => {
-    const dispatch = useAppDispatch();
-    const {
-        data,
-        pending,
-        error
-    } = useAppSelector(kanyeQuoteSelector)
+  const dispatch = useAppDispatch();
+  const { data, pending, error } = useAppSelector(kanyeQuoteSelector);
 
-    return (
-        <div>
-            <h2>
-                Generate random Kanye West quote
-            </h2>
-            {pending && <p>Loading...</p>}
-            {data && <p>{data.quote}</p>}
-            {error && <p>Oops, something went wrong</p>}
-            <button onClick={() => dispatch(getKanyeQuote())} disabled={pending} >
-                Generate Kanye Quote
-            </button>
+  console.log(data);
 
-        </div>
-    )
+  return (
+    <div>
+      <h2>Generate random Kanye West quote</h2>
+      {pending && <p>Loading...</p>}
+      {data && <p>{data.quote}</p>}
+      {error && <p>Oops, something went wrong</p>}
+      <button onClick={() => dispatch(getKanyeQuote())} disabled={pending}>
+        Generate Kanye Quote
+      </button>
+    </div>
+  );
+};
 
-}
-
-export default Kanye
+export default Kanye;
