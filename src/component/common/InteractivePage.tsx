@@ -10,7 +10,7 @@ type InteractivePage = {
 const InteractivePage = ({ currentPage, pages }: InteractivePage) => {
   const getCurrentPage = (): React.ReactNode => {
     return pages.map((item, idx) => {
-      if (idx === currentPage) return item.component;
+      if (idx === currentPage) return <div key={idx}>{item.component}</div>;
     });
   };
 

@@ -23,8 +23,7 @@ const WaitingRoom = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const token =
-    typeof window !== 'undefined' ? localStorage.getItem('nickName') : null;
+  const token = typeof window !== 'undefined' ? localStorage.getItem('nickName') : null;
 
   console.log(token);
 
@@ -46,11 +45,7 @@ const WaitingRoom = () => {
   const handleEnter = (nickname: string, content: string) => {
     const newMessage: message = { nickname, content };
     console.log(newMessage);
-    stompClient.send(
-      '/pub/api/chat/message',
-      { token: token },
-      JSON.stringify(newMessage),
-    );
+    stompClient.send('/pub/api/chat/message', { token: token }, JSON.stringify(newMessage));
     setMessage('');
   };
 
@@ -70,10 +65,7 @@ const WaitingRoom = () => {
             onChange={e => setContents(e.target.value)}
           />
         </TextFieldWrapper>
-        <Button
-          variant="contained"
-          onClick={() => handleEnter(nickname, contents)}
-        >
+        <Button variant="contained" onClick={() => handleEnter(nickname, contents)}>
           완료
         </Button>
       </Grid>

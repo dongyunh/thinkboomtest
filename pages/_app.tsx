@@ -12,8 +12,9 @@ let persistor = persistStore(store);
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <PersistGate  loading={null} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}>
         <Component {...pageProps} />
+        <div id="modal_root" />
       </PersistGate>
     </Provider>
   );
