@@ -2,14 +2,19 @@ import React from 'react';
 import { InteractivePage, StartPage, SettingRoom } from '../../src/component/common';
 import { useAppDispatch, useAppSelector } from '../../src/redux/hooks';
 import { updateCurrentPage, sixHatSelector } from '../../src/redux/modules/sixHat';
-
+import { useRouter } from 'next/router';
 
 const SixHat = () => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { currentPage } = useAppSelector(sixHatSelector);
 
   const handleNextPage = (pageNum: number) => {
     dispatch(updateCurrentPage(pageNum));
+  };
+
+  const handleMoveSettingPage = () => {
+    router.push('/sixHat/setting/asdasd');
   };
 
   const pages = [
@@ -23,7 +28,7 @@ const SixHat = () => {
       ),
     },
     {
-      component: <SettingRoom />,
+      component: <SettingRoom onClick={handleMoveSettingPage} />,
     },
   ];
 

@@ -6,15 +6,19 @@ import { useRouter } from 'next/router';
 import { InteractivePage, WaitingRoom } from '../../../src/component/common';
 import { SelectHat } from '../../../src/component/layout/SixHat';
 import { useAppDispatch, useAppSelector } from '../../../src/redux/hooks';
-import { updateCurrentPage, sixHatSelector } from '../../../src/redux/modules/sixHat';
+import {
+  updateCurrentPage,
+  updateNickname,
+  sixHatSelector,
+} from '../../../src/redux/modules/sixHat';
 
-const SetNickName = () => {
+const SettingPage = () => {
   const router = useRouter();
-  const [nickName, setNickName] = useState<string>('');
   const did = router.query;
+  const [_nickname, setNickname] = useState<string>();
 
   const dispatch = useAppDispatch();
-  const { currentPage } = useAppSelector(sixHatSelector);
+  const { currentPage, nickname } = useAppSelector(sixHatSelector);
 
   const handleNextPage = (pageNum: number) => {
     dispatch(updateCurrentPage(pageNum));
@@ -22,13 +26,6 @@ const SetNickName = () => {
 
   const handleRouting = (path: string) => {
     router.push(path);
-  };
-
-  const handleSignUp = () => {
-    axios.post('http://3.38.151.99/api/nickname', { nickname: nickName }).then(res => {
-      localStorage.setItem('nickName', res.data.token);
-      router.push('/sixHat/setting/asdasd');
-    });
   };
 
   const pages = [
@@ -40,7 +37,19 @@ const SetNickName = () => {
     },
   ];
 
+  if (!nickname) {
+    return (
+      <>
+        <h1>닉네임 설정을 먼저하세요!</h1>
+        <TextField onChange={e => setNickname(e.target.value)} />
+        <Button onClick={() => _nickname && dispatch(updateNickname(_nickname))}>
+          닉네임설정하기
+        </Button>
+      </>
+    );
+  }
+
   return <InteractivePage pages={pages} currentPage={currentPage} />;
 };
 
-export default SetNickName;
+export default SettingPage;
