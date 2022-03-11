@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { InteractivePage, StartPage, SettingRoom } from '../../src/component/common';
 import { useAppDispatch, useAppSelector } from '../../src/redux/hooks';
 import { updateCurrentPage, sixHatSelector } from '../../src/redux/modules/sixHat';
@@ -15,8 +15,12 @@ const SixHat = () => {
 
   const handleMoveSettingPage = () => {
     router.push('/sixHat/setting/asdasd');
-    dispatch(updateCurrentPage(0));
   };
+  useEffect(() => {
+    return () => {
+      dispatch(updateCurrentPage(0));
+    };
+  }, []);
 
   const pages = [
     {
