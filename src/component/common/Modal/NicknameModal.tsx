@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { TextField, Button } from '@mui/material';
+import v8n from 'v8n';
 
 type NicknameModalProps = {
   title: string;
@@ -16,6 +17,7 @@ function NicknameModal({ title, inviteMember, onClick }: NicknameModalProps) {
     return modalRoot;
   });
   const [nickname, setNickname] = useState<string>();
+  const [isError, setIsError] = useState<boolean>();
 
   useLayoutEffect(() => {
     const root = document.getElementById('modal_root');
@@ -33,13 +35,21 @@ function NicknameModal({ title, inviteMember, onClick }: NicknameModalProps) {
     onClick(nickname);
   };
 
+  const validation = v8n().string().length(2, 6);
+
+  const checkValidation = (_nickname: string) => {
+    setNickname(_nickname);
+    setIsError(!validation.test(_nickname));
+  };
+
   return ReactDOM.createPortal(
     <>
       <S_ModalOverlay />
       <S_ModalWrapper>
         <h1>{title}</h1>
         <h3>{inviteMember}님이 초대하셨습니다.</h3>
-        <TextField onChange={e => setNickname(e.target.value)} />
+        <TextField error={isError} onChange={e => checkValidation(e.target.value)} />
+        {isError && <ErrorMessage>닉네임은 2~6자 로 설정해주세요</ErrorMessage>}
         <Button onClick={handleOnClick}>닉네임 설정하기</Button>
       </S_ModalWrapper>
     </>,
@@ -73,4 +83,18 @@ const S_ModalWrapper = styled.div`
   z-index: 99;
 `;
 
-export  { NicknameModal };
+const ErrorWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+`;
+
+const ErrorMessage = styled.sub`
+  display: block;
+  text-align: left;
+  padding-top: 6px;
+  font-size: 12px;
+  color: red;
+`;
+
+export { NicknameModal };
