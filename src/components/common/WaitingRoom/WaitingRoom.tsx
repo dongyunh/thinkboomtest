@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, TextField } from '@mui/material';
 import styled from 'styled-components';
-import { HeaderBar } from '../../common/HeaderBar';
+import { HeaderBar } from '../HeaderBar';
 
 type WaitingRoomProps = {
   onClick?: () => void;

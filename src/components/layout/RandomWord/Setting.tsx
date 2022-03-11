@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, TextField } from '@mui/material';
-import { HeaderBar, CenterLayout } from '../../common';
+import { HeaderBar, CenterLayout } from '@components/common';
 import styled from 'styled-components';
 
 type SettingProps = {
@@ -26,7 +26,9 @@ const Setting = ({ onClick }: SettingProps) => {
             소중한 단짝 친구들과 어울릴 수 있는 우리만의 공간.
           </p>
           <TextField />
-          <Button variant="contained" onClick={handleOnClick}>SKIP</Button>
+          <Button variant="contained" onClick={handleOnClick}>
+            SKIP
+          </Button>
         </SettingWrapper>
       </CenterLayout>
     </>
