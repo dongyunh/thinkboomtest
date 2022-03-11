@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, TextField } from '@mui/material';
 import { HeaderBar, Card, CenterLayout } from '../../common';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { randomWordSelector, getRandomWord, selectWord } from '../../../redux/modules/randomWord';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { randomWordSelector, getRandomWord, selectWord } from '@redux/modules/randomWord';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 

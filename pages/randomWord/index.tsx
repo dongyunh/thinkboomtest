@@ -1,9 +1,8 @@
 import React from 'react';
-import { StartPage, InteractivePage } from '../../src/components/common';
-// import { SelectWord, Setting } from '../../src/components/layout/RandomWord';
+import { StartPage, InteractivePage } from '@components/common';
 import { SelectWord, Setting } from '@components/layout/RandomWord';
-import { useAppDispatch, useAppSelector } from '../../src/redux/hooks';
-import { updateCurrentPage, randomWordSelector } from '../../src/redux/modules/randomWord';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { updateCurrentPage, randomWordSelector } from '@redux/modules/randomWord';
 
 const RandomWord = () => {
   const dispatch = useAppDispatch();

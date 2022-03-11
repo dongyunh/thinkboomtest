@@ -1,5 +1,5 @@
 import React from 'react';
-import { Result } from '../../../src/components/layout/RandomWord';
+import { Result } from '@components/layout/RandomWord';
 
 const ResultPage = () => {
   return <Result />;
