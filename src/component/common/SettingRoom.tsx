@@ -6,6 +6,7 @@ type SettingRoomProps = {
 };
 
 const SettingRoom = ({ onClick }: SettingRoomProps) => {
+
   const handleClick = () => {
     if (!onClick) return;
     onClick();
