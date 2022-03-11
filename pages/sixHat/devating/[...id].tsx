@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Button, TextField } from '@mui/material';
 import styled from 'styled-components';
-import { HeaderBar } from '../../../src/component/common/HeaderBar';
+import { HeaderBar } from '../../../src/components/common/HeaderBar';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-import { ChattingRoom } from '../../../src/component/layout/ChattingRoom';
+import { ChattingRoom } from '../../../src/components/layout/ChattingRoom';
 import { useRouter } from 'next/router';
 
 export type message = {

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import { useRouter } from 'next/router';
-import { InteractivePage, WaitingRoom } from '../../../src/component/common';
-import { SelectHat } from '../../../src/component/layout/SixHat';
+import { InteractivePage, WaitingRoom } from '../../../src/components/common';
+import { SelectHat } from '../../../src/components/layout/SixHat';
 import { useAppDispatch, useAppSelector } from '../../../src/redux/hooks';
 import {
   updateCurrentPage,
   updateNickname,
   sixHatSelector,
 } from '../../../src/redux/modules/sixHat';
-import { NicknameModal } from '../../../src/component/common/Modal';
+import { NicknameModal } from '../../../src/components/common/Modal';
 
 const SettingPage = () => {
   const router = useRouter();

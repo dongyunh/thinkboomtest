@@ -1,7 +1,7 @@
 import React from 'react';
 import type { NextPage } from 'next';
 import styled from 'styled-components';
-import { Main } from '../src/component/layout/Main';
+import { Main } from '../src/components/layout/Main';
 
 const Home: NextPage = () => {
   return (

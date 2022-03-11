@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import { InteractivePage, StartPage, SettingRoom } from '../../src/component/common';
+import React, { useEffect } from 'react';
+import { InteractivePage, StartPage, SettingRoom } from '../../src/components/common';
 import { useAppDispatch, useAppSelector } from '../../src/redux/hooks';
 import {
   updateCurrentPage,
