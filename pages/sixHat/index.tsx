@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { InteractivePage, StartPage, SettingRoom } from '../../src/component/common';
 import { useAppDispatch, useAppSelector } from '../../src/redux/hooks';
-import { updateCurrentPage, sixHatSelector } from '../../src/redux/modules/sixHat';
+import {
+  updateCurrentPage,
+  sixHatSelector,
+  updateAdminState,
+} from '../../src/redux/modules/sixHat';
 import { useRouter } from 'next/router';
 
 const SixHat = () => {
@@ -15,8 +19,22 @@ const SixHat = () => {
 
   const handleMoveSettingPage = () => {
     router.push('/sixHat/setting/asdasd');
-    dispatch(updateCurrentPage(0));
   };
+
+  const handleUpdateAmdinState = () => {
+    dispatch(updateAdminState(true));
+  };
+
+  const handleMakeNewPage = () => {
+    handleMoveSettingPage();
+    handleUpdateAmdinState();
+  };
+
+  useEffect(() => {
+    return () => {
+      dispatch(updateCurrentPage(0));
+    };
+  }, []);
 
   const pages = [
     {
@@ -29,7 +47,7 @@ const SixHat = () => {
       ),
     },
     {
-      component: <SettingRoom onClick={handleMoveSettingPage} />,
+      component: <SettingRoom onClick={handleMakeNewPage} />,
     },
   ];
 
