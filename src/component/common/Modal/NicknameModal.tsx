@@ -73,4 +73,4 @@ const S_ModalWrapper = styled.div`
   z-index: 99;
 `;
 
-export default NicknameModal;
+export  { NicknameModal };
