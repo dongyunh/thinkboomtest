@@ -9,7 +9,7 @@ import {
   updateNickname,
   sixHatSelector,
 } from '../../../src/redux/modules/sixHat';
-import NicknameModal from '../../../src/component/common/NicknameModal';
+import { NicknameModal } from '../../../src/component/common/Modal';
 
 const SettingPage = () => {
   const router = useRouter();

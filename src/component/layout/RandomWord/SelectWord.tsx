@@ -32,7 +32,7 @@ const SelectWord = () => {
       wordList: pickedWordList,
     });
 
-    // router.push(`/randomWord/result/${res.id}`);
+    router.push(`/randomWord/result/${res.data.id}`);
   };
 
   return (
