@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, TextField } from '@mui/material';
 import styled from 'styled-components';
-import { HeaderBar, Card } from '../common';
+import { HeaderBar, Card } from '.';
 
 type StartProps = {
   title: string;

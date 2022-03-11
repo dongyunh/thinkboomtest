@@ -1,11 +1,7 @@
-import React, {useEffect} from 'react';
-import { InteractivePage, StartPage, SettingRoom } from '../../src/component/common';
-import { useAppDispatch, useAppSelector } from '../../src/redux/hooks';
-import {
-  updateCurrentPage,
-  sixHatSelector,
-  updateAdminState,
-} from '../../src/redux/modules/sixHat';
+import React, { useEffect } from 'react';
+import { InteractivePage, StartPage, SettingRoom } from '@components/common';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { updateCurrentPage, sixHatSelector, updateAdminState } from '@redux/modules/sixHat';
 import { useRouter } from 'next/router';
 
 const SixHat = () => {
