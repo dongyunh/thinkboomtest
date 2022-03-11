@@ -1,2 +1,2 @@
 export * from './NicknameModal';
-export * from './ResultModal';
+export * from './ResultModal/ResultModal';
