@@ -3,6 +3,7 @@ import { InteractivePage, StartPage, SettingRoom } from '@components/common';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { updateCurrentPage, sixHatSelector, updateAdminState } from '@redux/modules/sixHat';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 const SixHat = () => {
   const router = useRouter();
@@ -13,17 +14,22 @@ const SixHat = () => {
     dispatch(updateCurrentPage(pageNum));
   };
 
-  const handleMoveSettingPage = () => {
-    router.push('/sixHat/setting/asdasd');
+  const handleMoveSettingPage = (roomId: number) => {
+    router.push(`/sixHat/setting/${roomId}`);
   };
 
   const handleUpdateAmdinState = () => {
     dispatch(updateAdminState(true));
   };
 
-  const handleMakeNewPage = () => {
-    handleMoveSettingPage();
-    handleUpdateAmdinState();
+  const handleMakeNewPage = async () => {
+    await axios
+      .post('http://3.34.99.231/api/chat/api/sixHat/room', { title: '타이틀', number: 6, time: 5 })
+      .then(res => {
+        const { id } = res.data;
+        handleMoveSettingPage(id);
+        handleUpdateAmdinState();
+      });
   };
 
   useEffect(() => {
