@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ResultModal } from '../../common/Modal';
+import { ResultModal } from '../../common/Modals';
 import { Button } from '@mui/material';
 
 const Result = () => {
