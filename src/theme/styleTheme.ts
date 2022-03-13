@@ -45,7 +45,7 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
 const buildCssVariables = (variables: ThemeVariables) => {
   const keys = Object.keys(variables) as (keyof ThemeVariables)[];
   return keys.reduce(
-    (acc, key) => acc.concat(`--${key.replace(/_/g, '-')} : ${variables[key]}; `, '\n'),
+    (acc, key) => acc.concat(`--${key.replace(/_/g, '-')}: ${variables[key]};`, '\n'),
     '',
   );
 };
@@ -63,4 +63,3 @@ export const themedPalette: Record<VariableKey, string> = variableKeys.reduce((a
   acc[current] = cssVar(current);
   return acc;
 }, {} as ThemedPalette);
-console.log(themedPalette);
