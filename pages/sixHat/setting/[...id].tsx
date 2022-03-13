@@ -5,7 +5,7 @@ import { InteractivePage, WaitingRoom } from '@components/common';
 import { SelectHat } from '@components/layout/SixHat';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { updateCurrentPage, updateNickname, sixHatSelector } from '@redux/modules/sixHat';
-import { NicknameModal } from '@components/common/Modal';
+import { NicknameModal } from '@components/common/Modals';
 import axios from 'axios';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
