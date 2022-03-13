@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { store } from '@redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+import GlobalStyles from '@theme/GlobalStyles';
 
 let persistor = persistStore(store);
 
@@ -11,12 +12,15 @@ let persistor = persistStore(store);
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Component {...pageProps} />
-        <div id="modal_root" />
-      </PersistGate>
-    </Provider>
+    <>
+      <GlobalStyles />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Component {...pageProps} />
+          <div id="modal_root" />
+        </PersistGate>
+      </Provider>
+    </>
   );
 }
 
