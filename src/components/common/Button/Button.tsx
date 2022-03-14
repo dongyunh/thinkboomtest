@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
 
-type TextFieldProps = {
+type ButtonProps = {
   text: string;
   onClick?: () => void;
 };
@@ -11,7 +11,7 @@ type StyleProps = {
   isError?: boolean;
 };
 
-const Button = ({ text, onClick }: TextFieldProps) => {
+const Button = ({ text, onClick }: ButtonProps) => {
   const handleOnClick = (e: any) => {
     if (!onClick) return;
     onClick();
