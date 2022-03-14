@@ -48,11 +48,14 @@ const Input = styled.input<StyleProps>`
   font-size: 18px;
   padding: 0 10px 0 10px;
   transition: 0.3s ease-in-out;
-  ${props => props.isError && `border: 5px solid ${themedPalette.red}`};
+
   :focus {
     outline: none !important;
     border: 5px solid ${themedPalette.button_1};
+    ${props => props.isError && `border: 5px solid ${themedPalette.red}`}
   }
+
+  ${props => props.isError && `border: 5px solid ${themedPalette.red}`};
 `;
 
 const ErrorText = styled.span`
