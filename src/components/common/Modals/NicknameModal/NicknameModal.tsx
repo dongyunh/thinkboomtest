@@ -1,39 +1,24 @@
-import React, { useLayoutEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
+import { Modal } from '../Modal/Modal';
+import { TextField, Button } from '../../../common';
 import styled from 'styled-components';
-import { TextField, Button } from '@mui/material';
 import v8n from 'v8n';
 
 type NicknameModalProps = {
   title: string;
-  inviteMember: string;
-  onClick?: (arg: any) => void;
+  onClickDropdown1?: () => void;
+  onClickDropdown2?: () => void;
+  onClickButton: () => void;
 };
 
-function NicknameModal({ title, inviteMember, onClick }: NicknameModalProps) {
-  const [container] = useState(() => {
-    const modalRoot = document.createElement('div');
-    modalRoot.setAttribute('id', 'NicknameModal');
-    return modalRoot;
-  });
+const NicknameModal = ({
+  title,
+  onClickDropdown1,
+  onClickDropdown2,
+  onClickButton,
+}: NicknameModalProps) => {
   const [nickname, setNickname] = useState<string>();
   const [isError, setIsError] = useState<boolean>();
-
-  useLayoutEffect(() => {
-    const root = document.getElementById('modal_root');
-    if (!root) {
-      return;
-    }
-    root.appendChild(container);
-    return () => {
-      root.removeChild(container);
-    };
-  }, []);
-
-  const handleOnClick = () => {
-    if (!onClick) return;
-    onClick(nickname);
-  };
 
   const validation = v8n().string().length(2, 6);
 
@@ -42,59 +27,49 @@ function NicknameModal({ title, inviteMember, onClick }: NicknameModalProps) {
     setIsError(!validation.test(_nickname));
   };
 
-  return ReactDOM.createPortal(
-    <>
-      <S_ModalOverlay />
-      <S_ModalWrapper>
-        <h1>{title}</h1>
-        <h3>{inviteMember}님이 초대하셨습니다.</h3>
-        <TextField error={isError} onChange={e => checkValidation(e.target.value)} />
-        {isError && <ErrorMessage>닉네임은 2~6자 로 설정해주세요</ErrorMessage>}
-        <Button onClick={handleOnClick}>닉네임 설정하기</Button>
-      </S_ModalWrapper>
-    </>,
-    container,
+  return (
+    <Modal>
+      <MakeRoomContainer>
+        <TitleWrapper>
+          <Title>{title}</Title>
+        </TitleWrapper>
+        <TextFieldWrapper>
+          <TextField
+            label="사용자명"
+            errorText="사용자명 - 2~6자 이내로 설정해주세요"
+            hintText="닉네임을 입력해주세요 (2~6자)"
+            isError={isError}
+            onChange={checkValidation}
+          />
+        </TextFieldWrapper>
+        <Button text="개설하기" />
+      </MakeRoomContainer>
+    </Modal>
   );
-}
+};
 
-const S_ModalOverlay = styled.div`
-  background: rgba(0, 0, 0, 0.6);
-  height: 100vh;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-`;
-
-const S_ModalWrapper = styled.div`
+const MakeRoomContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
-  border-radius: 16px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: auto;
-  min-width: 480px;
-  max-width: 560px;
-  z-index: 99;
-`;
-
-const ErrorWrapper = styled.div`
-  display: flex;
+  padding: 56px 38px;
+  box-sizing: border-box;
   width: 100%;
-  justify-content: flex-start;
 `;
 
-const ErrorMessage = styled.sub`
-  display: block;
-  text-align: left;
-  padding-top: 6px;
-  font-size: 12px;
-  color: red;
+const Title = styled.h1`
+  text-align: center;
+  margin: 0;
+  padding-bottom: 22px;
+`;
+
+const TitleWrapper = styled.div`
+  padding-bottom: 70px;
+`;
+
+const TextFieldWrapper = styled.div`
+  width: 100%;
+  padding-bottom: 16px;
 `;
 
 export { NicknameModal };

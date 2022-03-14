@@ -26,11 +26,9 @@ const Template: ComponentStory<typeof S_NicknameModal> = args => <S_NicknameModa
 export const DefaultCard = Template.bind({});
 DefaultCard.args = {
   title: '띵크붐',
-  inviteMember: '코알라',
 };
 
 export const ExampleCard = Template.bind({});
 ExampleCard.args = {
   title: '항해7팀',
-  inviteMember: '이승민',
 };
