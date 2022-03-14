@@ -6,17 +6,10 @@ import v8n from 'v8n';
 
 type NicknameModalProps = {
   title: string;
-  onClickDropdown1?: () => void;
-  onClickDropdown2?: () => void;
-  onClickButton: () => void;
+  onClick: (arg: any) => void;
 };
 
-const NicknameModal = ({
-  title,
-  onClickDropdown1,
-  onClickDropdown2,
-  onClickButton,
-}: NicknameModalProps) => {
+const NicknameModal = ({ title, onClick }: NicknameModalProps) => {
   const [nickname, setNickname] = useState<string>();
   const [isError, setIsError] = useState<boolean>();
 
@@ -25,6 +18,11 @@ const NicknameModal = ({
   const checkValidation = (_nickname: string) => {
     setNickname(_nickname);
     setIsError(!validation.test(_nickname));
+  };
+
+  const handleOnClick = () => {
+    if (!onClick) return;
+    onClick(nickname);
   };
 
   return (
@@ -42,7 +40,7 @@ const NicknameModal = ({
             onChange={checkValidation}
           />
         </TextFieldWrapper>
-        <Button text="개설하기" />
+        <Button text="개설하기" onClick={handleOnClick} />
       </MakeRoomContainer>
     </Modal>
   );

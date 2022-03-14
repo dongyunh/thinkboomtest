@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button } from '@mui/material';
 import { useRouter } from 'next/router';
 import { InteractivePage, WaitingRoom } from '@components/common';
 import { SelectHat } from '@components/layout/SixHat';
@@ -76,9 +75,7 @@ const SettingPage = () => {
   return (
     <>
       <InteractivePage pages={pages} currentPage={currentPage} />
-      {!nickname && (
-        <NicknameModal title="항해7팀" inviteMember="정현" onClick={handleUpdateNickname} />
-      )}
+      {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />}
     </>
   );
 };
