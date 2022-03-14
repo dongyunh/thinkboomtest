@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
 
 type DropdownProps = {
-  text: string;
   onClick?: () => void;
   options: string[];
 };
@@ -12,7 +11,7 @@ type StyleProps = {
   isOpen?: boolean;
 };
 
-const Dropdown = ({ text, onClick, options }: DropdownProps) => {
+const Dropdown = ({ onClick, options }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [optionList, setOptionList] = useState(options);
 
@@ -53,13 +52,16 @@ const Dropdown = ({ text, onClick, options }: DropdownProps) => {
 };
 
 const DropDownContainer = styled.div`
-  width: 200px;
+  width: 100%;
   position: relative;
+  z-index: 99;
+  margin: 0;
 `;
 
 const DropdownListContainer = styled.div`
   position: absolute;
   top: 40px;
+  margin: 0;
 `;
 
 const DropDownHeader = styled.div<StyleProps>`
@@ -73,6 +75,7 @@ const DropDownHeader = styled.div<StyleProps>`
   justify-content: center;
   align-items: center;
   z-index: 2;
+  margin: 0;
   cursor: pointer;
 
   ${props => props.isOpen && `border : 5px solid ${themedPalette.black}`}
@@ -105,6 +108,7 @@ const ListItem = styled.li`
   justify-content: center;
   align-items: center;
   padding: 5px 0 5px 0;
+  margin: 0;
   cursor: pointer;
 
   :hover {
