@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
 
-type NicknameModalProps = {
+type ModalProps = {
   children: ReactChild;
 };
 
-function NicknameModal({ children }: NicknameModalProps) {
+function Modal({ children }: ModalProps) {
   const [container] = useState(() => {
     const modalRoot = document.createElement('div');
     modalRoot.setAttribute('id', 'NicknameModal');
@@ -35,7 +35,7 @@ function NicknameModal({ children }: NicknameModalProps) {
 }
 
 const S_ModalOverlay = styled.div`
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
   height: 100vh;
   left: 0;
   position: fixed;
@@ -47,7 +47,7 @@ const S_ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${themedPalette.bg_page2};
+  background-color: ${themedPalette.bg_page1};
   border-radius: 18px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   position: fixed;
@@ -58,4 +58,4 @@ const S_ModalWrapper = styled.div`
   z-index: 99;
 `;
 
-export { NicknameModal };
+export { Modal };

@@ -47,7 +47,7 @@ const S_ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${themedPalette.bg_page2};
+  background-color: ${themedPalette.bg_page1};
   border-radius: 18px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   position: fixed;

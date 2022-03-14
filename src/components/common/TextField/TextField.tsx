@@ -5,6 +5,8 @@ import { themedPalette } from '../../../theme/styleTheme';
 type TextFieldProps = {
   isError?: boolean;
   errorText?: string;
+  hintText?: string;
+  label?: string;
   onChange?: (arg: any) => void;
 };
 
@@ -12,7 +14,7 @@ type StyleProps = {
   isError?: boolean;
 };
 
-const TextField = ({ isError, errorText, onChange }: TextFieldProps) => {
+const TextField = ({ isError, errorText, hintText, label, onChange }: TextFieldProps) => {
   const handleOnChange = (e: any) => {
     if (!onChange) return;
     onChange(e);
@@ -20,8 +22,12 @@ const TextField = ({ isError, errorText, onChange }: TextFieldProps) => {
 
   return (
     <InputWrapper>
-      {isError && <ErrorText>{errorText}</ErrorText>}
-      <Input isError={isError} onChange={e => handleOnChange(e.target.value)} />
+      {isError ? <ErrorText>{errorText}</ErrorText> : <LabelText>{label}</LabelText>}
+      <Input
+        isError={isError}
+        placeholder={hintText}
+        onChange={e => handleOnChange(e.target.value)}
+      />
     </InputWrapper>
   );
 };
@@ -29,11 +35,14 @@ const TextField = ({ isError, errorText, onChange }: TextFieldProps) => {
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const Input = styled.input<StyleProps>`
-  width: 432px;
-  height: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 48px;
   border: 5px solid ${themedPalette.button_2};
   border-radius: 12px;
   font-size: 18px;
@@ -48,6 +57,12 @@ const Input = styled.input<StyleProps>`
 
 const ErrorText = styled.span`
   color: ${themedPalette.red};
+  font-size: 14px;
+  padding: 0 0 8px 8px;
+`;
+
+const LabelText = styled.span`
+  color: ${themedPalette.black};
   font-size: 14px;
   padding: 0 0 8px 8px;
 `;

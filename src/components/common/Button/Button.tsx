@@ -25,9 +25,10 @@ const StyledButton = styled.button<StyleProps>`
   align-items: center;
   border-radius: 12px;
   background-color: ${themedPalette.button_2};
-  width: 432px;
+  box-sizing: border-box;
+  width: 100%;
   height: 60px;
-  font-size: 26px;
+  font-size: 20px;
   transition: 0.3s ease-in-out;
   display: flex;
   justify-content: center;
