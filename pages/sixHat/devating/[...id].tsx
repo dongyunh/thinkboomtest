@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Button, TextField } from '@mui/material';
 import styled from 'styled-components';
-import { HeaderBar } from '@components/common/HeaderBar';
+import { HeaderBar } from '@components/common/HeaderBar/HeaderBar';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import { ChattingRoom } from '@components/layout/ChattingRoom';

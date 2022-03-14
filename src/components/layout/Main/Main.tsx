@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, NavWrapper } from './components';
-import { HeaderBar } from '@components/common/HeaderBar';
+import { HeaderBar } from '@components/common/HeaderBar/HeaderBar';
 import { Button } from '@mui/material';
 
 type MainType = {
