@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
 import { Card } from '../../../common';
-import HatSrc from '../../../../../public/hat.png';
+const HatSrc = require('../../../../../public/hat.png');
 
 type SelectHatBoxProps = {
   subject: string;
@@ -25,31 +25,6 @@ const SelectHatBox = ({
   onClickHat,
   onClickRandom,
 }: SelectHatBoxProps) => {
-  const [isMouseOver, setIsMouseOver] = useState(false);
-  const hatData = [
-    { src: HatSrc, value: 'red', text: '빨간모자', desc: '직관주의자, 순간적인 느낌에 충실' },
-    {
-      src: HatSrc,
-      value: 'blue',
-      text: '파란모자',
-      desc: '낙관주의자, 아이디어를 긍정적으로 생각',
-    },
-    { src: HatSrc, value: 'green', text: '초록모자', desc: '몽상주의자, 새로운 아이디어 생성' },
-    {
-      src: HatSrc,
-      value: 'black',
-      text: '검정모자',
-      desc: '사회자, 회의를 주관하며 요약 및 결론을 유도',
-    },
-    {
-      src: HatSrc,
-      value: 'yellow',
-      text: '노란모자',
-      desc: '비관주의자, 아이디어의 문제점을 도출',
-    },
-    { src: HatSrc, value: 'white', text: '하얀모자', desc: '이성주의자, 객관적인 정보에 집중' },
-  ];
-
   return (
     <Container>
       <SubjectBox>
@@ -67,33 +42,7 @@ const SelectHatBox = ({
             })}
           </UserList>
         </UserListBox>
-        <CardListBox>
-          {hatData.map(hat => {
-            return (
-              <Card width={200} height={200}>
-                {isMouseOver ? (
-                  <HatBox isMouseOver={isMouseOver}>
-                    <h3>{hat.text}</h3>
-                    <DescText>{hat.desc}</DescText>
-                    <TouchArea
-                      onMouseOver={() => setIsMouseOver(true)}
-                      onMouseOut={() => setIsMouseOver(false)}
-                    />
-                  </HatBox>
-                ) : (
-                  <HatBox>
-                    <HatImg width={100} src={hat.src} onClick={() => onClickHat(hat.value)} />
-                    <div>{hat.text}</div>
-                    <TouchArea
-                      onMouseOver={() => setIsMouseOver(true)}
-                      onMouseOut={() => setIsMouseOver(false)}
-                    />
-                  </HatBox>
-                )}
-              </Card>
-            );
-          })}
-        </CardListBox>
+        <ChatViewBox></ChatViewBox>
       </DownBox>
     </Container>
   );
@@ -156,7 +105,7 @@ const UserListBox = styled.div`
   padding-top: 32px;
 `;
 
-const CardListBox = styled.div`
+const ChatViewBox = styled.div`
   width: 832px;
   height: 512px;
   box-sizing: border-box;
@@ -180,30 +129,6 @@ const HatImg = styled.img<StyleProps>`
   width: ${props => props.width}px;
   height: ${props => props.height}px;
   padding: 15px;
-`;
-
-const HatBox = styled.div<StyleProps>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  border-radius: 12px;
-  padding: 20px;
-  position: relative;
-  ${props => props.isMouseOver && `background-color : #EEEEEE`};
-`;
-
-const TouchArea = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-`;
-
-const DescText = styled.span`
-  text-align: center;
 `;
 
 export { SelectHatBox };
