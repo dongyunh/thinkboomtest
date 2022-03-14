@@ -1,7 +1,7 @@
 import React from 'react';
 import Document, { Main, NextScript, Head, DocumentContext, Html } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import GlobalStyles from '@theme/GlobalStyles';
+import GlobalStyles from '../src/theme/GlobalStyles';
 
 export default class MyDocument extends Document {
   static async getInitialProps(context: DocumentContext) {
