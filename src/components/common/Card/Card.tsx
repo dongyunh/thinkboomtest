@@ -6,6 +6,8 @@ type CardProps = {
   width: number;
   height: number;
   children?: React.ReactChild;
+  onMouseOver?: () => void;
+  onMouseOut?: () => void;
 };
 
 type StyleProps = {
@@ -13,9 +15,19 @@ type StyleProps = {
   height: number;
 };
 
-const Card = ({ width, height, children }: CardProps) => {
+const Card = ({ width, height, children, onMouseOver, onMouseOut }: CardProps) => {
+  const handleOnMouseOver = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!onMouseOver) return;
+    onMouseOver();
+  };
+
+  const handleOnMouseOut = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!onMouseOut) return;
+    onMouseOut();
+  };
+
   return (
-    <CardWrapper>
+    <CardWrapper onMouseOver={e => handleOnMouseOver(e)} onMouseOut={e => handleOnMouseOut(e)}>
       <StyledCard width={width} height={height}>
         {children}
       </StyledCard>
@@ -26,6 +38,7 @@ const Card = ({ width, height, children }: CardProps) => {
 
 const CardWrapper = styled.div`
   position: relative;
+  cursor: pointer;
 `;
 
 const StyledCard = styled.div<StyleProps>`

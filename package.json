@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token=eae0f1c5f808"
   },
   "dependencies": {
     "@emotion/react": "^11.8.1",
@@ -53,6 +54,7 @@
     "@types/sockjs-client": "^1.5.1",
     "@types/styled-components": "^5.1.24",
     "babel-loader": "^8.2.3",
+    "chromatic": "^6.5.2",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-next": "12.1.0",

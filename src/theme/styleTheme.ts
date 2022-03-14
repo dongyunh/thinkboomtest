@@ -4,12 +4,22 @@ type ThemeVariables = {
   button_1: string;
   button_2: string;
   overlay: string;
-  component_1: string;
-  component_2: string;
   white: string;
   black: string;
   gray: string;
   red: string;
+  component_1: string;
+  component_2: string;
+  input_1: string;
+  input_2: string;
+  input_3: string;
+  main_text1: string;
+  main_text2: string;
+  hover_text1: string;
+  hover_text2: string;
+  sub_text1: string;
+  sub_text2: string;
+  border_1: string;
 };
 
 type Theme = 'light' | 'dark';
@@ -25,10 +35,20 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     overlay: '#1B11818',
     component_1: '#1B1818',
     component_2: '#FFFFFF',
-    white: '#fffff',
+    white: '#ffffff',
     black: '#1B1818',
     gray: '#F5F5F5',
     red: '#F41414',
+    input_1: '#1B1818',
+    input_2: '#F5F5F5',
+    input_3: '#F41414',
+    main_text1: '#1B1818',
+    main_text2: '#FFFFFF',
+    hover_text1: '#1B1818',
+    hover_text2: '#FFFFFF',
+    sub_text1: '#F41414',
+    sub_text2: '#F5F5F5',
+    border_1: '#1B1818',
   },
   dark: {
     bg_page1: '#FFFFFF',
@@ -42,6 +62,16 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     black: '#1B1818',
     gray: '#F5F5F5',
     red: '#F41414',
+    input_1: '#1B1818',
+    input_2: '#F5F5F5',
+    input_3: '#F41414',
+    main_text1: '#1B1818',
+    main_text2: '#FFFFFF',
+    hover_text1: '#1B1818',
+    hover_text2: '#FFFFFF',
+    sub_text1: '#F41414',
+    sub_text2: '#F5F5F5',
+    border_1: '#1B1818',
   },
 };
 
