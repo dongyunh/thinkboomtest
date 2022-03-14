@@ -15,22 +15,43 @@ type StyleProps = {
 
 const Card = ({ width, height, children }: CardProps) => {
   return (
-    <StyledCard width={width} height={height}>
-      {children}
-    </StyledCard>
+    <CardWrapper>
+      <StyledCard width={width} height={height}>
+        {children}
+      </StyledCard>
+      <AfterCard width={width} height={height} />
+    </CardWrapper>
   );
 };
 
-const StyledCard = styled.section<StyleProps>`
+const CardWrapper = styled.div`
+  position: relative;
+`;
+
+const StyledCard = styled.div<StyleProps>`
   height: ${props => props.height}px;
   width: ${props => props.width}px;
-  background-color: ${themedPalette.white};
-  border-radius: 50px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  background-color: ${themedPalette.component_2};
+  border: 5px solid ${themedPalette.component_1};
+  border-radius: 18px;
+  position: relative;
+  transition: 0.3s ease-in-out;
+
   :hover {
-    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
-      rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    transform: translate(10px, 10px);
   }
+`;
+
+const AfterCard = styled.div<StyleProps>`
+  position: absolute;
+  width: ${props => props.width}px;
+  height: ${props => props.height}px;
+  background-color: ${themedPalette.component_2};
+  border: 5px solid ${themedPalette.component_1};
+  border-radius: 18px;
+  z-index: -1;
+  left: 10px;
+  top: 10px;
 `;
 
 export { Card };

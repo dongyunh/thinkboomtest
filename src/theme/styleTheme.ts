@@ -5,6 +5,7 @@ type ThemeVariables = {
   button_2: string;
   overlay: string;
   component_1: string;
+  component_2: string;
   white: string;
   black: string;
   gray: string;
@@ -23,6 +24,7 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     button_2: '#F5F5F5',
     overlay: '#1B11818',
     component_1: '#1B1818',
+    component_2: '#FFFFFF',
     white: '#fffff',
     black: '#1B1818',
     gray: '#F5F5F5',
@@ -35,6 +37,7 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     button_2: '#F5F5F5',
     overlay: '#1B11818',
     component_1: '#1B1818',
+    component_2: '#FFFFFF',
     white: '#fffff',
     black: '#1B1818',
     gray: '#F5F5F5',

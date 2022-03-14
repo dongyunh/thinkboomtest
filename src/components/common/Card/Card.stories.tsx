@@ -13,14 +13,6 @@ export default {
       },
     },
   },
-  decorators: [
-    Story => (
-      <>
-        {/* <GlobalStyles /> */}
-        <Story />
-      </>
-    ),
-  ],
   argTypes: {
     width: {
       description: '너비',
