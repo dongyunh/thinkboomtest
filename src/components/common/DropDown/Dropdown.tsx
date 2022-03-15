@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
 
+type OptionType = {
+  type: 'number' | 'timer';
+  data: number[];
+};
+
 type DropdownProps = {
-  onClick?: () => void;
-  options: string[];
+  onClick?: (arg: any) => void;
+  options: OptionType;
 };
 
 type StyleProps = {
@@ -13,26 +18,25 @@ type StyleProps = {
 
 const Dropdown = ({ onClick, options }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [optionList, setOptionList] = useState(options);
+  const [optionList, setOptionList] = useState(options.data);
 
-  const sortOptions = (item: string) => {
+  const sortOptions = (item: number) => {
     const tmp = new Set(optionList);
     tmp.delete(item);
     setOptionList([item, ...tmp]);
-    console.log(optionList);
   };
 
-  const handleOnClick = (item: string) => {
+  const handleOnClick = (item: number) => {
     if (!onClick) return;
     sortOptions(item);
     setIsOpen(false);
-    onClick();
+    onClick(item);
   };
 
   return (
     <DropDownContainer>
       <DropDownHeader onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}>
-        {optionList[0]}
+        {options.type == 'number' ? `${optionList[0]}명` : `${optionList[0]}분`}
       </DropDownHeader>
       {isOpen && (
         <DropdownListContainer>
@@ -40,7 +44,7 @@ const Dropdown = ({ onClick, options }: DropdownProps) => {
             {optionList.map(item => {
               return (
                 <ListItem key={item} onClick={() => handleOnClick(item)}>
-                  {item}
+                  {options.type == 'number' ? `${item}명` : `${item}분`}
                 </ListItem>
               );
             })}
@@ -69,15 +73,14 @@ const DropDownHeader = styled.div<StyleProps>`
   background: ${themedPalette.bg_page1};
   border: 5px solid ${themedPalette.gray};
   border-radius: 12px;
-  width: 200px;
-  height: 30px;
+  width: 210px;
+  height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 2;
   margin: 0;
   cursor: pointer;
-
   ${props => props.isOpen && `border : 5px solid ${themedPalette.black}`}
 `;
 
@@ -93,12 +96,9 @@ const DropDownList = styled.ul<StyleProps>`
   width: 210px;
   box-sizing: border-box;
   color: ${themedPalette.black};
-  transition: 0.3s ease-in-out;
-
   &:first-child {
-    padding-top: 12px;
+    padding-top: 20px;
   }
-
   ${props => props.isOpen && `border : 5px solid ${themedPalette.black}`}
 `;
 
@@ -110,14 +110,16 @@ const ListItem = styled.li`
   padding: 5px 0 5px 0;
   margin: 0;
   cursor: pointer;
-
   :hover {
     background-color: ${themedPalette.gray};
   }
-
   &:last-child {
     border: none;
   }
 `;
 
 export { Dropdown };
+
+/*
+TODO : 1. 드롭다운 리스트 정렬하는 로직 손보기 
+*/

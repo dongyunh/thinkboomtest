@@ -5,7 +5,7 @@ import { themedPalette } from '../../../../theme';
 type MessageProps = {
   isMe: boolean;
   message: string;
-  nickname: string;
+  nickname: string | null;
 };
 
 type StyleProps = {

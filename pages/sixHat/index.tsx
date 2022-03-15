@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { InteractivePage, StartPage, SettingRoom } from '@components/common';
+import { InteractivePage, StartPage, MakeRoomModal } from '@components/common';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { updateCurrentPage, sixHatSelector, updateAdminState } from '@redux/modules/sixHat';
 import { useRouter } from 'next/router';
@@ -22,9 +22,10 @@ const SixHat = () => {
     dispatch(updateAdminState(true));
   };
 
-  const handleMakeNewPage = async () => {
+  // TODO : 서버 주소 나오면 api 한곳에 모으기, 비동기 작업들 리덕스로 옮기기
+  const handleMakeNewPage = async (title: string, memberCount: number, timer: number) => {
     await axios
-      .post('http://3.34.99.231/api/chat/api/sixHat/room', { title: '타이틀', number: 6, time: 5 })
+      .post('http://3.34.99.231/api/sixHat/room', { title, memberCount, timer })
       .then(res => {
         const { id } = res.data;
         handleMoveSettingPage(id);
@@ -49,7 +50,7 @@ const SixHat = () => {
       ),
     },
     {
-      component: <SettingRoom onClick={handleMakeNewPage} />,
+      component: <MakeRoomModal onClickButton={handleMakeNewPage} />,
     },
   ];
 
@@ -57,3 +58,7 @@ const SixHat = () => {
 };
 
 export default SixHat;
+
+/*
+TODO : 1.이 페이제에서 나갈 때, currentPage 0으로 초기화하기 
+*/

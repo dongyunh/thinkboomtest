@@ -25,5 +25,5 @@ export default {
 const Template: ComponentStory<typeof Dropdown> = args => <Dropdown {...args} />;
 export const DefaultDropdown = Template.bind({});
 DefaultDropdown.args = {
-  options: ['사과', '바나나', '딸기'],
+  // options: ['사과', '바나나', '딸기'],
 };
