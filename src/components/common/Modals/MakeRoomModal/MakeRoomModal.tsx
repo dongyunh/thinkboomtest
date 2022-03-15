@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '../Modal';
 import { TextField, Dropdown, Button } from '../../../common';
 import styled from 'styled-components';
-import v8n, { Validator } from 'v8n';
+import v8n from 'v8n';
 import { memberCount, timerOptions } from '../../../../mock/makeRoomData';
 
 type MakeRoomModalProps = {
@@ -16,7 +16,6 @@ const MakeRoomModal = ({
   onClickDropdown2,
   onClickButton,
 }: MakeRoomModalProps) => {
-
   const [title, setTitle] = useState<string>('');
   const [number, setNumber] = useState<number>(1);
   const [timer, setTimer] = useState<number>(1);

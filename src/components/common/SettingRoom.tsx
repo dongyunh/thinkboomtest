@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import React from 'react';
-import { MakeRoomModal } from '@components/common/Modals/MakeRoomModal';
+import { MakeRoomModal } from '../common';
 
 type SettingRoomProps = {
   onClick?: () => void;

@@ -2,16 +2,22 @@ import React from 'react';
 import { Button, TextField } from '@mui/material';
 import styled from 'styled-components';
 import { HeaderBar } from '../HeaderBar';
-import { SubjectTextField } from '@components/common';
+import { SubjectTextField } from '../SubjectTextField';
 
 type WaitingRoomProps = {
   onClick?: () => void;
+  onChange?: () => void;
 };
 
-const WaitingRoom = ({ onClick }: WaitingRoomProps) => {
+const WaitingRoom = ({ onClick, onChange }: WaitingRoomProps) => {
   const handleOnclick = () => {
     if (!onClick) return;
     onClick();
+  };
+
+  const handleOnChange = () => {
+    if (!onChange) return;
+    onChange();
   };
 
   return (
@@ -23,11 +29,9 @@ const WaitingRoom = ({ onClick }: WaitingRoomProps) => {
         <Empty />
         <TextFieldWrapper>
           <h2>회의 주제</h2>
-          <SubjectTextField />
+          <SubjectTextField onChange={handleOnChange} onClick={handleOnclick} />
         </TextFieldWrapper>
-        <Button variant="contained" onClick={handleOnclick}>
-          완료
-        </Button>
+        <Empty />
       </Grid>
     </>
   );

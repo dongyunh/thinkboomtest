@@ -20,15 +20,15 @@ export type message = {
 };
 
 type SettingPageProps = {
-  userId: string;
+  roomId: string;
 };
 
-const SettingPage = ({ userId }: SettingPageProps) => {
+const SettingPage = ({ roomId }: SettingPageProps) => {
   const router = useRouter();
-  const { roomId } = router.query;
   const [_nickname, setNickname] = useState<string>();
   // const [senderId, setSenderId] = useState();
-  const senderId = localStorage.getItem('senderId');
+  const senderId = Number(localStorage.getItem('senderId'));
+  const [subject, setSubject] = useState();
 
   const dispatch = useAppDispatch();
   const { currentPage, nickname } = useAppSelector(sixHatSelector);
@@ -53,20 +53,13 @@ const SettingPage = ({ userId }: SettingPageProps) => {
     router.push(path);
   };
 
-  const pages = [
-    {
-      component: <WaitingRoom onClick={() => handleNextPage(1)} />,
-    },
-    {
-      component: <SelectHat onClick={() => handleRouting(`/sixHat/devating/${roomId}`)} />,
-    },
-  ];
-
   useEffect(() => {
     if (nickname) {
+      console.log('연결시도');
+      console.log(senderId);
       stompClient.connect({ senderId }, () => {
         stompClient.subscribe(
-          `/sub/api/sixHat/room/${roomId}`,
+          `/sub/api/sixHat/rooms/${roomId}`,
           data => {
             const newMessage: message = JSON.parse(data.body) as message;
             console.log(newMessage);
@@ -78,45 +71,46 @@ const SettingPage = ({ userId }: SettingPageProps) => {
     }
   }, [nickname]);
 
-  // roomId:String
-  // hat:String
-  // senderId:Long,
-  // sender:String
-  // message:String,
-
   // 웹소켓이 연결될 때 까지 실행하는 함수
-  // const waitForConnection = (ws, callback) => {
-  //   setTimeout(() => {
-  //     if (ws.ws.readyState === 1) {
-  //       callback();
-  //     } else {
-  //       waitForConnection(ws, callback);
-  //     }
-  //   }, 0.1);
-  // };
+  const waitForConnection = (ws: any, callback: any) => {
+    setTimeout(() => {
+      if (ws.ws.readyState === 1) {
+        callback();
+      } else {
+        waitForConnection(ws, callback);
+      }
+    }, 0.1);
+  };
 
-  // const sendContents = (contents: string | number) => {
-  //   try {
-  //     // send할 데이터
-  //     const data = {
-  //       type: 'TALK',
-  //       roomId: room_id,
-  //       sender: sender_nick,
-  //       senderImg: sender_profile,
-  //       senderId: sender_id,
-  //       message: new_message,
-  //     };
-  //     waitForConnection(ws, () => {
-  //       ws.debug = null;
+  const sendContents = () => {
+    try {
+      // send할 데이터
+      const data = {
+        type: 'TALK',
+        roomId: roomId,
+        sender: '코끼리아저씨',
+        senderId: senderId,
+        hat: 'red',
+        message: '재밌다야',
+      };
+      waitForConnection(stompClient, () => {
+        stompClient.debug = () => {};
+        console.log(data);
+        stompClient.send('/pub/api/sixHat/chat/message', { senderId }, JSON.stringify(data));
+      });
+    } catch (e) {
+      console.log('message 소켓 함수 에러', e);
+    }
+  };
 
-  //       stompClient.send('/pub/message', { token: token }, JSON.stringify(data));
-  //       logger('메세지보내기 상태', ws.ws.readyState);
-  //     });
-  //   } catch (e) {
-  //     logger('message 소켓 함수 에러', e);
-  //     logger('메세지보내기 상태', ws.ws.readyState);
-  //   }
-  // };
+  const pages = [
+    {
+      component: <WaitingRoom onClick={sendContents} />,
+    },
+    {
+      component: <SelectHat onClick={() => handleRouting(`/sixHat/devating/${roomId}`)} />,
+    },
+  ];
 
   return (
     <>
