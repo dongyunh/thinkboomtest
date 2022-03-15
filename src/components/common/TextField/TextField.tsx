@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
+import { ValidationError } from 'v8n';
 
 type TextFieldProps = {
   isError?: boolean;

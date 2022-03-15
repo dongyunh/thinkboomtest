@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
 
+type OptionType = {
+  type: 'number' | 'timer';
+  data: number[];
+};
+
 type DropdownProps = {
-  onClick?: () => void;
-  options: string[];
+  onClick?: (arg: any) => void;
+  options: OptionType;
 };
 
 type StyleProps = {
@@ -13,26 +18,25 @@ type StyleProps = {
 
 const Dropdown = ({ onClick, options }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [optionList, setOptionList] = useState(options);
+  const [optionList, setOptionList] = useState(options.data);
 
-  const sortOptions = (item: string) => {
+  const sortOptions = (item: number) => {
     const tmp = new Set(optionList);
     tmp.delete(item);
     setOptionList([item, ...tmp]);
-    console.log(optionList);
   };
 
-  const handleOnClick = (item: string) => {
+  const handleOnClick = (item: number) => {
     if (!onClick) return;
     sortOptions(item);
     setIsOpen(false);
-    onClick();
+    onClick(item);
   };
 
   return (
     <DropDownContainer>
       <DropDownHeader onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}>
-        {optionList[0]}
+        {options.type == 'number' ? `${optionList[0]}명` : `${optionList[0]}분`}
       </DropDownHeader>
       {isOpen && (
         <DropdownListContainer>
@@ -40,7 +44,7 @@ const Dropdown = ({ onClick, options }: DropdownProps) => {
             {optionList.map(item => {
               return (
                 <ListItem key={item} onClick={() => handleOnClick(item)}>
-                  {item}
+                  {options.type == 'number' ? `${item}명` : `${item}분`}
                 </ListItem>
               );
             })}
@@ -115,3 +119,7 @@ const ListItem = styled.li`
 `;
 
 export { Dropdown };
+
+/*
+TODO : 1. 드롭다운 리스트 정렬하는 로직 손보기 
+*/
