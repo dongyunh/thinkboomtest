@@ -69,15 +69,14 @@ const DropDownHeader = styled.div<StyleProps>`
   background: ${themedPalette.bg_page1};
   border: 5px solid ${themedPalette.gray};
   border-radius: 12px;
-  width: 200px;
-  height: 30px;
+  width: 210px;
+  height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 2;
   margin: 0;
   cursor: pointer;
-
   ${props => props.isOpen && `border : 5px solid ${themedPalette.black}`}
 `;
 
@@ -93,12 +92,9 @@ const DropDownList = styled.ul<StyleProps>`
   width: 210px;
   box-sizing: border-box;
   color: ${themedPalette.black};
-  transition: 0.3s ease-in-out;
-
   &:first-child {
-    padding-top: 12px;
+    padding-top: 20px;
   }
-
   ${props => props.isOpen && `border : 5px solid ${themedPalette.black}`}
 `;
 
@@ -110,11 +106,9 @@ const ListItem = styled.li`
   padding: 5px 0 5px 0;
   margin: 0;
   cursor: pointer;
-
   :hover {
     background-color: ${themedPalette.gray};
   }
-
   &:last-child {
     border: none;
   }

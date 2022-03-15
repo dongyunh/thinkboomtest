@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal } from '../Modal';
 import { TextField, Dropdown, Button } from '../../../common';
 import styled from 'styled-components';
+import v8n from 'v8n';
 
 type MakeRoomModalProps = {
   onClickDropdown1?: () => void;
@@ -64,6 +65,7 @@ const DropDownWrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
   grid-template-columns: 1fr 1fr;
+  gap: 12px;
 `;
 
 export { MakeRoomModal };
