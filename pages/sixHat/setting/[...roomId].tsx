@@ -91,7 +91,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
     try {
       // send할 데이터
       const data = {
-        type: 'TALK',
+        type: 'HAT',
         roomId: roomId,
         sender: '코끼리아저씨',
         senderId: senderId,
