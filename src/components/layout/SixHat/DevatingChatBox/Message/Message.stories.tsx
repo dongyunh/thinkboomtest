@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import React from 'react';
 import { Message } from './Message';
 export default {
-  title: 'Common/Message',
+  title: 'Common/DevatingChatBox/Message',
   component: Message,
   parameters: {
     docs: {

@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
-import { Card } from '../../../common';
+import { Message, ChatTextField } from '../DevatingChatBox';
 const HatSrc = require('../../../../../public/hat.png');
 
-type SelectHatBoxProps = {
+type MessageDataType = {
+  nickname: string;
+  hat: string;
+  message: string;
+};
+
+type DevatingChatBoxProps = {
   subject: string;
+  myNickname: string;
   myHat: string;
   userList: string[];
-  onClickHat: (arg: any) => void;
-  onClickRandom: () => void;
+  messageData: MessageDataType[];
 };
 
 type StyleProps = {
@@ -18,31 +24,43 @@ type StyleProps = {
   isMouseOver?: boolean;
 };
 
-const SelectHatBox = ({
+const DevatingChatBox = ({
   subject,
+  myNickname,
   myHat,
   userList,
-  onClickHat,
-  onClickRandom,
-}: SelectHatBoxProps) => {
+  messageData,
+}: DevatingChatBoxProps) => {
   return (
     <Container>
-      <SubjectBox>
-        {subject}
-        <RandomButton onClick={onClickRandom}>랜덤</RandomButton>
-      </SubjectBox>
+      <SubjectBox>{subject}</SubjectBox>
       <DownBox>
         <UserListBox>
           <MyHatBox>
             <HatImg src={HatSrc} width={70} />
           </MyHatBox>
           <UserList>
-            {userList.map(user => {
-              return <User>{user}</User>;
+            {messageData.map(data => {
+              return <User key={data.nickname}>{data.nickname}</User>;
             })}
           </UserList>
         </UserListBox>
-        <ChatViewBox></ChatViewBox>
+        <ChatViewBox>
+          <MessageBox>
+            {messageData.reverse().map(data => {
+              return (
+                <Message
+                  key={data.nickname}
+                  isMe={data.nickname === myNickname}
+                  message={data.message}
+                  hatName="빨간모자"
+                  hat={data.hat}
+                />
+              );
+            })}
+          </MessageBox>
+          <ChatTextField />
+        </ChatViewBox>
       </DownBox>
     </Container>
   );
@@ -78,15 +96,6 @@ const SubjectBox = styled.div`
   position: relative;
 `;
 
-const RandomButton = styled.button`
-  width: 70px;
-  height: 45px;
-  position: absolute;
-  right: 70px;
-  border: none;
-  border-radius: 12px;
-`;
-
 const DownBox = styled.div`
   width: 100%;
   height: 100%;
@@ -109,11 +118,9 @@ const ChatViewBox = styled.div`
   width: 832px;
   height: 512px;
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 24px;
-  padding: 32px 48px;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 48px 30px 48px;
 `;
 
 const UserList = styled.div`
@@ -131,6 +138,14 @@ const HatImg = styled.img<StyleProps>`
   padding: 15px;
 `;
 
-export { SelectHatBox };
+const MessageBox = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  height: 380px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+`;
+
+export { DevatingChatBox };
 
 // NOTE : 이 페이지에서 처리해야 할 내용 1.모자선택시 로직 2.랜덤 로직

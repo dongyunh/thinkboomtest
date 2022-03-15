@@ -34,6 +34,7 @@ const TextFieldContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 0 30px;
+  box-sizing: border-box;
 `;
 
 const Button = styled.button`
