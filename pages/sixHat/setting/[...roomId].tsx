@@ -6,9 +6,13 @@ import { SelectHat } from '@components/layout/SixHat';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { updateCurrentPage, updateNickname, sixHatSelector } from '@redux/modules/sixHat';
 import { NicknameModal } from '@components/common/Modals';
+import { ChattingRoom } from '@components/common/ChattingRoom';
 import axios from 'axios';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import CommentIcon from '@mui/icons-material/Comment';
+import styled from 'styled-components';
+import { messageData } from 'src/mock/messageData';
 
 let sockJS = new SockJS('http://3.34.99.231/websocket');
 let stompClient: Stomp.Client = Stomp.over(sockJS);
@@ -29,6 +33,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   // const [senderId, setSenderId] = useState();
   const senderId = Number(localStorage.getItem('senderId'));
   const [subject, setSubject] = useState();
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const dispatch = useAppDispatch();
   const { currentPage, nickname } = useAppSelector(sixHatSelector);
@@ -116,11 +121,36 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
     <>
       <InteractivePage pages={pages} currentPage={currentPage} />
       {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />}
+      <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>
+        <CommentIcon />
+      </ChatIcon>
+      {isChatOpen && (
+        <ChattingContainer>
+          <ChattingRoom
+            myNickname={nickname}
+            chatHistory={messageData}
+            onClick={() => setIsChatOpen(!isChatOpen)}
+          />
+        </ChattingContainer>
+      )}
     </>
   );
 };
 
 export default SettingPage;
+
+const ChatIcon = styled.div`
+  position: fixed;
+  right: 70px;
+  bottom: 70px;
+  cursor: pointer;
+`;
+
+const ChattingContainer = styled.div`
+  position: fixed;
+  right: 70px;
+  bottom: 100px;
+`;
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const { query } = context;

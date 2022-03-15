@@ -6,26 +6,32 @@ import { Message } from './Message';
 import { ChatTextField } from './ChatTextField';
 
 type MessageType = {
-  nickname: string;
+  nickname: string | null;
   message: string;
 };
 
 type ChattingRoomType = {
   chatHistory: MessageType[];
-  myNickname: string;
+  myNickname: string | null;
+  onClick: () => void;
 };
 
-const ChattingRoom = ({ chatHistory, myNickname }: ChattingRoomType) => {
+const ChattingRoom = ({ chatHistory, myNickname, onClick }: ChattingRoomType) => {
+  const handleOnClick = () => {
+    if (!onClick) return;
+    onClick();
+  };
+
   return (
     <Container>
       <ChattingHeader>
         <Empty />
-        <IconBox>
+        <IconBox onClick={handleOnClick}>
           <CloseIcon style={{ color: 'white' }} />
         </IconBox>
       </ChattingHeader>
       <MessageBox>
-        {chatHistory.reverse().map(data => {
+        {chatHistory?.reverse().map(data => {
           return (
             <Message
               isMe={myNickname == data.nickname}
@@ -41,7 +47,7 @@ const ChattingRoom = ({ chatHistory, myNickname }: ChattingRoomType) => {
 };
 
 const Container = styled.div`
-  width: 300px;
+  width: 360px;
   height: 600px;
   border: 5px solid ${themedPalette.border_1};
   border-radius: 5px;
@@ -77,6 +83,10 @@ const MessageBox = styled.div`
   height: 480px;
   overflow-y: scroll;
   margin-bottom: 10px;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export { ChattingRoom };
