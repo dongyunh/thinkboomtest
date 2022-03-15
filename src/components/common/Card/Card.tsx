@@ -16,18 +16,8 @@ type StyleProps = {
 };
 
 const Card = ({ width, height, children, onMouseOver, onMouseOut }: CardProps) => {
-  const handleOnMouseOver = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!onMouseOver) return;
-    onMouseOver();
-  };
-
-  const handleOnMouseOut = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!onMouseOut) return;
-    onMouseOut();
-  };
-
   return (
-    <CardWrapper onMouseOver={e => handleOnMouseOver(e)} onMouseOut={e => handleOnMouseOut(e)}>
+    <CardWrapper>
       <StyledCard width={width} height={height}>
         {children}
       </StyledCard>
@@ -48,7 +38,7 @@ const StyledCard = styled.div<StyleProps>`
   border: 5px solid ${themedPalette.component_1};
   border-radius: 18px;
   position: relative;
-  transition: 0.3s ease-in-out;
+  transition: 0.2s ease-in-out;
 
   :hover {
     transform: translate(10px, 10px);
