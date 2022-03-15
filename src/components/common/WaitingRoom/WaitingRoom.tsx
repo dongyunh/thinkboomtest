@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, TextField } from '@mui/material';
 import styled from 'styled-components';
-import { HeaderBar } from '../HeaderBar/HeaderBar';
+import { HeaderBar } from '../HeaderBar';
+import { SubjectTextField } from '@components/common';
 
 type WaitingRoomProps = {
   onClick?: () => void;
@@ -22,9 +23,11 @@ const WaitingRoom = ({ onClick }: WaitingRoomProps) => {
         <Empty />
         <TextFieldWrapper>
           <h2>회의 주제</h2>
-          <TextField id="outlined-basic" label="주제를 입력해주세요" variant="outlined" />
+          <SubjectTextField />
         </TextFieldWrapper>
-        <Button variant="contained">완료</Button>
+        <Button variant="contained" onClick={handleOnclick}>
+          완료
+        </Button>
       </Grid>
     </>
   );

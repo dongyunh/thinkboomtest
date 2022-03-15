@@ -6,10 +6,10 @@ const HatSrc = require('../../../../../public/hat.png');
 
 type SelectHatBoxProps = {
   subject: string;
-  myHat: string;
+  myHat?: string;
   userList: string[];
-  onClickHat: (arg: any) => void;
-  onClickRandom: () => void;
+  onClickHat?: (arg: any) => void;
+  onClickRandom?: () => void;
 };
 
 type StyleProps = {
@@ -50,6 +50,11 @@ const SelectHatBox = ({
     { src: HatSrc, value: 'white', text: '하얀모자', desc: '이성주의자, 객관적인 정보에 집중' },
   ];
 
+  const handleOnClickHat = (hat: string) => {
+    if (!onClickHat) return;
+    onClickHat(hat);
+  };
+
   return (
     <Container>
       <SubjectBox>
@@ -70,7 +75,7 @@ const SelectHatBox = ({
         <CardListBox>
           {hatData.map(hat => {
             return (
-              <Card width={200} height={200}>
+              <Card width={200} height={200} key={hat.value}>
                 {isMouseOver ? (
                   <HatBox isMouseOver={isMouseOver}>
                     <h3>{hat.text}</h3>
@@ -82,7 +87,7 @@ const SelectHatBox = ({
                   </HatBox>
                 ) : (
                   <HatBox>
-                    <HatImg width={100} src={hat.src} onClick={() => onClickHat(hat.value)} />
+                    <HatImg width={100} src={hat.src} onClick={() => handleOnClickHat(hat.value)} />
                     <div>{hat.text}</div>
                     <TouchArea
                       onMouseOver={() => setIsMouseOver(true)}

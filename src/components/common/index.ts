@@ -10,3 +10,4 @@ export * from './TextField';
 export * from './DropDown';
 export * from './Button';
 export * from './Modals/MakeRoomModal';
+export * from './SubjectTextField';

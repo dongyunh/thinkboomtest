@@ -1,4 +1,6 @@
 import React from 'react';
+import { SelectHatBox } from '@components/layout/SixHat';
+import { CenterLayout, HeaderBar } from '@components/common';
 
 type SelectHatProps = {
   onClick?: () => void;
@@ -10,7 +12,17 @@ const SelectHat = ({ onClick }: SelectHatProps) => {
     onClick();
   };
 
-  return <h1>모자를 선택하는 방입니다.</h1>;
+  const tmpSubject = '점심 뭐먹을까?';
+  const userList = ['점심', '고기', '좋아', '맛있다'];
+
+  return (
+    <>
+      <HeaderBar><h1>로고</h1></HeaderBar>
+      <CenterLayout>
+        <SelectHatBox subject={tmpSubject} userList={userList} myHat="yellow" />
+      </CenterLayout>
+    </>
+  );
 };
 
 export { SelectHat };
