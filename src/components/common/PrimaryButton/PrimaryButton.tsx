@@ -41,7 +41,7 @@ const StyledButton = styled.div<StyleProps>`
   border: 5px solid ${themedPalette.component_1};
   border-radius: 18px;
   position: relative;
-  transition: 0.2s ease-in-out;
+  transition: 0.1s ease-in-out;
   display: flex;
   justify-content: center;
   align-items: center;
