@@ -2,6 +2,7 @@ import React from 'react';
 import { S_Modal } from '../Modal/S_Modal';
 import { TextField, Dropdown, Button } from '../../../common';
 import styled from 'styled-components';
+import { memberCount, timerOptions } from '../../../../mock/makeRoomData';
 
 type MakeRoomModalProps = {
   onClickDropdown1?: () => void;
@@ -14,9 +15,6 @@ const S_MakeRoomModal = ({
   onClickDropdown2,
   onClickButton,
 }: MakeRoomModalProps) => {
-  const memberCount = ['1명', '2명', '3명', '4명', '5명', '6명', '7명', '8명'];
-  const timerOptions = ['1분', '2분', '3분', '4분', '5분'];
-
   return (
     <S_Modal>
       <MakeRoomContainer>
