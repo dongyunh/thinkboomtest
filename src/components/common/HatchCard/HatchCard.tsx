@@ -6,6 +6,7 @@ type HatchCardProps = {
   width: number;
   height: number;
   children?: React.ReactChild;
+  onMouseUp?: () => void;
 };
 
 type StyleProps = {
@@ -14,15 +15,24 @@ type StyleProps = {
   isMouseOver?: boolean;
 };
 
-const HatchCard = ({ width, height, children }: HatchCardProps) => {
+const HatchCard = ({ width, height, children, onMouseUp }: HatchCardProps) => {
   const [isMouseOver, setIsMouseOver] = useState(false);
+
+  const handleOnMouseUp = () => {
+    if (!onMouseUp) {
+      setIsMouseOver(true);
+    } else {
+      onMouseUp();
+      setIsMouseOver(true);
+    }
+  };
 
   return (
     <CardWrapper
       onMouseOver={() => setIsMouseOver(true)}
       onMouseOut={() => setIsMouseOver(false)}
       onMouseDown={() => setIsMouseOver(false)}
-      onMouseUp={() => setIsMouseOver(true)}
+      onMouseUp={handleOnMouseUp}
     >
       <StyledCard width={width} height={height}>
         {children}
