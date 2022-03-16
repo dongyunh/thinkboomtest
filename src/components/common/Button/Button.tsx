@@ -4,6 +4,7 @@ import { themedPalette } from '../../../theme/styleTheme';
 
 type ButtonProps = {
   text: string;
+  disabled?: boolean;
   onClick?: () => void;
 };
 
@@ -11,13 +12,17 @@ type StyleProps = {
   isError?: boolean;
 };
 
-const Button = ({ text, onClick }: ButtonProps) => {
+const Button = ({ text, disabled, onClick }: ButtonProps) => {
   const handleOnClick = (e: any) => {
     if (!onClick) return;
     onClick();
   };
 
-  return <StyledButton onClick={handleOnClick}>{text}</StyledButton>;
+  return (
+    <StyledButton disabled={disabled} onClick={handleOnClick}>
+      {text}
+    </StyledButton>
+  );
 };
 
 const StyledButton = styled.button<StyleProps>`
@@ -35,9 +40,14 @@ const StyledButton = styled.button<StyleProps>`
   justify-content: center;
   cursor: pointer;
 
-  :hover {
+  :disabled {
     background-color: ${themedPalette.button_2};
     color: ${themedPalette.main_text1};
+  }
+
+  :hover {
+    background-color: #424242;
+    color: ${themedPalette.main_text2};
   }
 `;
 
