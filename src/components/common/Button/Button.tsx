@@ -24,7 +24,8 @@ const StyledButton = styled.button<StyleProps>`
   border: none;
   align-items: center;
   border-radius: 12px;
-  background-color: ${themedPalette.button_2};
+  background-color: ${themedPalette.button_1};
+  color: #ffffff;
   box-sizing: border-box;
   width: 100%;
   height: 60px;
@@ -35,8 +36,8 @@ const StyledButton = styled.button<StyleProps>`
   cursor: pointer;
 
   :hover {
-    background-color: ${themedPalette.button_1};
-    color: #ffffff;
+    background-color: ${themedPalette.button_2};
+    color: ${themedPalette.main_text1};
   }
 `;
 
