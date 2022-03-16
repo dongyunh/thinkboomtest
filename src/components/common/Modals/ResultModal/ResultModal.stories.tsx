@@ -11,16 +11,6 @@ export default {
       },
     },
   },
-  argTypes: {
-    // title: {
-    //   description: '제목',
-    //   control: { type: 'string' },
-    // },
-    // height: {
-    //   description: '초대한 사람',
-    //   control: { type: 'string' },
-    // },
-  },
 } as ComponentMeta<typeof S_ResultModal>;
 const Template: ComponentStory<typeof S_ResultModal> = args => <S_ResultModal {...args} />;
 export const DefaultCard = Template.bind({});
