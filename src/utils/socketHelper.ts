@@ -65,7 +65,6 @@ export class HandleSocket {
         message: message,
       };
       this.waitForConnection(this.StompClient, () => {
-        this.StompClient.debug = () => {};
         console.log(data);
         this.StompClient.send(
           '/pub/api/sixHat/chat/message',
