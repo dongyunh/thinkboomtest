@@ -13,7 +13,7 @@ import styled from 'styled-components';
 import { messageData } from 'src/mock/messageData';
 import { HandleSocket } from '../../../src/utils/socketHelper';
 
-const ConnectedSocket = new HandleSocket('http://3.34.99.231/websocket');
+const ConnectedSocket = new HandleSocket('http://3.34.124.47/websocket');
 
 export type message = {
   nickname: string;
@@ -42,7 +42,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
 
   const handleUpdateNickname = async (enteredName: string) => {
     await axios
-      .post('http://3.34.99.231/nickname/member', {
+      .post('http://3.34.124.47/nickname/member', {
         nickname: enteredName,
       })
       .then(res => {
