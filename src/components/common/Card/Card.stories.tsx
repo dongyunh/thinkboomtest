@@ -1,6 +1,8 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import React from 'react';
 import { Card } from './Card';
+// import GlobalStyles from '@theme/GlobalStyles';
+
 export default {
   title: 'Common/Card',
   component: Card,

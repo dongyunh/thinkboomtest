@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { InteractivePage, StartPage, SettingRoom } from '@components/common';
+import { InteractivePage, StartPage, MakeRoomModal } from '@components/common';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { updateCurrentPage, sixHatSelector, updateAdminState } from '@redux/modules/sixHat';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 const SixHat = () => {
   const router = useRouter();
@@ -13,17 +14,23 @@ const SixHat = () => {
     dispatch(updateCurrentPage(pageNum));
   };
 
-  const handleMoveSettingPage = () => {
-    router.push('/sixHat/setting/asdasd');
+  const handleMoveSettingPage = (roomId: number) => {
+    router.push(`/sixHat/setting/${roomId}`);
   };
 
   const handleUpdateAmdinState = () => {
     dispatch(updateAdminState(true));
   };
 
-  const handleMakeNewPage = () => {
-    handleMoveSettingPage();
-    handleUpdateAmdinState();
+  // TODO : 서버 주소 나오면 api 한곳에 모으기, 비동기 작업들 리덕스로 옮기기
+  const handleMakeNewPage = async (title: string, memberCount: number, timer: number) => {
+    await axios
+      .post('http://3.34.99.231/api/sixHat/room', { title, memberCount, timer })
+      .then(res => {
+        const { id } = res.data;
+        handleMoveSettingPage(id);
+        handleUpdateAmdinState();
+      });
   };
 
   useEffect(() => {
@@ -43,7 +50,7 @@ const SixHat = () => {
       ),
     },
     {
-      component: <SettingRoom onClick={handleMakeNewPage} />,
+      component: <MakeRoomModal onClickButton={handleMakeNewPage} />,
     },
   ];
 
@@ -51,3 +58,7 @@ const SixHat = () => {
 };
 
 export default SixHat;
+
+/*
+TODO : 1.이 페이제에서 나갈 때, currentPage 0으로 초기화하기 
+*/

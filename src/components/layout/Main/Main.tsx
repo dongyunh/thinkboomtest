@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, NavWrapper } from './components';
-import { HeaderBar } from '@components/common/HeaderBar';
+import { NavWrapper } from './components';
+import { HeaderBar, HatchCard } from '@components/common';
 import { Button } from '@mui/material';
 
 type MainType = {
@@ -11,7 +11,7 @@ const Main = ({ children }: MainType) => {
   return <div>{children}</div>;
 };
 
-Main.Card = Card;
+Main.Card = HatchCard;
 Main.HeaderBar = HeaderBar;
 Main.NavWrapper = NavWrapper;
 Main.Button = Button;

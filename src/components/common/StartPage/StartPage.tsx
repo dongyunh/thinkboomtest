@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import styled from 'styled-components';
-import { HeaderBar, Card } from '.';
+import { HeaderBar, Card, Button } from '../../common';
 
 type StartProps = {
   title: string;
@@ -17,16 +17,16 @@ const StartPage = ({ title, desc, onClick }: StartProps) => {
   return (
     <>
       <HeaderBar>
-        <Button variant="text">로고</Button>
+        <h1>ThinkBoom</h1>
       </HeaderBar>
       <Grid>
         <ContentWrapper>
           <RightContent>
             <h1>{title}</h1>
             <p>{desc}</p>
-            <Button variant="contained" onClick={handleOnClick}>
-              시작하기
-            </Button>
+            <ButtonWrapper>
+              <Button text="시작하기" onClick={handleOnClick} />
+            </ButtonWrapper>
           </RightContent>
           <Card width={600} height={350} />
         </ContentWrapper>
@@ -41,7 +41,8 @@ const Grid = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 50px 0px;
+  padding: 0 200px;
+  box-sizing: border-box;
 `;
 
 const ContentWrapper = styled.div`
@@ -58,13 +59,8 @@ const RightContent = styled.div`
   justify-content: space-evenly;
 `;
 
-const TextFieldWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+const ButtonWrapper = styled.div`
+  width: 220px;
 `;
-
-const Empty = styled.div``;
 
 export { StartPage };
