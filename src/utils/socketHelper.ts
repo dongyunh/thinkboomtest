@@ -1,5 +1,7 @@
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { updateCurrentPage, sixHatSelector, updateAdminState } from '@redux/modules/sixHat';
 
 export type message = {
   nickname: string;
@@ -19,6 +21,7 @@ export class HandleSocket {
   StompClient: Stomp.Client;
   _roomId: string | null;
   _senderId: number | null;
+
   constructor(url: string) {
     this.SockJs = new SockJS(url);
     this.StompClient = Stomp.over(this.SockJs);
@@ -26,18 +29,18 @@ export class HandleSocket {
     this._senderId = null;
   }
 
-  connect(senderId: number | null, roomId: string) {
+  connectSH(senderId: number | null, roomId: string) {
     this._senderId = senderId;
-    this._roomId = roomId;
+    this._roomId = roomId[0];
 
-    this.StompClient.connect({ senderId }, () => {
+    this.StompClient.connect({ senderId: this._senderId }, () => {
       this.StompClient.subscribe(
-        `/sub/api/sixHat/rooms/${roomId}`,
+        `/subSH/api/sixHat/rooms/${roomId}`,
         data => {
           const newMessage: message = JSON.parse(data.body) as message;
           console.log(newMessage);
         },
-        { senderId },
+        { senderId: this._senderId },
       );
     });
   }
@@ -65,9 +68,10 @@ export class HandleSocket {
         message: message,
       };
       this.waitForConnection(this.StompClient, () => {
+        this.StompClient.debug = () => {};
         console.log(data);
         this.StompClient.send(
-          '/pub/api/sixHat/chat/message',
+          '/pubSH/api/sixHat/chat/message',
           { senderId: this._senderId },
           JSON.stringify(data),
         );
@@ -81,7 +85,7 @@ export class HandleSocket {
     try {
       // send할 데이터
       const data = {
-        type: 'TALK',
+        type: 'HAT',
         roomId: this._roomId,
         sender: sender,
         senderId: this._senderId,
@@ -92,7 +96,7 @@ export class HandleSocket {
         this.StompClient.debug = () => {};
         console.log(data);
         this.StompClient.send(
-          '/pub/api/sixHat/chat/message',
+          '/pubSH/api/sixHat/chat/message',
           { senderId: this._senderId },
           JSON.stringify(data),
         );
