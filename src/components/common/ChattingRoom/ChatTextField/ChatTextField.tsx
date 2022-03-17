@@ -33,7 +33,7 @@ const TextFieldContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0 30px;
+  padding: 0 50px 0 20px;
   box-sizing: border-box;
 `;
 

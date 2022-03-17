@@ -11,8 +11,6 @@ export const parameters = {
   },
 };
 
-config.resolve.modules = [path.resolve(__dirname, '..'), 'node_modules'];
-
 export const decorators = [
   Story => (
     <>
