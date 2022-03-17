@@ -63,7 +63,8 @@ const MakeRoomContainer = styled.div`
   padding: 56px 38px;
   box-sizing: border-box;
   width: 100%;
-  background-color: ${themedPalette.bg_page2};
+  background-color: ${themedPalette.bg_page3};
+  border-radius: 18px;
 `;
 
 const Title = styled.h1`

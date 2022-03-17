@@ -44,16 +44,18 @@ const Input = styled.input<StyleProps>`
   box-sizing: border-box;
   width: 100%;
   height: 48px;
-  border: 5px solid ${themedPalette.input_1};
+  border: 5px solid ${themedPalette.input_normal};
   border-radius: 12px;
   font-size: 18px;
   padding: 0 10px 0 10px;
   transition: 0.3s ease-in-out;
+  background-color: transparent;
+  color: ${themedPalette.main_text1};
 
   :focus {
     outline: none !important;
-    border: 5px solid ${themedPalette.button_1};
-    ${props => props.isError && `border: 5px solid ${themedPalette.red}`}
+    border: 5px solid ${themedPalette.input_focus};
+    ${props => props.isError && `border: 5px solid ${themedPalette.input_error}`}
   }
 
   ${props => props.isError && `border: 5px solid ${themedPalette.red}`};
@@ -66,7 +68,7 @@ const ErrorText = styled.span`
 `;
 
 const LabelText = styled.span`
-  color: ${themedPalette.black};
+  color: ${themedPalette.main_text1};
   font-size: 14px;
   padding: 0 0 8px 8px;
 `;
