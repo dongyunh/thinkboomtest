@@ -3,13 +3,13 @@ import { SelectHatBox } from '@components/layout/SixHat';
 import { CenterLayout, HeaderBar } from '@components/common';
 
 type SelectHatProps = {
-  onClick?: () => void;
+  onClick?: (hat: string) => void;
 };
 
 const SelectHat = ({ onClick }: SelectHatProps) => {
-  const handeOnClick = () => {
+  const handeOnClick = (hat: string) => {
     if (!onClick) return;
-    onClick();
+    onClick(hat);
   };
 
   const tmpSubject = '점심 뭐먹을까?';
@@ -17,9 +17,16 @@ const SelectHat = ({ onClick }: SelectHatProps) => {
 
   return (
     <>
-      <HeaderBar><h1>로고</h1></HeaderBar>
+      <HeaderBar>
+        <h1>로고</h1>
+      </HeaderBar>
       <CenterLayout>
-        <SelectHatBox subject={tmpSubject} userList={userList} myHat="yellow" />
+        <SelectHatBox
+          subject={tmpSubject}
+          userList={userList}
+          myHat="yellow"
+          onClickHat={handeOnClick}
+        />
       </CenterLayout>
     </>
   );
