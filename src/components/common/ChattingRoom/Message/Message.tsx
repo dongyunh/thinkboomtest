@@ -4,7 +4,7 @@ import { themedPalette } from '../../../../theme';
 
 type MessageProps = {
   isMe: boolean;
-  message: string;
+  message: string | null;
   nickname: string | null;
 };
 
