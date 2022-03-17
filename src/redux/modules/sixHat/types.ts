@@ -1,6 +1,6 @@
 export type ChatData = {
-  nickname: string;
-  message: string;
+  nickname: string | null;
+  message: string | null;
 };
 
 export type ChatHistoryType = ChatData[];
