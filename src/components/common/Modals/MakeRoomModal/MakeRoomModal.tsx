@@ -70,14 +70,14 @@ const Title = styled.h1`
   text-align: center;
   margin: 0;
   padding-bottom: 22px;
-  background-color: ${themedPalette.main_text1};
+  color: ${themedPalette.main_text1};
 `;
 
 const SubText = styled.p`
   text-align: center;
   margin: 0;
   padding-bottom: 46px;
-  background-color: ${themedPalette.main_text1};
+  color: ${themedPalette.main_text1};
 `;
 
 const DropDownWrapper = styled.div`
