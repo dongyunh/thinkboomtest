@@ -3,6 +3,7 @@ import { Button, TextField } from '@mui/material';
 import styled from 'styled-components';
 import { HeaderBar } from '../HeaderBar';
 import { SubjectTextField } from '../SubjectTextField';
+import { PrimaryButton } from '@components/common';
 
 type WaitingRoomProps = {
   onClick?: () => void;
@@ -31,7 +32,7 @@ const WaitingRoom = ({ onClick, onChange }: WaitingRoomProps) => {
           <h2>회의 주제</h2>
           <SubjectTextField onChange={handleOnChange} onClick={handleOnclick} />
         </TextFieldWrapper>
-        <Empty />
+        <PrimaryButton text="완료" />
       </Grid>
     </>
   );

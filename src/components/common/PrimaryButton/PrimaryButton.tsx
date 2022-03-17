@@ -4,15 +4,16 @@ import { themedPalette } from '../../../theme/styleTheme';
 
 type PrimaryButtonProps = {
   buttonColor?: 'gray' | 'black';
-  onClick?: () => void;
   text: string;
+  onClick?: () => void;
+  disabled?: boolean;
 };
 
 type StyleProps = {
   buttonColor: 'gray' | 'black';
 };
 
-const PrimaryButton = ({ buttonColor = 'black', text, onClick }: PrimaryButtonProps) => {
+const PrimaryButton = ({ buttonColor = 'black', text, disabled, onClick }: PrimaryButtonProps) => {
   const handleOnClick = () => {
     if (!onClick) return;
     onClick();
@@ -20,7 +21,9 @@ const PrimaryButton = ({ buttonColor = 'black', text, onClick }: PrimaryButtonPr
 
   return (
     <ButtonWrapper>
-      <StyledButton buttonColor={buttonColor}>{text}</StyledButton>
+      <StyledButton disabled={disabled} buttonColor={buttonColor}>
+        {text}
+      </StyledButton>
       <AfterButton buttonColor={buttonColor} />
     </ButtonWrapper>
   );
@@ -28,10 +31,9 @@ const PrimaryButton = ({ buttonColor = 'black', text, onClick }: PrimaryButtonPr
 
 const ButtonWrapper = styled.div`
   position: relative;
-  cursor: pointer;
 `;
 
-const StyledButton = styled.div<StyleProps>`
+const StyledButton = styled.button<StyleProps>`
   height: 75px;
   width: 212px;
   background-color: ${props =>
@@ -46,13 +48,19 @@ const StyledButton = styled.div<StyleProps>`
   justify-content: center;
   align-items: center;
   font-size: 26px;
+  cursor: pointer;
+
+  :disabled {
+    background-color: ${props =>
+      props.buttonColor === 'black' ? themedPalette.button_1 : themedPalette.button_2};
+  }
 
   :hover {
     transform: translate(8px, 8px);
   }
 `;
 
-const AfterButton = styled.div<StyleProps>`
+const AfterButton = styled.button<StyleProps>`
   height: 75px;
   width: 212px;
   background-color: ${themedPalette.component_2};
