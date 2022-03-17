@@ -81,7 +81,12 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
 
   const pages = [
     {
-      component: <WaitingRoom onClickSubmit={handleSubmitSubject} />,
+      component: (
+        <WaitingRoom
+          onClickSubmit={handleSubmitSubject}
+          onClickComplete={() => handleNextPage(1)}
+        />
+      ),
     },
     {
       component: <SelectHat onClick={sendHatData} />,

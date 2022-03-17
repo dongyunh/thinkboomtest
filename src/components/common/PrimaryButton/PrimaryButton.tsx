@@ -16,12 +16,13 @@ type StyleProps = {
 const PrimaryButton = ({ buttonColor = 'black', text, disabled, onClick }: PrimaryButtonProps) => {
   const handleOnClick = () => {
     if (!onClick) return;
+    console.log('확인');
     onClick();
   };
 
   return (
     <ButtonWrapper>
-      <StyledButton disabled={disabled} buttonColor={buttonColor}>
+      <StyledButton disabled={disabled} buttonColor={buttonColor} onClick={handleOnClick}>
         {text}
       </StyledButton>
       <AfterButton buttonColor={buttonColor} />
