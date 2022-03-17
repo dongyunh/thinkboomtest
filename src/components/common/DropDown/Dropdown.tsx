@@ -69,9 +69,9 @@ const DropdownListContainer = styled.div`
 `;
 
 const DropDownHeader = styled.div<StyleProps>`
-  color: ${themedPalette.black};
-  background: ${themedPalette.bg_page1};
-  border: 5px solid ${themedPalette.gray};
+  color: ${themedPalette.main_text1};
+  background-color: ${themedPalette.bg_page3};
+  border: 5px solid ${themedPalette.input_normal};
   border-radius: 12px;
   width: 210px;
   height: 48px;
@@ -81,7 +81,7 @@ const DropDownHeader = styled.div<StyleProps>`
   z-index: 2;
   margin: 0;
   cursor: pointer;
-  ${props => props.isOpen && `border : 5px solid ${themedPalette.black}`}
+  ${props => props.isOpen && `border : 5px solid ${themedPalette.input_focus}`}
 `;
 
 const DropDownList = styled.ul<StyleProps>`
@@ -90,20 +90,20 @@ const DropDownList = styled.ul<StyleProps>`
   z-index: -1;
   padding: 0;
   margin: 0;
-  background: #ffffff;
-  border: 5px solid ${themedPalette.gray};
+  background-color: ${themedPalette.bg_page3};
+  border: 5px solid ${themedPalette.input_normal};
   border-radius: 0px 0px 12px 12px;
   width: 210px;
   box-sizing: border-box;
-  color: ${themedPalette.black};
+  color: ${themedPalette.main_text1};
   &:first-child {
     padding-top: 20px;
   }
-  ${props => props.isOpen && `border : 5px solid ${themedPalette.black}`}
+  ${props => props.isOpen && `border : 5px solid ${themedPalette.input_focus}`}
 `;
 
 const ListItem = styled.li`
-  border-bottom: 1px solid ${themedPalette.black};
+  border-bottom: 1px solid ${themedPalette.input_focus};
   display: flex;
   justify-content: center;
   align-items: center;
