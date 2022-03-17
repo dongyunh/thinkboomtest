@@ -11,7 +11,6 @@ import axios from 'axios';
 import CommentIcon from '@mui/icons-material/Comment';
 import styled from 'styled-components';
 import { messageData } from 'src/mock/messageData';
-import { HandleSocket } from '../../../src/utils/socketHelper';
 import useSocketHook from '@hooks/useSocketHook';
 
 export type message = {
@@ -44,7 +43,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   const handleUpdateNickname = async (enteredName: string) => {
     await axios
       .post('http://3.38.151.99/api/sixHat/user/nickname', {
-        shRoomId: Number(roomId[0]),
+        shRoomId: Number(roomId),
         nickname: enteredName,
       })
       .then(res => {
@@ -71,7 +70,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
 
   const pages = [
     {
-      component: <WaitingRoom onClick={() => nickname && sendHatData('red')} />,
+      component: <WaitingRoom onClickSubmit={() => nickname && sendHatData('red')} />,
     },
     {
       component: <SelectHat onClick={sendHatData} />,

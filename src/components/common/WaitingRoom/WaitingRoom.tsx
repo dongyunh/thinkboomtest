@@ -3,16 +3,23 @@ import { Button, TextField } from '@mui/material';
 import styled from 'styled-components';
 import { HeaderBar } from '../HeaderBar';
 import { SubjectTextField } from '../SubjectTextField';
+import { PrimaryButton } from '@components/common';
 
 type WaitingRoomProps = {
-  onClick?: () => void;
+  onClickSubmit?: () => void;
+  onClickComplete?: () => void;
   onChange?: () => void;
 };
 
-const WaitingRoom = ({ onClick, onChange }: WaitingRoomProps) => {
-  const handleOnclick = () => {
-    if (!onClick) return;
-    onClick();
+const WaitingRoom = ({ onClickSubmit, onClickComplete, onChange }: WaitingRoomProps) => {
+  const handleOnclickSubmit = () => {
+    if (!onClickSubmit) return;
+    onClickSubmit();
+  };
+
+  const handleOnClickComplete = () => {
+    if (!onClickComplete) return;
+    onClickComplete();
   };
 
   const handleOnChange = () => {
@@ -29,9 +36,9 @@ const WaitingRoom = ({ onClick, onChange }: WaitingRoomProps) => {
         <Empty />
         <TextFieldWrapper>
           <h2>회의 주제</h2>
-          <SubjectTextField onChange={handleOnChange} onClick={handleOnclick} />
+          <SubjectTextField onChange={handleOnChange} onClick={handleOnclickSubmit} />
         </TextFieldWrapper>
-        <Empty />
+        <PrimaryButton text="완료" onClick={handleOnClickComplete} />
       </Grid>
     </>
   );
