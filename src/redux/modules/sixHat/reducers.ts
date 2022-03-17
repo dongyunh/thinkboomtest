@@ -4,20 +4,16 @@ import {
   updateNickname,
   updateAdminState,
   changeIsSubmitState,
+  getMessages,
 } from './actions';
-
-export type SixHatState = {
-  currentPage: number;
-  nickname: string | null;
-  isAdmin: boolean;
-  isSubmit: boolean;
-};
+import { SixHatState } from './types';
 
 const initialState: SixHatState = {
   currentPage: 0,
   nickname: null,
   isAdmin: false,
   isSubmit: false,
+  chatHistory: [],
 };
 
 //createReducer로 reducer 생성.
@@ -34,5 +30,10 @@ export const sixHatReducer = createReducer(initialState, builder => {
     })
     .addCase(changeIsSubmitState, (state, action) => {
       state.isSubmit = action.payload;
+    })
+    .addCase(getMessages, (state, action) => {
+      if(state.chatHistory){
+        state.chatHistory.push(action.payload);
+      }
     });
 });
