@@ -70,7 +70,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
 
   const pages = [
     {
-      component: <WaitingRoom onClick={() => nickname && sendHatData('red')} />,
+      component: <WaitingRoom onClickSubmit={() => nickname && sendHatData('red')} />,
     },
     {
       component: <SelectHat onClick={sendHatData} />,
