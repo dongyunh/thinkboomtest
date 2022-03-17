@@ -18,6 +18,8 @@ const ChattingRoom = ({ chatHistory, myNickname, onClick }: ChattingRoomType) =>
     onClick();
   };
 
+  console.log(chatHistory);
+
   return (
     <Container>
       <ChattingHeader>
@@ -27,12 +29,13 @@ const ChattingRoom = ({ chatHistory, myNickname, onClick }: ChattingRoomType) =>
         </IconBox>
       </ChattingHeader>
       <MessageBox>
-        {chatHistory?.reverse().map(data => {
+        {chatHistory?.map((data, idx) => {
           return (
             <Message
               isMe={myNickname == data.nickname}
               message={data.message}
               nickname={data.nickname}
+              key={idx}
             />
           );
         })}

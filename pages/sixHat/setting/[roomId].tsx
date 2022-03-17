@@ -41,6 +41,8 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   const HandleSocket = useSocketHook('sixhat');
   const router = useRouter();
 
+  console.log(chatHistory);
+
   useEffect(() => {
     if (nickname) {
       ConnectedSocket = new HandleSocket('http://3.38.151.99/websocket');
@@ -50,6 +52,10 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
 
   const sendHatData = (hat: string) => {
     ConnectedSocket.sendHatData(nickname, hat);
+  };
+
+  const sendMessage = (message: string) => {
+    ConnectedSocket.sendMessage(nickname, message);
   };
 
   const handleNextPage = (pageNum: number) => {
@@ -62,7 +68,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
 
   const handleUpdateNickname = async (enteredName: string) => {
     await axios
-      .post('http://3.38.151.99/api/sixHat/user/nickname', {
+      .post(`http://3.38.151.99/api/sixHat/user/nickname`, {
         shRoomId: Number(roomId),
         nickname: enteredName,
       })
@@ -71,10 +77,6 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
         setSenderId(res.data.userId);
         dispatch(updateNickname(enteredName));
       });
-  };
-
-  const handleRouting = (path: string) => {
-    router.push(path);
   };
 
   const pages = [
@@ -88,12 +90,13 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
 
   const contextValue = {
     setSubject: setSubject,
+    sendMessage,
   };
 
   return (
     <WaitingRoomContext.Provider value={contextValue}>
       <InteractivePage pages={pages} currentPage={currentPage} />
-      {/* {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />} */}
+      {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />}
       <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>
         <CommentIcon />
       </ChatIcon>

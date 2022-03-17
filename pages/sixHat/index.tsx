@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { InteractivePage, StartPage, MakeRoomModal } from '@components/common';
+import { InteractivePage, StartPage, MakeRoomModal } from '../../src/components/common';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { updateCurrentPage, sixHatSelector, updateAdminState } from '@redux/modules/sixHat';
 import { useRouter } from 'next/router';
@@ -25,7 +25,7 @@ const SixHat = () => {
   // TODO : 서버 주소 나오면 api 한곳에 모으기, 비동기 작업들 리덕스로 옮기기
   const handleMakeNewPage = async (title: string, headCount: number, timer: number) => {
     await axios
-      .post('http://3.38.151.99/api/sixHat/rooms', { title, headCount, timer })
+      .post(`http://3.38.151.99/api/sixHat/rooms`, { title, headCount, timer })
       .then(res => {
         const { shRoomId } = res.data;
         handleMoveSettingPage(shRoomId);
