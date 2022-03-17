@@ -44,7 +44,7 @@ const Input = styled.input<StyleProps>`
   box-sizing: border-box;
   width: 100%;
   height: 48px;
-  border: 5px solid ${themedPalette.button_2};
+  border: 5px solid ${themedPalette.input_1};
   border-radius: 12px;
   font-size: 18px;
   padding: 0 10px 0 10px;

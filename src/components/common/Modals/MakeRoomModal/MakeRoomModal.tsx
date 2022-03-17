@@ -4,6 +4,7 @@ import { TextField, Dropdown, Button } from '../../../common';
 import styled from 'styled-components';
 import v8n from 'v8n';
 import { memberCount, timerOptions } from '../../../../mock/makeRoomData';
+import { themedPalette } from '../../../../theme';
 
 type MakeRoomModalProps = {
   onClickDropdown1?: () => void;
@@ -62,18 +63,21 @@ const MakeRoomContainer = styled.div`
   padding: 56px 38px;
   box-sizing: border-box;
   width: 100%;
+  background-color: ${themedPalette.bg_page2};
 `;
 
 const Title = styled.h1`
   text-align: center;
   margin: 0;
   padding-bottom: 22px;
+  background-color: ${themedPalette.main_text1};
 `;
 
 const SubText = styled.p`
   text-align: center;
   margin: 0;
   padding-bottom: 46px;
+  background-color: ${themedPalette.main_text1};
 `;
 
 const DropDownWrapper = styled.div`

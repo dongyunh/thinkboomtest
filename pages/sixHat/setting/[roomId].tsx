@@ -1,16 +1,20 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
-import { InteractivePage, WaitingRoom } from '@components/common';
-import { SelectHat } from '@components/layout/SixHat';
-import { useAppDispatch, useAppSelector } from '@redux/hooks';
-import { updateCurrentPage, updateNickname, sixHatSelector } from '@redux/modules/sixHat';
-import { NicknameModal } from '@components/common/Modals';
-import { ChattingRoom } from '@components/common/ChattingRoom';
+import { InteractivePage, WaitingRoom } from '../../../src/components/common';
+import { SelectHat } from '../../../src/components/layout/SixHat';
+import { useAppDispatch, useAppSelector } from '../../../src/redux/hooks';
+import {
+  updateCurrentPage,
+  updateNickname,
+  sixHatSelector,
+} from '../../../src/redux/modules/sixHat';
+import { NicknameModal } from '../../../src/components/common';
+import { ChattingRoom } from '../../../src/components/common';
 import axios from 'axios';
 import CommentIcon from '@mui/icons-material/Comment';
 import styled from 'styled-components';
-import useSocketHook from '@hooks/useSocketHook';
+import useSocketHook from '../../../src/hooks/useSocketHook';
 
 //TODO : any 수정하기
 export const WaitingRoomContext = createContext<any>(null);
