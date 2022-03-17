@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { InteractivePage, WaitingRoom } from '@components/common';
@@ -12,6 +12,9 @@ import CommentIcon from '@mui/icons-material/Comment';
 import styled from 'styled-components';
 import useSocketHook from '@hooks/useSocketHook';
 
+//TODO : any 수정하기
+export const WaitingRoomContext = createContext<any>(null);
+
 export type message = {
   nickname: string;
   content: string;
@@ -24,19 +27,33 @@ type SettingPageProps = {
 let ConnectedSocket: any;
 
 const SettingPage = ({ roomId }: SettingPageProps) => {
-  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { currentPage, nickname, chatHistory } = useAppSelector(sixHatSelector);
   const [_nickname, setNickname] = useState<string>();
   const [subject, setSubject] = useState();
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const dispatch = useAppDispatch();
   const localSenderId = localStorage.getItem('senderId');
   const [senderId, setSenderId] = useState(localSenderId ? Number(localSenderId) : null);
   const HandleSocket = useSocketHook('sixhat');
+  const router = useRouter();
 
-  const { currentPage, nickname, chatHistory } = useAppSelector(sixHatSelector);
+  useEffect(() => {
+    if (nickname) {
+      ConnectedSocket = new HandleSocket('http://3.38.151.99/websocket');
+      ConnectedSocket.connectSH(senderId, roomId);
+    }
+  }, [nickname]);
+
+  const sendHatData = (hat: string) => {
+    ConnectedSocket.sendHatData(nickname, hat);
+  };
 
   const handleNextPage = (pageNum: number) => {
     dispatch(updateCurrentPage(pageNum));
+  };
+
+  const handleSubmitSubject = () => {
+    ConnectedSocket.sendSubject('주제입력');
   };
 
   const handleUpdateNickname = async (enteredName: string) => {
@@ -56,30 +73,23 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
     router.push(path);
   };
 
-  useEffect(() => {
-    if (nickname) {
-      ConnectedSocket = new HandleSocket('http://3.38.151.99/websocket');
-      ConnectedSocket.connectSH(senderId, roomId);
-    }
-  }, [nickname]);
-
-  const sendHatData = (hat: string) => {
-    ConnectedSocket.sendHatData(nickname, hat);
-  };
-
   const pages = [
     {
-      component: <WaitingRoom onClickSubmit={() => nickname && sendHatData('red')} />,
+      component: <WaitingRoom onClickSubmit={handleSubmitSubject} />,
     },
     {
       component: <SelectHat onClick={sendHatData} />,
     },
   ];
 
+  const contextValue = {
+    setSubject: setSubject,
+  };
+
   return (
-    <>
+    <WaitingRoomContext.Provider value={contextValue}>
       <InteractivePage pages={pages} currentPage={currentPage} />
-      {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />}
+      {/* {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />} */}
       <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>
         <CommentIcon />
       </ChatIcon>
@@ -92,7 +102,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
           />
         </ChattingContainer>
       )}
-    </>
+    </WaitingRoomContext.Provider>
   );
 };
 
