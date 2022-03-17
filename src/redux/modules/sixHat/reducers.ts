@@ -32,8 +32,8 @@ export const sixHatReducer = createReducer(initialState, builder => {
       state.isSubmit = action.payload;
     })
     .addCase(getMessages, (state, action) => {
-      if(state.chatHistory){
-        state.chatHistory.push(action.payload);
+      if (state.chatHistory) {
+        state.chatHistory = [action.payload, ...state.chatHistory];
       }
     });
 });

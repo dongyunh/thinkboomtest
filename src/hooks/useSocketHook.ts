@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   updateCurrentPage,
   sixHatSelector,
   updateAdminState,
   getMessages,
-} from '@redux/modules/sixHat';
+} from '../redux/modules/sixHat';
 
 export type ResponseData = {
   type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT';

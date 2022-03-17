@@ -1,16 +1,20 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
-import { InteractivePage, WaitingRoom } from '@components/common';
-import { SelectHat } from '@components/layout/SixHat';
-import { useAppDispatch, useAppSelector } from '@redux/hooks';
-import { updateCurrentPage, updateNickname, sixHatSelector } from '@redux/modules/sixHat';
-import { NicknameModal } from '@components/common/Modals';
-import { ChattingRoom } from '@components/common/ChattingRoom';
+import { InteractivePage, WaitingRoom } from '../../../src/components/common';
+import { SelectHat } from '../../../src/components/layout/SixHat';
+import { useAppDispatch, useAppSelector } from '../../../src/redux/hooks';
+import {
+  updateCurrentPage,
+  updateNickname,
+  sixHatSelector,
+} from '../../../src/redux/modules/sixHat';
+import { NicknameModal } from '../../../src/components/common';
+import { ChattingRoom } from '../../../src/components/common';
 import axios from 'axios';
 import CommentIcon from '@mui/icons-material/Comment';
 import styled from 'styled-components';
-import useSocketHook from '@hooks/useSocketHook';
+import useSocketHook from '../../../src/hooks/useSocketHook';
 
 //TODO : any 수정하기
 export const WaitingRoomContext = createContext<any>(null);
@@ -37,6 +41,8 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   const HandleSocket = useSocketHook('sixhat');
   const router = useRouter();
 
+  console.log(chatHistory);
+
   useEffect(() => {
     if (nickname) {
       ConnectedSocket = new HandleSocket('http://3.38.151.99/websocket');
@@ -46,6 +52,10 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
 
   const sendHatData = (hat: string) => {
     ConnectedSocket.sendHatData(nickname, hat);
+  };
+
+  const sendMessage = (message: string) => {
+    ConnectedSocket.sendMessage(nickname, message);
   };
 
   const handleNextPage = (pageNum: number) => {
@@ -58,7 +68,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
 
   const handleUpdateNickname = async (enteredName: string) => {
     await axios
-      .post('http://3.38.151.99/api/sixHat/user/nickname', {
+      .post(`http://3.38.151.99/api/sixHat/user/nickname`, {
         shRoomId: Number(roomId),
         nickname: enteredName,
       })
@@ -67,10 +77,6 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
         setSenderId(res.data.userId);
         dispatch(updateNickname(enteredName));
       });
-  };
-
-  const handleRouting = (path: string) => {
-    router.push(path);
   };
 
   const pages = [
@@ -84,12 +90,13 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
 
   const contextValue = {
     setSubject: setSubject,
+    sendMessage,
   };
 
   return (
     <WaitingRoomContext.Provider value={contextValue}>
       <InteractivePage pages={pages} currentPage={currentPage} />
-      {/* {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />} */}
+      {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />}
       <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>
         <CommentIcon />
       </ChatIcon>

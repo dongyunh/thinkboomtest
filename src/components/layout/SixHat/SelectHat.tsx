@@ -1,6 +1,6 @@
 import React from 'react';
-import { SelectHatBox } from '@components/layout/SixHat';
-import { CenterLayout, HeaderBar } from '@components/common';
+import { SelectHatBox } from '../SixHat';
+import { CenterLayout, HeaderBar } from '../../common';
 
 type SelectHatProps = {
   onClick?: (hat: string) => void;

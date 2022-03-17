@@ -3,7 +3,7 @@ import { Button, TextField } from '@mui/material';
 import styled from 'styled-components';
 import { HeaderBar } from '../HeaderBar';
 import { SubjectTextField } from '../SubjectTextField';
-import { PrimaryButton } from '@components/common';
+import { PrimaryButton } from '../PrimaryButton';
 
 type WaitingRoomProps = {
   onClickSubmit?: () => void;
