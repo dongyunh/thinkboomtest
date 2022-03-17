@@ -4,14 +4,10 @@ import { themedPalette } from '../../../theme';
 import CloseIcon from '@mui/icons-material/Close';
 import { Message } from './Message';
 import { ChatTextField } from './ChatTextField';
-
-type MessageType = {
-  nickname: string | null;
-  message: string;
-};
+import { ChatHistoryType } from '@redux/modules/sixHat/types';
 
 type ChattingRoomType = {
-  chatHistory: MessageType[];
+  chatHistory?: ChatHistoryType;
   myNickname: string | null;
   onClick: () => void;
 };

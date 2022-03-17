@@ -10,7 +10,6 @@ import { ChattingRoom } from '@components/common/ChattingRoom';
 import axios from 'axios';
 import CommentIcon from '@mui/icons-material/Comment';
 import styled from 'styled-components';
-import { messageData } from 'src/mock/messageData';
 import useSocketHook from '@hooks/useSocketHook';
 
 export type message = {
@@ -34,7 +33,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   const [senderId, setSenderId] = useState(localSenderId ? Number(localSenderId) : null);
   const HandleSocket = useSocketHook('sixhat');
 
-  const { currentPage, nickname } = useAppSelector(sixHatSelector);
+  const { currentPage, nickname, chatHistory } = useAppSelector(sixHatSelector);
 
   const handleNextPage = (pageNum: number) => {
     dispatch(updateCurrentPage(pageNum));
@@ -88,7 +87,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
         <ChattingContainer>
           <ChattingRoom
             myNickname={nickname}
-            chatHistory={messageData}
+            chatHistory={chatHistory}
             onClick={() => setIsChatOpen(!isChatOpen)}
           />
         </ChattingContainer>

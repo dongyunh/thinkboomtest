@@ -2,9 +2,15 @@ import React, { useState } from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
-import { updateCurrentPage, sixHatSelector, updateAdminState } from '@redux/modules/sixHat';
+import {
+  updateCurrentPage,
+  sixHatSelector,
+  updateAdminState,
+  getMessages,
+} from '@redux/modules/sixHat';
 
-export type MessageData = {
+export type ResponseData = {
+  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT';
   roomId: number;
   sender: string;
   senderId: string;
@@ -39,8 +45,15 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
         this.StompClient.subscribe(
           `/subSH/api/sixHat/rooms/${roomId}`,
           data => {
-            const newMessage: MessageData = JSON.parse(data.body) as MessageData;
-            console.log(newMessage);
+            const response: ResponseData = JSON.parse(data.body) as ResponseData;
+            if (response.type === 'TALK') {
+              const newMessage = {
+                nickname: response.sender,
+                message: response.message,
+              };
+              dispatch(getMessages(newMessage));
+            }
+            console.log(response);
             dispatch(updateAdminState(true));
           },
           { senderId: this._senderId },
