@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme';
+import { WaitingRoomContext } from '../../../../../pages/sixHat/setting/[roomId]';
 
-type ChatTextFieldProps = {
-  onChange?: () => void;
-};
+const ChatTextField = ({}) => {
+  const [content, setContent] = useState<string>();
+  const { sendMessage } = useContext(WaitingRoomContext);
 
-const ChatTextField = ({ onChange }: ChatTextFieldProps) => {
   return (
     <TextFieldContainer>
-      <TextField />
-      <Button>입력</Button>
+      <TextField onChange={e => setContent(e.target.value)} />
+      <Button onClick={() => sendMessage(content)}>입력</Button>
     </TextFieldContainer>
   );
 };
@@ -33,7 +33,7 @@ const TextFieldContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  padding: 0 30px;
+  padding: 0 50px 0 20px;
   box-sizing: border-box;
 `;
 

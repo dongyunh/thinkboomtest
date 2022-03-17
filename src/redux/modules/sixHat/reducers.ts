@@ -1,16 +1,19 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { updateCurrentPage, updateNickname, updateAdminState } from './actions';
-
-export type SixHatState = {
-  currentPage: number;
-  nickname: string | null;
-  isAdmin: boolean;
-};
+import {
+  updateCurrentPage,
+  updateNickname,
+  updateAdminState,
+  changeIsSubmitState,
+  getMessages,
+} from './actions';
+import { SixHatState } from './types';
 
 const initialState: SixHatState = {
   currentPage: 0,
   nickname: null,
   isAdmin: false,
+  isSubmit: false,
+  chatHistory: [],
 };
 
 //createReducer로 reducer 생성.
@@ -23,6 +26,14 @@ export const sixHatReducer = createReducer(initialState, builder => {
       state.nickname = action.payload;
     })
     .addCase(updateAdminState, (state, action) => {
-      state.isAdmin = action.payload;;
+      state.isAdmin = action.payload;
+    })
+    .addCase(changeIsSubmitState, (state, action) => {
+      state.isSubmit = action.payload;
+    })
+    .addCase(getMessages, (state, action) => {
+      if (state.chatHistory) {
+        state.chatHistory = [action.payload, ...state.chatHistory];
+      }
     });
 });

@@ -13,3 +13,4 @@ export * from './Modals/MakeRoomModal';
 export * from './SubjectTextField';
 export * from './PrimaryButton';
 export * from './HatchCard';
+export * from './ChattingRoom';

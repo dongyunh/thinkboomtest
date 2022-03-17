@@ -4,14 +4,10 @@ import { themedPalette } from '../../../theme';
 import CloseIcon from '@mui/icons-material/Close';
 import { Message } from './Message';
 import { ChatTextField } from './ChatTextField';
-
-type MessageType = {
-  nickname: string | null;
-  message: string;
-};
+import { ChatHistoryType } from '@redux/modules/sixHat/types';
 
 type ChattingRoomType = {
-  chatHistory: MessageType[];
+  chatHistory?: ChatHistoryType;
   myNickname: string | null;
   onClick: () => void;
 };
@@ -22,6 +18,8 @@ const ChattingRoom = ({ chatHistory, myNickname, onClick }: ChattingRoomType) =>
     onClick();
   };
 
+  console.log(chatHistory);
+
   return (
     <Container>
       <ChattingHeader>
@@ -31,12 +29,13 @@ const ChattingRoom = ({ chatHistory, myNickname, onClick }: ChattingRoomType) =>
         </IconBox>
       </ChattingHeader>
       <MessageBox>
-        {chatHistory?.reverse().map(data => {
+        {chatHistory?.map((data, idx) => {
           return (
             <Message
               isMe={myNickname == data.nickname}
               message={data.message}
               nickname={data.nickname}
+              key={idx}
             />
           );
         })}
