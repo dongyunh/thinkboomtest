@@ -3,29 +3,23 @@ import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
 
 type PrimaryButtonProps = {
-  buttonColor?: 'gray' | 'black';
   text: string;
   onClick?: () => void;
   disabled?: boolean;
 };
 
-type StyleProps = {
-  buttonColor: 'gray' | 'black';
-};
-
-const PrimaryButton = ({ buttonColor = 'black', text, disabled, onClick }: PrimaryButtonProps) => {
+const PrimaryButton = ({ text, disabled, onClick }: PrimaryButtonProps) => {
   const handleOnClick = () => {
     if (!onClick) return;
-    console.log('확인');
     onClick();
   };
 
   return (
     <ButtonWrapper>
-      <StyledButton disabled={disabled} buttonColor={buttonColor} onClick={handleOnClick}>
+      <StyledButton disabled={disabled} onClick={handleOnClick}>
         {text}
       </StyledButton>
-      <AfterButton buttonColor={buttonColor} />
+      <AfterButton />
     </ButtonWrapper>
   );
 };
@@ -34,14 +28,12 @@ const ButtonWrapper = styled.div`
   position: relative;
 `;
 
-const StyledButton = styled.button<StyleProps>`
+const StyledButton = styled.button`
   height: 75px;
   width: 212px;
-  background-color: ${props =>
-    props.buttonColor === 'black' ? themedPalette.button_1 : themedPalette.button_2};
-  color: ${props =>
-    props.buttonColor === 'black' ? themedPalette.main_text2 : themedPalette.main_text1};
-  border: 5px solid ${themedPalette.component_1};
+  background-color: ${themedPalette.cute_button_normal};
+  color: ${themedPalette.main_text2};
+  border: 5px solid ${themedPalette.border_1};
   border-radius: 18px;
   position: relative;
   transition: 0.1s ease-in-out;
@@ -52,8 +44,9 @@ const StyledButton = styled.button<StyleProps>`
   cursor: pointer;
 
   :disabled {
-    background-color: ${props =>
-      props.buttonColor === 'black' ? themedPalette.button_1 : themedPalette.button_2};
+    background-color: ${themedPalette.cute_button_disabled};
+    color: ${themedPalette.main_text1};
+    cursor: not-allowed;
   }
 
   :hover {
@@ -61,10 +54,9 @@ const StyledButton = styled.button<StyleProps>`
   }
 `;
 
-const AfterButton = styled.button<StyleProps>`
+const AfterButton = styled.button`
   height: 75px;
   width: 212px;
-  background-color: ${themedPalette.component_2};
   border: 5px solid ${themedPalette.component_1};
   position: absolute;
   border-radius: 18px;

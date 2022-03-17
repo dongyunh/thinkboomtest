@@ -21,6 +21,8 @@ type ThemeVariables = {
   sub_text1: string;
   sub_text2: string;
   border_1: string;
+  cute_button_normal: string;
+  cute_button_disabled: string;
 };
 
 type Theme = 'light' | 'dark';
@@ -51,6 +53,8 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     sub_text1: '#F41414',
     sub_text2: '#F5F5F5',
     border_1: '#1B1818',
+    cute_button_normal: '#1B1818',
+    cute_button_disabled: '#EEEEEE',
   },
   dark: {
     bg_page1: '#1A1B1F',
@@ -75,6 +79,8 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     sub_text1: '#890B0B',
     sub_text2: '#86878C',
     border_1: '#1B1818',
+    cute_button_normal: '#2B2C31',
+    cute_button_disabled: '#EEEEEE',
   },
 };
 

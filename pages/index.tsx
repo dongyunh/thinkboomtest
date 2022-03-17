@@ -12,7 +12,7 @@ const Home: NextPage = () => {
       <>
         <Main.HeaderBar>
           <>
-            <Main.Button variant="text">로고</Main.Button>
+            <h1>ThinkBoom</h1>
             <NavWrapper>
               <Main.Button variant="text">메인</Main.Button>
               <Main.Button variant="text">갤러리</Main.Button>

@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { HeaderBar } from '../HeaderBar';
 import { SubjectTextField } from '../SubjectTextField';
 import { PrimaryButton } from '../PrimaryButton';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { sixHatSelector } from '../../../redux/modules/sixHat';
 
 type WaitingRoomProps = {
   onClickSubmit?: () => void;
@@ -12,6 +14,7 @@ type WaitingRoomProps = {
 };
 
 const WaitingRoom = ({ onClickSubmit, onClickComplete, onChange }: WaitingRoomProps) => {
+  const { isAdmin, isSubmit } = useAppSelector(sixHatSelector);
   const handleOnclickSubmit = () => {
     if (!onClickSubmit) return;
     onClickSubmit();
@@ -30,7 +33,7 @@ const WaitingRoom = ({ onClickSubmit, onClickComplete, onChange }: WaitingRoomPr
   return (
     <>
       <HeaderBar>
-        <Button variant="text">로고</Button>
+        <h1>ThinkBoom</h1>
       </HeaderBar>
       <Grid>
         <Empty />
@@ -38,7 +41,7 @@ const WaitingRoom = ({ onClickSubmit, onClickComplete, onChange }: WaitingRoomPr
           <h2>회의 주제</h2>
           <SubjectTextField onChange={handleOnChange} onClick={handleOnclickSubmit} />
         </TextFieldWrapper>
-        <PrimaryButton text="완료" onClick={handleOnClickComplete} />
+        <PrimaryButton text="완료" onClick={handleOnClickComplete} disabled={isSubmit && isAdmin} />
       </Grid>
     </>
   );

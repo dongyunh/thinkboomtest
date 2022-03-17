@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../src/redux/hooks';
 import {
   updateCurrentPage,
   updateNickname,
+  changeIsSubmitState,
   sixHatSelector,
 } from '../../../src/redux/modules/sixHat';
 import { NicknameModal } from '../../../src/components/common';
@@ -15,6 +16,14 @@ import axios from 'axios';
 import CommentIcon from '@mui/icons-material/Comment';
 import styled from 'styled-components';
 import useSocketHook from '../../../src/hooks/useSocketHook';
+import { makeStyles } from '@mui/styles';
+import { themedPalette } from '../../../src/theme';
+
+const useStyles = makeStyles({
+  icon: {
+    color: '#FFFFFF',
+  },
+});
 
 //TODO : any 수정하기
 export const WaitingRoomContext = createContext<any>(null);
@@ -40,8 +49,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   const [senderId, setSenderId] = useState(localSenderId ? Number(localSenderId) : null);
   const HandleSocket = useSocketHook('sixhat');
   const router = useRouter();
-
-  console.log(chatHistory);
+  const classes = useStyles();
 
   useEffect(() => {
     if (nickname) {
@@ -63,7 +71,8 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   };
 
   const handleSubmitSubject = () => {
-    ConnectedSocket.sendSubject('주제입력');
+    dispatch(changeIsSubmitState(true));
+    ConnectedSocket.sendSubject(subject);
   };
 
   const handleUpdateNickname = async (enteredName: string) => {
@@ -101,9 +110,9 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   return (
     <WaitingRoomContext.Provider value={contextValue}>
       <InteractivePage pages={pages} currentPage={currentPage} />
-      {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />}
+      {/* {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />} */}
       <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>
-        <CommentIcon />
+        <CommentIcon className={classes.icon} />
       </ChatIcon>
       {isChatOpen && (
         <ChattingContainer>
@@ -125,6 +134,13 @@ const ChatIcon = styled.div`
   right: 70px;
   bottom: 70px;
   cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background-color: #c4c4c4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
 `;
 
 const ChattingContainer = styled.div`

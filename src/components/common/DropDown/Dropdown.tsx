@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  arrow: {
+    color: '#EEEEEE',
+  },
+});
 
 type OptionType = {
   type: 'number' | 'timer';
@@ -19,6 +28,7 @@ type StyleProps = {
 const Dropdown = ({ onClick, options }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [optionList, setOptionList] = useState(options.data);
+  const classes = useStyles();
 
   const sortOptions = (item: number) => {
     const tmp = new Set(optionList);
@@ -37,6 +47,11 @@ const Dropdown = ({ onClick, options }: DropdownProps) => {
     <DropDownContainer>
       <DropDownHeader onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}>
         {options.type == 'number' ? `${optionList[0]}명` : `${optionList[0]}분`}
+        {isOpen ? (
+          <ArrowDropUpIcon fontSize="large" />
+        ) : (
+          <ArrowDropDownIcon fontSize="large" className={classes.arrow} />
+        )}
       </DropDownHeader>
       {isOpen && (
         <DropdownListContainer>
@@ -76,11 +91,13 @@ const DropDownHeader = styled.div<StyleProps>`
   width: 210px;
   height: 48px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   z-index: 2;
   margin: 0;
   cursor: pointer;
+  padding: 0 30px;
+
   ${props => props.isOpen && `border : 5px solid ${themedPalette.input_focus}`}
 `;
 
