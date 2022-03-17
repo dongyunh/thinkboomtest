@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField } from '@mui/material';
 import styled from 'styled-components';
-import { HeaderBar, Card, Button } from '../../common';
+import { HeaderBar, Card, PrimaryButton } from '../../common';
 
 type StartProps = {
   title: string;
@@ -25,7 +25,7 @@ const StartPage = ({ title, desc, onClick }: StartProps) => {
             <h1>{title}</h1>
             <p>{desc}</p>
             <ButtonWrapper>
-              <Button text="시작하기" onClick={handleOnClick} />
+              <PrimaryButton text="시작하기" onClick={handleOnClick} />
             </ButtonWrapper>
           </RightContent>
           <Card width={600} height={350} />

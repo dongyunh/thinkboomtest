@@ -114,7 +114,7 @@ const DropDownList = styled.ul<StyleProps>`
   box-sizing: border-box;
   color: ${themedPalette.main_text1};
   &:first-child {
-    padding-top: 20px;
+    padding-top: 16px;
   }
   ${props => props.isOpen && `border : 5px solid ${themedPalette.input_focus}`}
 `;
@@ -128,7 +128,7 @@ const ListItem = styled.li`
   margin: 0;
   cursor: pointer;
   :hover {
-    background-color: ${themedPalette.gray};
+    background-color: ${themedPalette.dropdown_list_hover};
   }
   &:last-child {
     border: none;

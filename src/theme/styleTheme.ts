@@ -50,7 +50,7 @@ type VariableKey = keyof ThemeVariables;
 type ThemedPalette = Record<VariableKey, string>;
 
 const themeVariableSets: Record<Theme, ThemeVariables> = {
-  light: {
+  dark: {
     bg_page1: '#FFFFFF',
     bg_page2: '#F5F5F5',
     bg_page3: '#FFFFFF',
@@ -96,7 +96,7 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     timer: '#FFFFFF',
     timer_button: '#1B1818',
   },
-  dark: {
+  light: {
     bg_page1: '#1A1B1F',
     bg_page2: '#45474A',
     bg_page3: '#1A1B1F',
