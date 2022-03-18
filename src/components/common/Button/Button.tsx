@@ -4,6 +4,7 @@ import { themedPalette } from '../../../theme/styleTheme';
 
 type ButtonProps = {
   text: string;
+  disabled?: boolean;
   onClick?: () => void;
 };
 
@@ -11,21 +12,25 @@ type StyleProps = {
   isError?: boolean;
 };
 
-const Button = ({ text, onClick }: ButtonProps) => {
+const Button = ({ text, disabled, onClick }: ButtonProps) => {
   const handleOnClick = (e: any) => {
     if (!onClick) return;
     onClick();
   };
 
-  return <StyledButton onClick={handleOnClick}>{text}</StyledButton>;
+  return (
+    <StyledButton disabled={disabled} onClick={handleOnClick}>
+      {text}
+    </StyledButton>
+  );
 };
 
 const StyledButton = styled.button<StyleProps>`
   border: none;
   align-items: center;
   border-radius: 12px;
-  background-color: ${themedPalette.button_1};
-  color: #ffffff;
+  background-color: ${themedPalette.modal_button_normal};
+  color: ${themedPalette.main_text2};
   box-sizing: border-box;
   width: 100%;
   height: 60px;
@@ -36,8 +41,14 @@ const StyledButton = styled.button<StyleProps>`
   cursor: pointer;
 
   :hover {
-    background-color: ${themedPalette.button_2};
+    background-color: ${themedPalette.modal_button_hover};
     color: ${themedPalette.main_text1};
+  }
+
+  :disabled {
+    background-color: ${themedPalette.modal_button_disabled};
+    color: ${themedPalette.main_text1};
+    cursor: not-allowed;
   }
 `;
 

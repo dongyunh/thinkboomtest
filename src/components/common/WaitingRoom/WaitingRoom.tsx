@@ -3,16 +3,27 @@ import { Button, TextField } from '@mui/material';
 import styled from 'styled-components';
 import { HeaderBar } from '../HeaderBar';
 import { SubjectTextField } from '../SubjectTextField';
+import { PrimaryButton } from '../PrimaryButton';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { sixHatSelector } from '../../../redux/modules/sixHat';
+import { Title, Desc } from '../../common';
 
 type WaitingRoomProps = {
-  onClick?: () => void;
+  onClickSubmit?: () => void;
+  onClickComplete?: () => void;
   onChange?: () => void;
 };
 
-const WaitingRoom = ({ onClick, onChange }: WaitingRoomProps) => {
-  const handleOnclick = () => {
-    if (!onClick) return;
-    onClick();
+const WaitingRoom = ({ onClickSubmit, onClickComplete, onChange }: WaitingRoomProps) => {
+  const { isAdmin, isSubmit } = useAppSelector(sixHatSelector);
+  const handleOnclickSubmit = () => {
+    if (!onClickSubmit) return;
+    onClickSubmit();
+  };
+
+  const handleOnClickComplete = () => {
+    if (!onClickComplete) return;
+    onClickComplete();
   };
 
   const handleOnChange = () => {
@@ -23,15 +34,15 @@ const WaitingRoom = ({ onClick, onChange }: WaitingRoomProps) => {
   return (
     <>
       <HeaderBar>
-        <Button variant="text">로고</Button>
+        <Title text="ThinkBoom" />
       </HeaderBar>
       <Grid>
         <Empty />
         <TextFieldWrapper>
-          <h2>회의 주제</h2>
-          <SubjectTextField onChange={handleOnChange} onClick={handleOnclick} />
+          <Title text="회의 주제" />
+          <SubjectTextField onChange={handleOnChange} onClick={handleOnclickSubmit} />
         </TextFieldWrapper>
-        <Empty />
+        <PrimaryButton text="완료" onClick={handleOnClickComplete} disabled={isSubmit && isAdmin} />
       </Grid>
     </>
   );

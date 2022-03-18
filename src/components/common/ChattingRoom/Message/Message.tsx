@@ -4,7 +4,7 @@ import { themedPalette } from '../../../../theme';
 
 type MessageProps = {
   isMe: boolean;
-  message: string;
+  message: string | null;
   nickname: string | null;
 };
 
@@ -16,13 +16,19 @@ const Message = ({ isMe, message, nickname }: MessageProps) => {
   return (
     <MessageBox isMe={isMe}>
       {isMe ? (
-        <MyBox>{message}</MyBox>
+        <MyBox>
+          {message}
+          <Corner />
+        </MyBox>
       ) : (
         <OtherMessageBox>
           <ProfileBox>
             <HatName>{nickname}</HatName>
           </ProfileBox>
-          <Box>{message}</Box>
+          <Box>
+            {message}
+            <OtherBoxCorner />
+          </Box>
         </OtherMessageBox>
       )}
     </MessageBox>
@@ -64,9 +70,25 @@ const Box = styled.div`
   align-items: center;
   max-width: 250px;
   padding: 12px 24px;
+  position: relative;
+`;
+
+const OtherBoxCorner = styled.div`
+  position: absolute;
+  left: 0;
+  top: 9.5px;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-right-color: ${themedPalette.bg_page2};
+  border-left: 0;
+  border-top: 0;
+  margin-top: -9.5px;
+  margin-left: -10.5px;
 `;
 
 const MyBox = styled.div`
+  position: relative;
   background-color: ${themedPalette.component_1};
   border-radius: 12px;
   display: flex;
@@ -74,7 +96,22 @@ const MyBox = styled.div`
   align-items: center;
   max-width: 250px;
   padding: 12px 24px;
+  margin-right: 19px;
   color: ${themedPalette.main_text2};
+`;
+
+const Corner = styled.div`
+  position: absolute;
+  right: 0;
+  top: 9.5px;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-left-color: ${themedPalette.component_1};
+  border-right: 0;
+  border-top: 0;
+  margin-top: -9.5px;
+  margin-right: -10.5px;
 `;
 
 export { Message };

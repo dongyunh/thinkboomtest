@@ -13,9 +13,10 @@ const HeaderBar = ({ children }: HeaderBarProps) => {
 const StyledHeaderBar = styled.header`
   width: 100vw;
   height: 80px;
-  padding: 0px 164px;
+  padding: 0px 100px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: fixed;
   top: 0px;
 `;

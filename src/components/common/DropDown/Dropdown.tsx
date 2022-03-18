@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  arrow: {
+    color: '#EEEEEE',
+  },
+});
 
 type OptionType = {
   type: 'number' | 'timer';
@@ -19,6 +28,7 @@ type StyleProps = {
 const Dropdown = ({ onClick, options }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [optionList, setOptionList] = useState(options.data);
+  const classes = useStyles();
 
   const sortOptions = (item: number) => {
     const tmp = new Set(optionList);
@@ -37,6 +47,11 @@ const Dropdown = ({ onClick, options }: DropdownProps) => {
     <DropDownContainer>
       <DropDownHeader onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}>
         {options.type == 'number' ? `${optionList[0]}명` : `${optionList[0]}분`}
+        {isOpen ? (
+          <ArrowDropUpIcon fontSize="large" />
+        ) : (
+          <ArrowDropDownIcon fontSize="large" className={classes.arrow} />
+        )}
       </DropDownHeader>
       {isOpen && (
         <DropdownListContainer>
@@ -69,19 +84,21 @@ const DropdownListContainer = styled.div`
 `;
 
 const DropDownHeader = styled.div<StyleProps>`
-  color: ${themedPalette.black};
-  background: ${themedPalette.bg_page1};
-  border: 5px solid ${themedPalette.gray};
+  color: ${themedPalette.main_text1};
+  background-color: ${themedPalette.bg_page3};
+  border: 5px solid ${themedPalette.input_normal};
   border-radius: 12px;
   width: 210px;
   height: 48px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   z-index: 2;
   margin: 0;
   cursor: pointer;
-  ${props => props.isOpen && `border : 5px solid ${themedPalette.black}`}
+  padding: 0 30px;
+
+  ${props => props.isOpen && `border : 5px solid ${themedPalette.input_focus}`}
 `;
 
 const DropDownList = styled.ul<StyleProps>`
@@ -90,20 +107,20 @@ const DropDownList = styled.ul<StyleProps>`
   z-index: -1;
   padding: 0;
   margin: 0;
-  background: #ffffff;
-  border: 5px solid ${themedPalette.gray};
+  background-color: ${themedPalette.bg_page3};
+  border: 5px solid ${themedPalette.input_normal};
   border-radius: 0px 0px 12px 12px;
   width: 210px;
   box-sizing: border-box;
-  color: ${themedPalette.black};
+  color: ${themedPalette.main_text1};
   &:first-child {
-    padding-top: 20px;
+    padding-top: 16px;
   }
-  ${props => props.isOpen && `border : 5px solid ${themedPalette.black}`}
+  ${props => props.isOpen && `border : 5px solid ${themedPalette.input_focus}`}
 `;
 
 const ListItem = styled.li`
-  border-bottom: 1px solid ${themedPalette.black};
+  border-bottom: 1px solid ${themedPalette.input_focus};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,7 +128,7 @@ const ListItem = styled.li`
   margin: 0;
   cursor: pointer;
   :hover {
-    background-color: ${themedPalette.gray};
+    background-color: ${themedPalette.dropdown_list_hover};
   }
   &:last-child {
     border: none;

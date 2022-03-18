@@ -1,22 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
 import { Message, ChatTextField } from '../DevatingChatBox';
+import { ChatHistoryType } from '../../../../redux/modules/sixHat/types';
+import { sixHatSelector } from '../../../../redux/modules/sixHat';
+import { useAppSelector } from '../../../../redux/hooks';
 const HatSrc = require('../../../../../public/hat.png');
-
-type MessageDataType = {
-  nickname: string;
-  hat: string;
-  message: string;
-};
-
-type DevatingChatBoxProps = {
-  subject: string;
-  myNickname: string;
-  myHat: string;
-  userList: string[];
-  messageData: MessageDataType[];
-};
 
 type StyleProps = {
   width?: number;
@@ -24,34 +13,33 @@ type StyleProps = {
   isMouseOver?: boolean;
 };
 
-const DevatingChatBox = ({
-  subject,
-  myNickname,
-  myHat,
-  userList,
-  messageData,
-}: DevatingChatBoxProps) => {
+const DevatingChatBox = ({}) => {
+  const { subject, chatHistory, nickname, userList } = useAppSelector(sixHatSelector);
+  const myHat = userList?.filter(user => {
+    if (user.nickname == nickname) return user.hat;
+  });
+
   return (
     <Container>
       <SubjectBox>{subject}</SubjectBox>
       <DownBox>
         <UserListBox>
           <MyHatBox>
-            <HatImg src={HatSrc} width={70} />
+            <HatImg width={70} />
           </MyHatBox>
           <UserList>
-            {messageData.map(data => {
+            {chatHistory?.map(data => {
               return <User key={data.nickname}>{data.nickname}</User>;
             })}
           </UserList>
         </UserListBox>
         <ChatViewBox>
           <MessageBox>
-            {messageData.reverse().map(data => {
+            {chatHistory?.map(data => {
               return (
                 <Message
                   key={data.nickname}
-                  isMe={data.nickname === myNickname}
+                  isMe={data.nickname === nickname}
                   message={data.message}
                   hatName="빨간모자"
                   hat={data.hat}
@@ -105,7 +93,7 @@ const DownBox = styled.div`
 
 const UserListBox = styled.div`
   width: 212px;
-  height: 514px;
+  height: 508px;
   border-right: 5px solid ${themedPalette.black};
   box-sizing: border-box;
   display: flex;
