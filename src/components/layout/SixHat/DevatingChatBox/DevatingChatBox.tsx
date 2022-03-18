@@ -7,21 +7,17 @@ import { sixHatSelector } from '../../../../redux/modules/sixHat';
 import { useAppSelector } from '../../../../redux/hooks';
 const HatSrc = require('../../../../../public/hat.png');
 
-type DevatingChatBoxProps = {
-  myNickname: string;
-  userList: string[];
-  chatHistory: ChatHistoryType;
-};
-
 type StyleProps = {
   width?: number;
   height?: number;
   isMouseOver?: boolean;
 };
 
-const DevatingChatBox = ({ myNickname, userList, chatHistory }: DevatingChatBoxProps) => {
-  const { subject } = useAppSelector(sixHatSelector);
-  const myHat = userList.filter(user => user.nickname == myNickname).hat;
+const DevatingChatBox = ({}) => {
+  const { subject, chatHistory, nickname, userList } = useAppSelector(sixHatSelector);
+  const myHat = userList?.filter(user => {
+    if (user.nickname == nickname) return user.hat;
+  });
 
   return (
     <Container>
@@ -29,7 +25,7 @@ const DevatingChatBox = ({ myNickname, userList, chatHistory }: DevatingChatBoxP
       <DownBox>
         <UserListBox>
           <MyHatBox>
-            <HatImg src={HatSrc} width={70} />
+            <HatImg src={myHat} width={70} />
           </MyHatBox>
           <UserList>
             {chatHistory?.map(data => {
@@ -43,7 +39,7 @@ const DevatingChatBox = ({ myNickname, userList, chatHistory }: DevatingChatBoxP
               return (
                 <Message
                   key={data.nickname}
-                  isMe={data.nickname === myNickname}
+                  isMe={data.nickname === nickname}
                   message={data.message}
                   hatName="빨간모자"
                   hat={data.hat}

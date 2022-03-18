@@ -6,6 +6,13 @@ export type ChatData = {
   hat?: HatType;
 };
 
+export type UserData = {
+  nickname: string;
+  hat: string;
+};
+
+export type UserList = UserData[];
+
 export type ChatHistoryType = ChatData[];
 
 export type SixHatState = {
@@ -15,4 +22,5 @@ export type SixHatState = {
   isSubmit: boolean;
   chatHistory?: ChatHistoryType;
   subject?: string;
+  userList: UserList;
 };
