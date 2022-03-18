@@ -6,8 +6,6 @@ type CardProps = {
   width: number;
   height: number;
   children?: React.ReactChild;
-  onMouseOver?: () => void;
-  onMouseOut?: () => void;
 };
 
 type StyleProps = {
@@ -15,7 +13,7 @@ type StyleProps = {
   height: number;
 };
 
-const Card = ({ width, height, children, onMouseOver, onMouseOut }: CardProps) => {
+const Card = ({ width, height, children }: CardProps) => {
   return (
     <CardWrapper>
       <StyledCard width={width} height={height}>
