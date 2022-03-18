@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Button, TextField } from '@mui/material';
-import { HeaderBar, Card, CenterLayout } from '../../common';
+import { Button } from '@mui/material';
+import { CenterLayout } from '../../common';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { randomWordSelector, getRandomWord, selectWord } from '@redux/modules/randomWord';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-
-type WordType = {
-  word: string;
-  contents: string;
-};
+import { SelectWordBox } from '../../layout/RandomWord/SelectWordBox';
 
 const SelectWord = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +19,7 @@ const SelectWord = () => {
     dispatch(getRandomWord());
   }, []);
 
-  const handleSelectWord = (word: WordType, idx: number) => {
+  const handleSelectWord = (word: string, idx: number) => {
     dispatch(selectWord({ word, idx }));
   };
 
@@ -37,31 +33,12 @@ const SelectWord = () => {
 
   return (
     <>
-      <HeaderBar>
-        <h1>로고</h1>
-      </HeaderBar>
       <CenterLayout>
         <CenterBox>
           <Empty />
-          <WordsWrapper>
-            {randomWordList?.map((item, idx) => {
-              return (
-                <Card key={idx} width={100} height={70}>
-                  <TextBox onClick={() => handleSelectWord(item, idx)}>{item.word}</TextBox>
-                </Card>
-              );
-            })}
-          </WordsWrapper>
-          <Card width={300} height={700}>
-            <>
-              {pickedWordList?.map((item, idx) => {
-                return <div key={idx}>{item.word}</div>;
-              })}
-            </>
-          </Card>
+          <SelectWordBox />
         </CenterBox>
       </CenterLayout>
-      <Button onClick={handlePostPickedWord}>보내기</Button>
     </>
   );
 };

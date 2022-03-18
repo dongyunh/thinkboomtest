@@ -43,6 +43,9 @@ type ThemeVariables = {
   user_count: string;
   timer: string;
   timer_button: string;
+  box_subject: string;
+  box_bg: string;
+  box_complete: string;
 };
 
 type Theme = 'light' | 'dark';
@@ -95,6 +98,9 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     user_count: '#1B1818',
     timer: '#FFFFFF',
     timer_button: '#1B1818',
+    box_subject: '#000000',
+    box_bg: '#FFFFFF',
+    box_complete: '#000000',
   },
   dark: {
     bg_page1: '#1A1B1F',
@@ -141,6 +147,9 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     user_count: '#EEEEEE',
     timer: '#EEEEEE',
     timer_button: '#45474A',
+    box_subject: '#2B2C31',
+    box_bg: '#45474A',
+    box_complete: '#2B2C31',
   },
 };
 

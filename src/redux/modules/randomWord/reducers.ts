@@ -1,17 +1,19 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { updateCurrentPage, selectWord, getRandomWord, postPickedWords } from './actions';
-
-type WordType = {
-  word: string;
-  contents: string;
-};
+import {
+  updateCurrentPage,
+  selectWord,
+  getRandomWord,
+  postPickedWords,
+  getSubject,
+} from './actions';
 
 export type RandomWordState = {
   currentPage: number;
-  randomWordList: WordType[];
-  pickedWordList: WordType[];
+  randomWordList: string[];
+  pickedWordList: string[];
   pending: boolean;
   error: boolean;
+  subject: string;
 };
 
 const initialState: RandomWordState = {
@@ -20,6 +22,7 @@ const initialState: RandomWordState = {
   pickedWordList: [],
   pending: false,
   error: false,
+  subject: '',
 };
 
 //createReducer로 reducer 생성.
@@ -30,7 +33,7 @@ export const randomWordReducer = createReducer(initialState, builder => {
     })
     .addCase(selectWord, (state, action) => {
       const { word, idx } = action.payload;
-      state.randomWordList[idx] = { word: '', contents: '' };
+      state.randomWordList[idx] = '';
       state.pickedWordList.push(word);
     })
     .addCase(getRandomWord.pending, state => {
@@ -46,5 +49,8 @@ export const randomWordReducer = createReducer(initialState, builder => {
     })
     .addCase(postPickedWords.fulfilled, state => {
       state.pending = false;
+    })
+    .addCase(getSubject, (state, action) => {
+      state.subject = action.payload;
     });
 });

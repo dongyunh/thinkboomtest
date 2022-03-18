@@ -1,32 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { Card } from '../Card';
 import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { WaitingRoomContext } from '../../../../pages/sixHat/devating/[roomId]';
+import { useAppDispatch } from '../../../redux/hooks';
+import { getSubject } from '@redux/modules/randomWord/actions';
 
 type SubjectTextFieldProps = {
-  onChange?: () => void;
+  type: 'randomWord' | 'sixHat';
+  onChange?: (e: string) => void;
   onClick?: () => void;
 };
 
-const SubjectTextField = ({ onChange, onClick }: SubjectTextFieldProps) => {
-  const { setSubject } = useContext(WaitingRoomContext);
-  const handleOnChange = () => {
-    if (!onChange) return;
-    onChange();
-  };
+const SubjectTextField = ({ type, onChange, onClick }: SubjectTextFieldProps) => {
+  const dispatch = useAppDispatch();
+  const [subject, setSubject] = useState<string>('');
 
-  const handleOnclick = () => {
-    if (!onClick) return;
-    onClick();
+  const handleGetSubject = () => {
+    if (type == 'randomWord') {
+      dispatch(getSubject(subject));
+    }
   };
 
   return (
     <Card width={784} height={124}>
       <TextFieldBox>
         <TextField onChange={e => setSubject(e.target.value)} />
-        <Button onClick={handleOnclick}>
+        <Button onClick={handleGetSubject}>
           <ArrowIcon fontSize="large" />
         </Button>
       </TextFieldBox>
