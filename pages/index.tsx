@@ -4,18 +4,31 @@ import styled from 'styled-components';
 import { Main } from '@components/layout/Main';
 import { useRouter } from 'next/router';
 import { DarkModeToggle } from '@components/common/DarkModeToggle';
+import { useAppDispatch } from '@redux/hooks';
+import { enableDarkMode, enableLightMode } from '@redux/modules/darkMode';
 
 import { Title, Desc } from '../src/components/common';
 
 const Home: NextPage = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const loadTheme = () => {
+    const theme = localStorage.getItem('theme');
+    if (!theme) return;
+    if (theme === 'dark') {
+      dispatch(enableDarkMode());
+    } else {
+      dispatch(enableLightMode());
+    }
+    document.body.dataset.theme = 'light';
+  };
+
+  loadTheme();
 
   return (
     <Main>
       <>
-        <Main.HeaderBar>
-          <Title text="ThinkBoom" />
-        </Main.HeaderBar>
         <Grid>
           <CardWrapper>
             <Main.Card width={315} height={400} onMouseUp={() => router.push('/randomWord')}>

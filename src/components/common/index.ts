@@ -16,3 +16,4 @@ export * from './HatchCard';
 export * from './ChattingRoom';
 export * from './Title';
 export * from './Desc';
+export * from './DarkModeToggle';

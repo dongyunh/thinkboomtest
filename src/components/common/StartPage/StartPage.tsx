@@ -16,23 +16,18 @@ const StartPage = ({ title, desc, onClick }: StartProps) => {
     onClick();
   };
   return (
-    <>
-      <HeaderBar>
-        <Title>ThinkBoom</Title>
-      </HeaderBar>
-      <Grid>
-        <ContentWrapper>
-          <RightContent>
-            <Title>{title}</Title>
-            <Desc>{desc}</Desc>
-            <ButtonWrapper>
-              <PrimaryButton text="시작하기" onClick={handleOnClick} />
-            </ButtonWrapper>
-          </RightContent>
-          <Card width={600} height={350} />
-        </ContentWrapper>
-      </Grid>
-    </>
+    <Grid>
+      <ContentWrapper>
+        <RightContent>
+          <Title>{title}</Title>
+          <Desc>{desc}</Desc>
+          <ButtonWrapper>
+            <PrimaryButton text="시작하기" onClick={handleOnClick} />
+          </ButtonWrapper>
+        </RightContent>
+        <Card width={600} height={350} />
+      </ContentWrapper>
+    </Grid>
   );
 };
 
