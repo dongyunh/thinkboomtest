@@ -23,6 +23,10 @@ type ThemeVariables = {
   border_1: string;
   cute_button_normal: string;
   cute_button_disabled: string;
+  toggle_border: string;
+  toggle_white_circle: string;
+  toggle_dark_circle: string;
+  toggle_bg: string;
 };
 
 type Theme = 'light' | 'dark';
@@ -55,6 +59,10 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     border_1: '#1B1818',
     cute_button_normal: '#1B1818',
     cute_button_disabled: '#EEEEEE',
+    toggle_border: '#1B1B1B',
+    toggle_white_circle: '#1B1B1B',
+    toggle_dark_circle: '#FFFFFF',
+    toggle_bg: '#FFFFFF',
   },
   dark: {
     bg_page1: '#1A1B1F',
@@ -81,6 +89,10 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     border_1: '#1B1818',
     cute_button_normal: '#2B2C31',
     cute_button_disabled: '#EEEEEE',
+    toggle_border: '#eeeeee',
+    toggle_white_circle: '#1B1B1B',
+    toggle_dark_circle: '#eeeeee',
+    toggle_bg: '#1B1B1B',
   },
 };
 

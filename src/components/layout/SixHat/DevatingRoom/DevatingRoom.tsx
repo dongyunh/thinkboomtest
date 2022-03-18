@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { CenterLayout } from '@components/common';
+import { CenterLayout } from '../../../common';
 import { DevatingChatBox } from '../DevatingChatBox';
 import { ChatHistoryType } from '../../../../redux/modules/sixHat/types';
 
@@ -14,11 +14,10 @@ type DevatingRoomProps = {
 };
 
 const DevatingRoom = ({ chatHistory }: DevatingRoomProps) => {
-
   return (
-      <CenterLayout>
-        <DevatingChatBox chatHistory={chatHistory} />
-      </CenterLayout>
+    <CenterLayout>
+      <DevatingChatBox chatHistory={chatHistory} />
+    </CenterLayout>
   );
 };
 
