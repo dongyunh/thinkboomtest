@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { InteractivePage, WaitingRoom } from '../../../src/components/common';
-import { SelectHat } from '../../../src/components/layout/SixHat';
+import { SelectHat, DevatingRoom } from '../../../src/components/layout/SixHat';
 import { useAppDispatch, useAppSelector } from '../../../src/redux/hooks';
 import {
   updateCurrentPage,
@@ -98,8 +98,11 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
       ),
     },
     {
-      component: <SelectHat onClick={sendHatData} />,
+      component: <SelectHat onClick={sendHatData} onClickComplete={() => handleNextPage(2)} />,
     },
+    {
+      component: <DevatingRoom />
+    }
   ];
 
   const contextValue = {
@@ -110,7 +113,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   return (
     <WaitingRoomContext.Provider value={contextValue}>
       <InteractivePage pages={pages} currentPage={currentPage} />
-      {/* {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />} */}
+      {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />}
       <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>
         <CommentIcon className={classes.icon} />
       </ChatIcon>

@@ -3,7 +3,7 @@ import { Card } from '../Card';
 import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { WaitingRoomContext } from '../../../../pages/sixHat/setting/[roomId]';
+import { WaitingRoomContext } from '../../../../pages/sixHat/devating/[roomId]';
 
 type SubjectTextFieldProps = {
   onChange?: () => void;
