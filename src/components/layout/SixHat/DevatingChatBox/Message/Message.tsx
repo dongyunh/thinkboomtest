@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../../theme/styleTheme';
 const HatSrc = require('../../../../../../public/hat.png');
+import { HatType } from '../../../../../redux/modules/sixHat/types';
 
 type MessageProps = {
   isMe: boolean;
-  message: string;
-  hatName: string;
-  hat: string;
+  message: string | null;
+  hatName: string | null;
+  hat?: HatType ;
 };
 
 type StyleProps = {

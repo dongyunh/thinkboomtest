@@ -3,44 +3,53 @@ import type { NextPage } from 'next';
 import styled from 'styled-components';
 import { Main } from '@components/layout/Main';
 import { useRouter } from 'next/router';
+import { DarkModeToggle } from '@components/common/DarkModeToggle';
+import { useAppDispatch } from '@redux/hooks';
+import { enableDarkMode, enableLightMode } from '@redux/modules/darkMode';
+
+import { Title, Desc } from '../src/components/common';
 
 const Home: NextPage = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const loadTheme = () => {
+    const theme = localStorage.getItem('theme');
+    if (!theme) return;
+    if (theme === 'dark') {
+      dispatch(enableDarkMode());
+    } else {
+      dispatch(enableLightMode());
+    }
+    document.body.dataset.theme = 'light';
+  };
+
+  loadTheme();
 
   return (
     <Main>
       <>
-        <Main.HeaderBar>
-          <>
-            <h1>ThinkBoom</h1>
-            <NavWrapper>
-              <Main.Button variant="text">메인</Main.Button>
-              <Main.Button variant="text">갤러리</Main.Button>
-              <Main.Button variant="text">마이페이지</Main.Button>
-            </NavWrapper>
-          </>
-        </Main.HeaderBar>
         <Grid>
           <CardWrapper>
             <Main.Card width={315} height={400} onMouseUp={() => router.push('/randomWord')}>
               <CardContent>
-                <h2>랜덤워드</h2>
-                <p>참신한 주제가 필요하다면?</p>
-                <p>1인용</p>
+                <Title text="랜덤워드" />
+                <Desc text="참신한 주제가 필요하다면?" />
+                <Desc text="1인용" />
               </CardContent>
             </Main.Card>
             <Main.Card width={315} height={400}>
               <CardContent>
-                <h2>브레인 라이팅</h2>
-                <p>다양한 의견을 공유하고 싶다면?</p>
-                <p>8인용</p>
+                <Title text="브레인 라이팅" />
+                <Desc text="다양한 의견을 공유하고 싶다면?" />
+                <Desc text="8인용" />
               </CardContent>
             </Main.Card>
             <Main.Card width={315} height={400} onMouseUp={() => router.push('/sixHat')}>
               <CardContent>
-                <h2>6가지 생각모자</h2>
-                <p>새로운 관점에서 문제를 바라보고 싶다면?</p>
-                <p>8인용</p>
+                <Title text="6가지 생각모자" />
+                <Desc text="새로운 관점에서 문제를 바라보고 싶다면?" />
+                <Desc text="8인용" />
               </CardContent>
             </Main.Card>
           </CardWrapper>

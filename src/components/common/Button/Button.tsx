@@ -29,8 +29,8 @@ const StyledButton = styled.button<StyleProps>`
   border: none;
   align-items: center;
   border-radius: 12px;
-  background-color: ${themedPalette.button_1};
-  color: #ffffff;
+  background-color: ${themedPalette.modal_button_normal};
+  color: ${themedPalette.main_text2};
   box-sizing: border-box;
   width: 100%;
   height: 60px;
@@ -40,14 +40,15 @@ const StyledButton = styled.button<StyleProps>`
   justify-content: center;
   cursor: pointer;
 
-  :disabled {
-    background-color: ${themedPalette.button_2};
+  :hover {
+    background-color: ${themedPalette.modal_button_hover};
     color: ${themedPalette.main_text1};
   }
 
-  :hover {
-    background-color: #424242;
-    color: ${themedPalette.main_text2};
+  :disabled {
+    background-color: ${themedPalette.modal_button_disabled};
+    color: ${themedPalette.main_text1};
+    cursor: not-allowed;
   }
 `;
 
