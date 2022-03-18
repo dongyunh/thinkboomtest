@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField } from '@mui/material';
-import { HeaderBar, CenterLayout, SkipButton, SubjectTextField } from '@components/common';
+import { CenterLayout, SkipButton, SubjectTextField } from '@components/common';
 import styled from 'styled-components';
 
 type SettingProps = {
@@ -8,8 +7,6 @@ type SettingProps = {
 };
 
 const Setting = ({ onClick }: SettingProps) => {
-  const [subject, setSubject] = useState<string>();
-  console.log(subject);
   const handleOnClick = () => {
     if (!onClick) return;
     onClick();
@@ -20,7 +17,7 @@ const Setting = ({ onClick }: SettingProps) => {
       <SettingWrapper>
         <Title>단어 입력</Title>
         <Desc>아이디어에 관한 단어를 적어주세요!</Desc>
-        <SubjectTextField onChange={setSubject} />
+        <SubjectTextField type="randomWord" />
         <SkipButtonWrapper>
           <SkipButton onClick={handleOnClick} />
         </SkipButtonWrapper>

@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
-import { useAppSelector } from '@redux/hooks';
-import { randomWordSelector } from '@redux/modules/randomWord';
+import { useAppSelector, useAppDispatch } from '@redux/hooks';
+import {
+  randomWordSelector,
+  getRandomWord,
+  selectWord,
+  postPickedWords,
+} from '@redux/modules/randomWord';
 import { Card, PrimaryButton } from '@components/common';
 
 const SelectWordBox = () => {
+  const dispatch = useAppDispatch();
   const { randomWordList, pickedWordList } = useAppSelector(randomWordSelector);
+
+  const handleGetRandomWord = () => {
+    dispatch(getRandomWord());
+  };
+
+  const handleComplete = () => {
+    dispatch(postPickedWords());
+  };
+
+  useEffect(() => {
+    handleGetRandomWord();
+  }, []);
 
   return (
     <Container>
@@ -14,16 +32,16 @@ const SelectWordBox = () => {
       <DownBox>
         <LeftBox>
           <WordGrid>
-            {randomWordList.map(word => {
+            {randomWordList.map((word, idx) => {
               return (
                 <Card width={350} height={110} key={word}>
-                  {word}
+                  <RandomWordBox onClick={() => selectWord({ word, idx })}>{word}</RandomWordBox>
                 </Card>
               );
             })}
           </WordGrid>
           <RandomBoxWrapper>
-            <PrimaryButton text="랜덤" width={90} height={70} />
+            <PrimaryButton text="랜덤" width={90} height={70} onClick={handleGetRandomWord} />
           </RandomBoxWrapper>
         </LeftBox>
         <RightBox>
@@ -32,7 +50,7 @@ const SelectWordBox = () => {
               return <Word>{word}</Word>;
             })}
           </SelectedWords>
-          <CompleteBox>완료</CompleteBox>
+          <CompleteBox onClick={handleComplete}>완료</CompleteBox>
         </RightBox>
       </DownBox>
     </Container>
@@ -112,6 +130,15 @@ const WordGrid = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   gap: 28px;
+`;
+
+const RandomWordBox = styled.div`
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export { SelectWordBox };
