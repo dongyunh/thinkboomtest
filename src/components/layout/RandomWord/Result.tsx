@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { ResultModal } from '../../common/Modals';
 import { Button } from '@mui/material';
+import { CenterLayout } from '@components/common';
+import styled from 'styled-components';
+import { themedPalette } from '../../../theme/styleTheme';
+import { useAppSelector } from '@redux/hooks';
+import { selectRandomWord } from '@redux/modules/randomWord';
 
 const Result = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { pickedWordList } = useAppSelector(selectRandomWord);
 
   const handleConfirm = () => {
     setIsOpen(false);
@@ -14,14 +20,38 @@ const Result = () => {
   };
 
   return (
-    <>
-      <h1>요것이 결과페이지!</h1>
-      <Button variant="contained" onClick={() => setIsOpen(true)}>
-        완료
-      </Button>
-      {isOpen && <ResultModal onClickBtn1={handleCancel} onClickBtn2={handleConfirm} />}
-    </>
+    <CenterLayout>
+      <>
+        <Title>선택된 단어</Title>
+        <ResultGrid>
+          {pickedWordList.map(word => {
+            return <Word>{word}</Word>;
+          })}
+        </ResultGrid>
+        {isOpen && <ResultModal onClickBtn1={handleCancel} onClickBtn2={handleConfirm} />}
+      </>
+    </CenterLayout>
   );
 };
+
+const Title = styled.h1`
+  color: ${themedPalette.main_text1};
+`;
+
+const ResultGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  column-gap: 80px;
+  row-gap: 66px;
+`;
+
+const Word = styled.div`
+  width: 318px;
+  height: 114px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export { Result };
