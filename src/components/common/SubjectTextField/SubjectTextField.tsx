@@ -3,18 +3,16 @@ import { Card } from '../Card';
 import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { WaitingRoomContext } from '../../../../pages/sixHat/devating/[roomId]';
 
 type SubjectTextFieldProps = {
-  onChange?: () => void;
+  onChange?: (e: string) => void;
   onClick?: () => void;
 };
 
-const SubjectTextField = ({ onChange, onClick }: SubjectTextFieldProps) => {
-  const { setSubject } = useContext(WaitingRoomContext);
-  const handleOnChange = () => {
+const SubjectTextField = ({  onChange, onClick }: SubjectTextFieldProps) => {
+  const handleOnChange = (e: string) => {
     if (!onChange) return;
-    onChange();
+    onChange(e);
   };
 
   const handleOnclick = () => {
@@ -25,7 +23,7 @@ const SubjectTextField = ({ onChange, onClick }: SubjectTextFieldProps) => {
   return (
     <Card width={784} height={124}>
       <TextFieldBox>
-        <TextField onChange={e => setSubject(e.target.value)} />
+        <TextField onChange={e => handleOnChange(e.target.value)} />
         <Button onClick={handleOnclick}>
           <ArrowIcon fontSize="large" />
         </Button>
