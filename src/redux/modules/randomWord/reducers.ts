@@ -1,15 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { updateCurrentPage, selectWord, getRandomWord, postPickedWords } from './actions';
 
-type WordType = {
-  word: string;
-  contents: string;
-};
-
 export type RandomWordState = {
   currentPage: number;
-  randomWordList: WordType[];
-  pickedWordList: WordType[];
+  randomWordList: string[];
+  pickedWordList: string[];
   pending: boolean;
   error: boolean;
 };
@@ -30,7 +25,7 @@ export const randomWordReducer = createReducer(initialState, builder => {
     })
     .addCase(selectWord, (state, action) => {
       const { word, idx } = action.payload;
-      state.randomWordList[idx] = { word: '', contents: '' };
+      state.randomWordList[idx] = word;
       state.pickedWordList.push(word);
     })
     .addCase(getRandomWord.pending, state => {

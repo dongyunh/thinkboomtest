@@ -6,9 +6,22 @@ type PrimaryButtonProps = {
   text: string;
   onClick?: () => void;
   disabled?: boolean;
+  width?: number;
+  height?: number;
 };
 
-const PrimaryButton = ({ text, disabled, onClick }: PrimaryButtonProps) => {
+type StyledProps = {
+  width?: number;
+  height?: number;
+};
+
+const PrimaryButton = ({
+  text,
+  disabled,
+  width = 212,
+  height = 75,
+  onClick,
+}: PrimaryButtonProps) => {
   const handleOnClick = () => {
     if (!onClick) return;
     onClick();
@@ -16,10 +29,10 @@ const PrimaryButton = ({ text, disabled, onClick }: PrimaryButtonProps) => {
 
   return (
     <ButtonWrapper>
-      <StyledButton disabled={disabled} onClick={handleOnClick}>
+      <StyledButton width={width} height={height} disabled={disabled} onClick={handleOnClick}>
         {text}
       </StyledButton>
-      <AfterButton />
+      <AfterButton width={width} height={height} />
     </ButtonWrapper>
   );
 };
@@ -28,9 +41,9 @@ const ButtonWrapper = styled.div`
   position: relative;
 `;
 
-const StyledButton = styled.button`
-  height: 75px;
-  width: 212px;
+const StyledButton = styled.button<StyledProps>`
+  height: ${props => props.height}px;
+  width: ${props => props.width}px;
   background-color: ${themedPalette.cute_button_normal};
   color: ${themedPalette.main_text2};
   border: 5px solid ${themedPalette.border_1};
@@ -54,9 +67,9 @@ const StyledButton = styled.button`
   }
 `;
 
-const AfterButton = styled.button`
-  height: 75px;
-  width: 212px;
+const AfterButton = styled.button<StyledProps>`
+  height: ${props => props.height}px;
+  width: ${props => props.width}px;
   border: 5px solid ${themedPalette.component_1};
   background: transparent;
   position: absolute;

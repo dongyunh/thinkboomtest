@@ -2,13 +2,8 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../../store';
 
-type WordType = {
-  word: string;
-  contents: string;
-};
-
 type SelectWordPayload = {
-  word: WordType;
+  word: string;
   idx: number;
 };
 
