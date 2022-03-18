@@ -7,7 +7,10 @@ import {
   sixHatSelector,
   updateAdminState,
   getMessages,
+  getUserHatInfo,
 } from '../redux/modules/sixHat';
+
+import { UserData } from '@redux/modules/sixHat/types';
 
 export type ResponseData = {
   type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT';
@@ -53,8 +56,14 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
               };
               dispatch(getMessages(newMessage));
             }
-            console.log(response);
-            dispatch(updateAdminState(true));
+
+            if (response.type === 'HAT') {
+              const userInfo : UserData = {
+                nickname: response.sender,
+                hat: response.hat,
+              };
+              dispatch(getUserHatInfo(userInfo));
+            }
           },
           { senderId: this._senderId },
         );

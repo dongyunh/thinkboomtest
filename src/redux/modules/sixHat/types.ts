@@ -7,8 +7,8 @@ export type ChatData = {
 };
 
 export type UserData = {
-  nickname: string;
-  hat: string;
+  nickname: string | null;
+  hat: string | null;
 };
 
 export type UserList = UserData[];
