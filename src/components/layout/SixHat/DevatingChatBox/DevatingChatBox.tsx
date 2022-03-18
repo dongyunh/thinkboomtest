@@ -1,21 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
 import { Message, ChatTextField } from '../DevatingChatBox';
+import { ChatHistoryType } from '../../../../redux/modules/sixHat/types';
+import { sixHatSelector } from '../../../../redux/modules/sixHat';
+import { useAppSelector } from '../../../../redux/hooks';
 const HatSrc = require('../../../../../public/hat.png');
 
-type MessageDataType = {
-  nickname: string;
-  hat: string;
-  message: string;
-};
-
 type DevatingChatBoxProps = {
-  subject: string;
   myNickname: string;
-  myHat: string;
   userList: string[];
-  messageData: MessageDataType[];
+  chatHistory: ChatHistoryType;
 };
 
 type StyleProps = {
@@ -24,13 +19,10 @@ type StyleProps = {
   isMouseOver?: boolean;
 };
 
-const DevatingChatBox = ({
-  subject,
-  myNickname,
-  myHat,
-  userList,
-  messageData,
-}: DevatingChatBoxProps) => {
+const DevatingChatBox = ({ myNickname, userList, chatHistory }: DevatingChatBoxProps) => {
+  const { subject } = useAppSelector(sixHatSelector);
+  const myHat = userList.filter(user => user.nickname == myNickname).hat;
+
   return (
     <Container>
       <SubjectBox>{subject}</SubjectBox>
@@ -40,14 +32,14 @@ const DevatingChatBox = ({
             <HatImg src={HatSrc} width={70} />
           </MyHatBox>
           <UserList>
-            {messageData.map(data => {
+            {chatHistory?.map(data => {
               return <User key={data.nickname}>{data.nickname}</User>;
             })}
           </UserList>
         </UserListBox>
         <ChatViewBox>
           <MessageBox>
-            {messageData.reverse().map(data => {
+            {chatHistory?.map(data => {
               return (
                 <Message
                   key={data.nickname}
@@ -105,7 +97,7 @@ const DownBox = styled.div`
 
 const UserListBox = styled.div`
   width: 212px;
-  height: 514px;
+  height: 508px;
   border-right: 5px solid ${themedPalette.black};
   box-sizing: border-box;
   display: flex;
