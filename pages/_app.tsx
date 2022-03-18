@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { store } from '@redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+import { HeaderBar, Title, DarkModeToggle } from '@components/common';
 
 let persistor = persistStore(store);
 
@@ -14,6 +15,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+          <HeaderBar>
+            <>
+              <Title text="ThinkBoom" />
+              <DarkModeToggle />
+            </>
+          </HeaderBar>
           <Component {...pageProps} />
           <div id="modal_root" />
         </PersistGate>

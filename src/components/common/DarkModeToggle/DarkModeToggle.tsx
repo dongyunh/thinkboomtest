@@ -4,14 +4,17 @@ import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
 import Dark from '../../../../public/asset/dark.png';
 import White from '../../../../public/asset/white.png';
+import { useToggleTheme } from '@hooks/useToggleTheme';
 
 const DarkModeToggle = ({}) => {
+  const [theme, toggle] = useToggleTheme();
+
   return (
     <ToggleWrapper>
-      <WhiteCircle>
+      <WhiteCircle onClick={() => toggle('light')}>
         <Image src={White} width={20} height={20} />
       </WhiteCircle>
-      <DarkCircle>
+      <DarkCircle onClick={() => toggle('dark')}>
         <Image src={Dark} width={20} height={20} />
       </DarkCircle>
     </ToggleWrapper>
@@ -30,23 +33,25 @@ const ToggleWrapper = styled.div`
 `;
 
 const WhiteCircle = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background-color: ${themedPalette.toggle_white_circle};
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const DarkCircle = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background-color: ${themedPalette.toggle_dark_circle};
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 export { DarkModeToggle };
