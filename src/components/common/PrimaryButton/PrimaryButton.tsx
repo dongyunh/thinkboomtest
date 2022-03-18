@@ -58,6 +58,7 @@ const AfterButton = styled.button`
   height: 75px;
   width: 212px;
   border: 5px solid ${themedPalette.component_1};
+  background: transparent;
   position: absolute;
   border-radius: 18px;
   z-index: -1;

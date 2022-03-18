@@ -6,6 +6,7 @@ import { SubjectTextField } from '../SubjectTextField';
 import { PrimaryButton } from '../PrimaryButton';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { sixHatSelector } from '../../../redux/modules/sixHat';
+import { Title, Desc } from '../../common';
 
 type WaitingRoomProps = {
   onClickSubmit?: () => void;
@@ -33,12 +34,12 @@ const WaitingRoom = ({ onClickSubmit, onClickComplete, onChange }: WaitingRoomPr
   return (
     <>
       <HeaderBar>
-        <h1>ThinkBoom</h1>
+        <Title text="ThinkBoom" />
       </HeaderBar>
       <Grid>
         <Empty />
         <TextFieldWrapper>
-          <h2>회의 주제</h2>
+          <Title text="회의 주제" />
           <SubjectTextField onChange={handleOnChange} onClick={handleOnclickSubmit} />
         </TextFieldWrapper>
         <PrimaryButton text="완료" onClick={handleOnClickComplete} disabled={isSubmit && isAdmin} />
