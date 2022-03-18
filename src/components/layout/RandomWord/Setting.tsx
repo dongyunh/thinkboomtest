@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField } from '@mui/material';
-import { HeaderBar, CenterLayout, SkipButton, SubjectTextField } from '@components/common';
+import { CenterLayout, SkipButton, SubjectTextField } from '@components/common';
 import styled from 'styled-components';
 
 type SettingProps = {

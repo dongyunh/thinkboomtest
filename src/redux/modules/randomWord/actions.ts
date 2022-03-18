@@ -11,6 +11,7 @@ const prefix = 'randomWord';
 
 export const updateCurrentPage = createAction<number>(`${prefix}/UPDATE_CURRENT_PAGE`);
 export const selectWord = createAction<SelectWordPayload>(`${prefix}/SELECT_WORD`);
+export const getSubject = createAction<string>(`${prefix}/GET_SUBJECT`);
 
 export const getRandomWord = createAsyncThunk(`${prefix}/GET_RANDOM_WORD`, async () => {
   const response = await axios.get('http://ebaa-121-131-137-167.ngrok.io/randomword');

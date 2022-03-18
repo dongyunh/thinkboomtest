@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
-import { useAppSelector } from '@redux/hooks';
+import { useAppSelector, useAppDispatch } from '@redux/hooks';
 import { randomWordSelector } from '@redux/modules/randomWord';
 import { Card, PrimaryButton } from '@components/common';
 
 const SelectWordBox = () => {
+  const dispatch = useAppDispatch()
   const { randomWordList, pickedWordList } = useAppSelector(randomWordSelector);
 
   return (
