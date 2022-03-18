@@ -22,16 +22,6 @@ const SubjectTextField = ({ type, onChange, onClick }: SubjectTextFieldProps) =>
     }
   };
 
-  const handleOnChange = (e: string) => {
-    if (!onChange) return;
-    onChange(e);
-  };
-
-  const handleOnclick = () => {
-    if (!onClick) return;
-    onClick();
-  };
-
   return (
     <Card width={784} height={124}>
       <TextFieldBox>

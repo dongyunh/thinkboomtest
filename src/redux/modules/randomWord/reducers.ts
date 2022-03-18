@@ -33,7 +33,7 @@ export const randomWordReducer = createReducer(initialState, builder => {
     })
     .addCase(selectWord, (state, action) => {
       const { word, idx } = action.payload;
-      state.randomWordList[idx] = word;
+      state.randomWordList[idx] = '';
       state.pickedWordList.push(word);
     })
     .addCase(getRandomWord.pending, state => {
