@@ -25,7 +25,7 @@ const DevatingChatBox = ({}) => {
       <DownBox>
         <UserListBox>
           <MyHatBox>
-            <HatImg src={myHat} width={70} />
+            <HatImg width={70} />
           </MyHatBox>
           <UserList>
             {chatHistory?.map(data => {
