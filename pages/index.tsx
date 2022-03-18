@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import styled from 'styled-components';
 import { Main } from '@components/layout/Main';
 import { useRouter } from 'next/router';
+import { DarkModeToggle } from '@components/common/DarkModeToggle';
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -14,9 +15,7 @@ const Home: NextPage = () => {
           <>
             <h1>ThinkBoom</h1>
             <NavWrapper>
-              <Main.Button variant="text">메인</Main.Button>
-              <Main.Button variant="text">갤러리</Main.Button>
-              <Main.Button variant="text">마이페이지</Main.Button>
+              <DarkModeToggle />
             </NavWrapper>
           </>
         </Main.HeaderBar>
