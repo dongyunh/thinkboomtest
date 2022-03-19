@@ -24,8 +24,8 @@ const Result = () => {
       <>
         <Title>선택된 단어</Title>
         <ResultGrid>
-          {pickedWordList.map(word => {
-            return <Word>{word}</Word>;
+          {pickedWordList.map((word, idx) => {
+            return <Word key={idx}>{word}</Word>;
           })}
         </ResultGrid>
         {isOpen && <ResultModal onClickBtn1={handleCancel} onClickBtn2={handleConfirm} />}
@@ -36,6 +36,7 @@ const Result = () => {
 
 const Title = styled.h1`
   color: ${themedPalette.main_text1};
+  padding-bottom: 20px;
 `;
 
 const ResultGrid = styled.div`
@@ -52,6 +53,9 @@ const Word = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 5px solid ${themedPalette.border_1};
+  border-radius: 12px;
+  font-size: 20px;
 `;
 
 export { Result };

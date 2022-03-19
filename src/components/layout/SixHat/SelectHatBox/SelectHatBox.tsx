@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
 import { Card } from '../../../common';
-const HatSrc = require('../../../../../public/hat.png');
+const HatSrc = require('../../../../../public/asset/hat.png');
 
 type SelectHatBoxProps = {
   subject: string;
@@ -52,7 +52,6 @@ const SelectHatBox = ({
 
   const handleOnClickHat = (hat: string) => {
     if (!onClickHat) return;
-    console.log(hat);
     onClickHat(hat);
   };
 

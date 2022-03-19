@@ -1,10 +1,18 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../../store';
+import { useRouter } from 'next/router';
 
 type SelectWordPayload = {
   word: string;
   idx: number;
+};
+
+type ResponseType = {
+  data: {
+    rwId: string;
+    wordList: string[];
+  };
 };
 
 const prefix = 'randomWord';
@@ -14,7 +22,7 @@ export const selectWord = createAction<SelectWordPayload>(`${prefix}/SELECT_WORD
 export const getSubject = createAction<string>(`${prefix}/GET_SUBJECT`);
 
 export const getRandomWord = createAsyncThunk(`${prefix}/GET_RANDOM_WORD`, async () => {
-  const response = await axios.get('http://3.38.151.99/randomword');
+  const response = await axios.get('http://13.125.59.252/randomWord');
   return response.data;
 });
 
@@ -23,10 +31,12 @@ export const postPickedWords = createAsyncThunk(
   async (arg, { getState }) => {
     const { randomWord } = getState() as RootState;
     const { pickedWordList } = randomWord;
-    const response = await axios.post('http://3.38.151.99/randomword', {
+
+    const response: ResponseType = await axios.post('http://13.125.59.252/randomWord', {
       wordList: pickedWordList,
     });
-
-    console.log(response);
+    console.log(response.data.rwId);
+    const router = useRouter();
+    router.push(`/randomWord/result/${response.data.rwId}`);
   },
 );

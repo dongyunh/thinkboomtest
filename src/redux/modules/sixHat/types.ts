@@ -3,12 +3,12 @@ export type HatType = 'red' | 'blue' | 'black' | 'green' | 'yellow' | 'white';
 export type ChatData = {
   nickname: string | null;
   message: string | null;
-  hat?: HatType;
+  hat: HatType;
 };
 
 export type UserData = {
   nickname: string | null;
-  hat: string | null;
+  hat: HatType | null;
 };
 
 export type UserList = UserData[];
@@ -23,4 +23,5 @@ export type SixHatState = {
   chatHistory?: ChatHistoryType;
   subject?: string;
   userList: UserList;
+  myHat: HatType | null;
 };

@@ -8,6 +8,7 @@ import {
   updateCurrentPage,
   updateNickname,
   changeIsSubmitState,
+  setMyHat,
   sixHatSelector,
 } from '../../../src/redux/modules/sixHat';
 import { NicknameModal } from '../../../src/components/common';
@@ -101,8 +102,8 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
       component: <SelectHat onClick={sendHatData} onClickComplete={() => handleNextPage(2)} />,
     },
     {
-      component: <DevatingRoom />
-    }
+      component: <DevatingRoom />,
+    },
   ];
 
   const contextValue = {
@@ -113,7 +114,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   return (
     <WaitingRoomContext.Provider value={contextValue}>
       <InteractivePage pages={pages} currentPage={currentPage} />
-      {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />}
+      {/* {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />} */}
       <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>
         <CommentIcon className={classes.icon} />
       </ChatIcon>
