@@ -32,9 +32,7 @@ const DevatingChatBox = ({}) => {
       <SubjectBox>{subject}</SubjectBox>
       <DownBox>
         <UserListBox>
-          <MyHatBox>
-            <HatImage type={myHat} width={70} />
-          </MyHatBox>
+          <MyHatBox>{/* <HatImage type={myHat} width={70} /> */}</MyHatBox>
           <UserList>
             {chatHistory?.map(data => {
               return <User key={data.nickname}>{data.nickname}</User>;

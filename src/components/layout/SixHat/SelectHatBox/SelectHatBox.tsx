@@ -52,7 +52,6 @@ const SelectHatBox = ({
 
   const handleOnClickHat = (hat: string) => {
     if (!onClickHat) return;
-    console.log(hat);
     onClickHat(hat);
   };
 

@@ -9,8 +9,10 @@ type SelectWordPayload = {
 };
 
 type ResponseType = {
-  rwId: string;
-  wordList: string[];
+  data: {
+    rwId: string;
+    wordList: string[];
+  };
 };
 
 const prefix = 'randomWord';
@@ -20,9 +22,7 @@ export const selectWord = createAction<SelectWordPayload>(`${prefix}/SELECT_WORD
 export const getSubject = createAction<string>(`${prefix}/GET_SUBJECT`);
 
 export const getRandomWord = createAsyncThunk(`${prefix}/GET_RANDOM_WORD`, async () => {
-  const response = await axios.get('http://3.38.151.99/randomWord');
-  const router = useRouter();
-  await router.push(`/sixHat`);
+  const response = await axios.get('http://13.125.59.252/randomWord');
   return response.data;
 });
 
@@ -32,14 +32,11 @@ export const postPickedWords = createAsyncThunk(
     const { randomWord } = getState() as RootState;
     const { pickedWordList } = randomWord;
 
-    const response: ResponseType = await axios.post(
-      'http://59f2-121-131-137-167.ngrok.io/randomWord',
-      {
-        wordList: pickedWordList,
-      },
-    );
-    console.log(response);
+    const response: ResponseType = await axios.post('http://13.125.59.252/randomWord', {
+      wordList: pickedWordList,
+    });
+    console.log(response.data.rwId);
     const router = useRouter();
-    router.push(`/randomWord/result/${response.rwId}`);
+    router.push(`/randomWord/result/${response.data.rwId}`);
   },
 );

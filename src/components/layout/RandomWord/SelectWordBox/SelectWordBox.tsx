@@ -2,26 +2,27 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
 import { useAppSelector, useAppDispatch } from '@redux/hooks';
-import {
-  randomWordSelector,
-  getRandomWord,
-  selectWord,
-  postPickedWords,
-} from '@redux/modules/randomWord';
+import { randomWordSelector, getRandomWord, selectWord } from '@redux/modules/randomWord';
+import { postPickedWords } from '../../../../utils/postPickedWords';
 import { Card, PrimaryButton } from '@components/common';
+import { useRouter } from 'next/router';
 
 const SelectWordBox = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const { randomWordList, pickedWordList, subject } = useAppSelector(randomWordSelector);
 
   const handleGetRandomWord = () => {
     dispatch(getRandomWord());
   };
 
-  const handleComplete = () => {
-    dispatch(postPickedWords());
+  //완료버튼
+  const handleComplete = async () => {
+    const rwId = await postPickedWords(pickedWordList);
+    await router.push(`/randomWord/result/${rwId}`);
   };
 
+  // 처음 화면들어오면 랜덤 워드 받아오기
   useEffect(() => {
     handleGetRandomWord();
   }, []);
