@@ -26,6 +26,12 @@ export const getRandomWord = createAsyncThunk(`${prefix}/GET_RANDOM_WORD`, async
   return response.data;
 });
 
+export const getResultWord = createAsyncThunk(`${prefix}/GET_RESULT_WORD`, async (rwId: string) => {
+  const response = await axios.get(`http://13.125.59.252/gallery/randomWord/${rwId}`);
+  console.log(response.data.wordList);
+  return response.data.wordList;
+});
+
 export const postPickedWords = createAsyncThunk(
   `${prefix}/POST_PICKED_WORDS`,
   async (arg, { getState }) => {
@@ -36,7 +42,5 @@ export const postPickedWords = createAsyncThunk(
       wordList: pickedWordList,
     });
     console.log(response.data.rwId);
-    const router = useRouter();
-    router.push(`/randomWord/result/${response.data.rwId}`);
   },
 );

@@ -5,6 +5,7 @@ import {
   getRandomWord,
   postPickedWords,
   getSubject,
+  getResultWord,
 } from './actions';
 
 export type RandomWordState = {
@@ -54,5 +55,9 @@ export const randomWordReducer = createReducer(initialState, builder => {
     })
     .addCase(getSubject, (state, action) => {
       state.subject = action.payload;
+    })
+    .addCase(getResultWord.fulfilled, (state, { payload }) => {
+      state.pending = false;
+      state.pickedWordList = payload;
     });
 });
