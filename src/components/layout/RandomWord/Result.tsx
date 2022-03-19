@@ -52,6 +52,8 @@ const Word = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 5px solid ${themedPalette.border_1};
+  border-radius: 12px;
 `;
 
 export { Result };

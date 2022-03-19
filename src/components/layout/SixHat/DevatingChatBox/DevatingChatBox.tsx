@@ -5,7 +5,9 @@ import { Message, ChatTextField } from '../DevatingChatBox';
 import { ChatHistoryType } from '../../../../redux/modules/sixHat/types';
 import { sixHatSelector } from '../../../../redux/modules/sixHat';
 import { useAppSelector } from '../../../../redux/hooks';
-const HatSrc = require('../../../../../public/hat.png');
+
+import { HatImage } from '@components/common/HatImage';
+import { HatType } from '@redux/modules/sixHat/types';
 
 type StyleProps = {
   width?: number;
@@ -14,10 +16,16 @@ type StyleProps = {
 };
 
 const DevatingChatBox = ({}) => {
-  const { subject, chatHistory, nickname, userList } = useAppSelector(sixHatSelector);
-  const myHat = userList?.filter(user => {
-    if (user.nickname == nickname) return user.hat;
-  });
+  const { subject, chatHistory, nickname, userList, myHat } = useAppSelector(sixHatSelector);
+
+  const hatName = {
+    red: '빨간모자',
+    blue: '파란모자',
+    white: '하얀모자',
+    black: '검정모자',
+    yellow: '노란모자',
+    green: '초록모자',
+  };
 
   return (
     <Container>
@@ -25,7 +33,7 @@ const DevatingChatBox = ({}) => {
       <DownBox>
         <UserListBox>
           <MyHatBox>
-            <HatImg width={70} />
+            <HatImage type={myHat} width={70} />
           </MyHatBox>
           <UserList>
             {chatHistory?.map(data => {
@@ -41,7 +49,7 @@ const DevatingChatBox = ({}) => {
                   key={data.nickname}
                   isMe={data.nickname === nickname}
                   message={data.message}
-                  hatName="빨간모자"
+                  hatName={hatName[data.hat]}
                   hat={data.hat}
                 />
               );

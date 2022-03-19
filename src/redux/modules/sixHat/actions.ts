@@ -1,5 +1,5 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { ChatData, UserData } from './types';
+import { ChatData, UserData, HatType } from './types';
 
 const prefix = 'sixHat';
 
@@ -9,3 +9,4 @@ export const updateAdminState = createAction<boolean>(`${prefix}/UPDATE_ADMIN_ST
 export const changeIsSubmitState = createAction<boolean>(`${prefix}/CHANGE_IS_SUBMIT_STATE`);
 export const getMessages = createAction<ChatData>(`${prefix}/GET_MESSAGES`);
 export const getUserHatInfo = createAction<UserData>(`${prefix}/GET_USER_HAT_INFO`);
+export const setMyHat = createAction<HatType>(`${prefix}/SET_MY_HAT`);

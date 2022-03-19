@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
 import { Card } from '../../../common';
-const HatSrc = require('../../../../../public/hat.png');
+const HatSrc = require('../../../../../public/asset/hat.png');
 
 type SelectHatBoxProps = {
   subject: string;
