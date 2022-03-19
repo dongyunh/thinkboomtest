@@ -1,6 +1,5 @@
-import React from 'react';
-import { Button, TextField } from '@mui/material';
-import { HeaderBar, CenterLayout } from '@components/common';
+import React, { useState } from 'react';
+import { CenterLayout, SkipButton, SubjectTextField } from '@components/common';
 import styled from 'styled-components';
 
 type SettingProps = {
@@ -12,26 +11,18 @@ const Setting = ({ onClick }: SettingProps) => {
     if (!onClick) return;
     onClick();
   };
+
   return (
-    <>
-      <HeaderBar>
-        <h1>로고</h1>
-      </HeaderBar>
-      <CenterLayout>
-        <SettingWrapper>
-          <h1>랜덤워드</h1>
-          <p style={{ textAlign: 'center' }}>
-            학교 동아리, 게임 그룹, 세계 예술 감상 커뮤니티에 소속되어 유대감을 느낄 수 있는 공간.{' '}
-            <br />
-            소중한 단짝 친구들과 어울릴 수 있는 우리만의 공간.
-          </p>
-          <TextField />
-          <Button variant="contained" onClick={handleOnClick}>
-            SKIP
-          </Button>
-        </SettingWrapper>
-      </CenterLayout>
-    </>
+    <CenterLayout>
+      <SettingWrapper>
+        <Title>단어 입력</Title>
+        <Desc>아이디어에 관한 단어를 적어주세요!</Desc>
+        <SubjectTextField type="randomWord" />
+        <SkipButtonWrapper>
+          <SkipButton onClick={handleOnClick} />
+        </SkipButtonWrapper>
+      </SettingWrapper>
+    </CenterLayout>
   );
 };
 
@@ -40,6 +31,20 @@ const SettingWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
+`;
+
+const SkipButtonWrapper = styled.div`
+  padding-top: 30px;
+`;
+
+const Title = styled.div`
+  font-size: 50px;
+  font-weight: bold;
+`;
+
+const Desc = styled.div`
+  text-align: center;
+  padding-bottom: 20px;
 `;
 
 export { Setting };
