@@ -34,8 +34,8 @@ const CardWrapper = styled.div`
 const StyledCard = styled.div<StyleProps>`
   height: ${props => props.height}px;
   width: ${props => props.width}px;
-  background-color: ${themedPalette.component_2};
-  border: 5px solid ${themedPalette.component_1};
+  background-color: ${themedPalette.card_bg_normal};
+  border: 5px solid ${themedPalette.border_1};
   border-radius: 18px;
   position: relative;
   transition: 0.2s ease-in-out;
@@ -49,8 +49,8 @@ const AfterCard = styled.div<StyleProps>`
   position: absolute;
   width: ${props => props.width}px;
   height: ${props => props.height}px;
-  background-color: ${themedPalette.component_2};
-  border: 5px solid ${themedPalette.component_1};
+  background-color: ${themedPalette.card_bg_normal};
+  border: 5px solid ${themedPalette.border_1};
   border-radius: 18px;
   z-index: -1;
   left: 8px;

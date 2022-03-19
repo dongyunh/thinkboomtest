@@ -35,7 +35,8 @@ function Modal({ children }: ModalProps) {
 }
 
 const S_ModalOverlay = styled.div`
-  background: rgba(0, 0, 0, 0.5);
+  background: ${themedPalette.overlay};
+  opacity: 50%;
   height: 100vh;
   left: 0;
   position: fixed;

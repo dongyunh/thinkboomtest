@@ -52,6 +52,7 @@ const SelectHatBox = ({
 
   const handleOnClickHat = (hat: string) => {
     if (!onClickHat) return;
+    console.log(hat);
     onClickHat(hat);
   };
 
@@ -83,15 +84,17 @@ const SelectHatBox = ({
                     <TouchArea
                       onMouseOver={() => setIsMouseOver(true)}
                       onMouseOut={() => setIsMouseOver(false)}
+                      onClick={() => handleOnClickHat(hat.value)}
                     />
                   </HatBox>
                 ) : (
                   <HatBox>
-                    <HatImg width={100} src={hat.src} onClick={() => handleOnClickHat(hat.value)} />
+                    <HatImg width={100} src={hat.src} />
                     <div>{hat.text}</div>
                     <TouchArea
                       onMouseOver={() => setIsMouseOver(true)}
                       onMouseOut={() => setIsMouseOver(false)}
+                      onClick={() => handleOnClickHat(hat.value)}
                     />
                   </HatBox>
                 )}
