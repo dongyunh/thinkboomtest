@@ -6,14 +6,12 @@ import { SelectHat, DevatingRoom } from '../../../src/components/layout/SixHat';
 import { useAppDispatch, useAppSelector } from '../../../src/redux/hooks';
 import {
   updateCurrentPage,
-  updateNickname,
   changeIsSubmitState,
-  setMyHat,
   sixHatSelector,
+  getNickname,
 } from '../../../src/redux/modules/sixHat';
 import { NicknameModal } from '../../../src/components/common';
 import { ChattingRoom } from '../../../src/components/common';
-import axios from 'axios';
 import CommentIcon from '@mui/icons-material/Comment';
 import styled from 'styled-components';
 import useSocketHook from '../../../src/hooks/useSocketHook';
@@ -29,11 +27,6 @@ const useStyles = makeStyles({
 //TODO : any 수정하기
 export const WaitingRoomContext = createContext<any>(null);
 
-export type message = {
-  nickname: string;
-  content: string;
-};
-
 type SettingPageProps = {
   roomId: string;
 };
@@ -42,14 +35,10 @@ let ConnectedSocket: any;
 
 const SettingPage = ({ roomId }: SettingPageProps) => {
   const dispatch = useAppDispatch();
-  const { currentPage, nickname, chatHistory } = useAppSelector(sixHatSelector);
-  const [_nickname, setNickname] = useState<string>();
+  const { currentPage, nickname, chatHistory, senderId } = useAppSelector(sixHatSelector);
   const [subject, setSubject] = useState();
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const localSenderId = localStorage.getItem('senderId');
-  const [senderId, setSenderId] = useState(localSenderId ? Number(localSenderId) : null);
   const HandleSocket = useSocketHook('sixhat');
-  const router = useRouter();
   const classes = useStyles();
 
   useEffect(() => {
@@ -77,16 +66,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   };
 
   const handleUpdateNickname = async (enteredName: string) => {
-    await axios
-      .post(`http://13.125.59.252/api/sixHat/user/nickname`, {
-        shRoomId: Number(roomId),
-        nickname: enteredName,
-      })
-      .then(res => {
-        localStorage.setItem('senderId', res.data.userId);
-        setSenderId(res.data.userId);
-        dispatch(updateNickname(enteredName));
-      });
+    dispatch(getNickname({ shRoomId: roomId, nickname: enteredName }));
   };
 
   const pages = [
@@ -114,7 +94,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   return (
     <WaitingRoomContext.Provider value={contextValue}>
       <InteractivePage pages={pages} currentPage={currentPage} />
-      {/* {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />} */}
+      {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />}
       <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>
         <CommentIcon className={classes.icon} />
       </ChatIcon>

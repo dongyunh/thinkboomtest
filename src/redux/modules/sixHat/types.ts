@@ -3,7 +3,7 @@ export type HatType = 'red' | 'blue' | 'black' | 'green' | 'yellow' | 'white';
 export type ChatData = {
   nickname: string | null;
   message: string | null;
-  hat: HatType;
+  hat?: HatType;
 };
 
 export type UserData = {
@@ -18,6 +18,7 @@ export type ChatHistoryType = ChatData[];
 export type SixHatState = {
   currentPage: number;
   nickname: string | null;
+  senderId: number | null;
   isAdmin: boolean;
   isSubmit: boolean;
   chatHistory?: ChatHistoryType;

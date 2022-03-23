@@ -10,14 +10,14 @@ import {
   getUserHatInfo,
 } from '../redux/modules/sixHat';
 
-import { UserData } from '@redux/modules/sixHat/types';
+import { UserData, HatType } from '@redux/modules/sixHat/types';
 
-export type ResponseData = {
+export type SixHatResponseData = {
   type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT';
   roomId: string | null;
   sender: string | null;
   senderId: number | null;
-  hat: string | null;
+  hat: HatType | null;
   message: string | null;
 };
 
@@ -48,7 +48,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
         this.StompClient.subscribe(
           `/subSH/api/sixHat/rooms/${roomId}`,
           data => {
-            const response: ResponseData = JSON.parse(data.body) as ResponseData;
+            const response: SixHatResponseData = JSON.parse(data.body) as SixHatResponseData;
             if (response.type === 'TALK') {
               const newMessage = {
                 nickname: response.sender,
@@ -58,7 +58,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
             }
 
             if (response.type === 'HAT') {
-              const userInfo : UserData = {
+              const userInfo: UserData = {
                 nickname: response.sender,
                 hat: response.hat,
               };
@@ -81,7 +81,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
       }, 0.1);
     };
 
-    send = (data: ResponseData) => {
+    send = (data: SixHatResponseData) => {
       this.waitForConnection(this.StompClient, () => {
         this.StompClient.debug = () => {};
         console.log(data);
@@ -96,7 +96,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
     sendMessage = (sender: string, message: string) => {
       try {
         // send할 데이터
-        const data: ResponseData = {
+        const data: SixHatResponseData = {
           type: 'TALK',
           roomId: this._roomId,
           sender: sender,
@@ -110,10 +110,10 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
       }
     };
 
-    sendHatData = (sender: string | null, hat: string) => {
+    sendHatData = (sender: string | null, hat: HatType) => {
       try {
         // send할 데이터
-        const data: ResponseData = {
+        const data: SixHatResponseData = {
           type: 'HAT',
           roomId: this._roomId,
           sender: sender,
@@ -130,7 +130,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
     submitSubject = (subject: string) => {
       try {
         // send할 데이터
-        const data: ResponseData = {
+        const data: SixHatResponseData = {
           type: 'SUBJECT',
           roomId: this._roomId,
           sender: null,
