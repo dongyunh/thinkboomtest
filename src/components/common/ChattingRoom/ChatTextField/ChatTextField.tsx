@@ -7,10 +7,20 @@ const ChatTextField = ({}) => {
   const [content, setContent] = useState<string>();
   const { sendMessage } = useContext(WaitingRoomContext);
 
+  const handleSendMessage = () => {
+    sendMessage(content);
+  };
+
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSendMessage;
+    }
+  };
+
   return (
     <TextFieldContainer>
-      <TextField onChange={e => setContent(e.target.value)} />
-      <Button onClick={() => sendMessage(content)}>입력</Button>
+      <TextField onChange={e => setContent(e.target.value)} onKeyPress={e => onKeyPress(e)} />
+      <Button onClick={handleSendMessage}>입력</Button>
     </TextFieldContainer>
   );
 };
