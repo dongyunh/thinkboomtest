@@ -6,9 +6,6 @@ import { ChatHistoryType } from '../../../../redux/modules/sixHat/types';
 import { sixHatSelector } from '../../../../redux/modules/sixHat';
 import { useAppSelector } from '../../../../redux/hooks';
 
-import { HatImage } from '@components/common/HatImage';
-import { HatType } from '@redux/modules/sixHat/types';
-
 type StyleProps = {
   width?: number;
   height?: number;
@@ -42,15 +39,17 @@ const DevatingChatBox = ({}) => {
         <ChatViewBox>
           <MessageBox>
             {chatHistory?.map(data => {
-              return (
-                <Message
-                  key={data.nickname}
-                  isMe={data.nickname === nickname}
-                  message={data.message}
-                  hatName={hatName[data.hat]}
-                  hat={data.hat}
-                />
-              );
+              if (data.hat) {
+                return (
+                  <Message
+                    key={data.nickname}
+                    isMe={data.nickname === nickname}
+                    message={data.message}
+                    hatName={hatName[data.hat]}
+                    hat={data.hat}
+                  />
+                );
+              }
             })}
           </MessageBox>
           <ChatTextField />

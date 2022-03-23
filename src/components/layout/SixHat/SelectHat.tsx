@@ -2,6 +2,7 @@ import React from 'react';
 import { SelectHatBox } from '../SixHat';
 import { CenterLayout, HeaderBar, PrimaryButton } from '../../common';
 import styled from 'styled-components';
+import userList from '../../../mock/userListData';
 
 type SelectHatProps = {
   onClick?: (hat: string) => void;
@@ -15,7 +16,6 @@ const SelectHat = ({ onClick, onClickComplete }: SelectHatProps) => {
   };
 
   const tmpSubject = '점심 뭐먹을까?';
-  const userList = ['점심', '고기', '좋아', '맛있다'];
 
   return (
     <CenterLayout>
