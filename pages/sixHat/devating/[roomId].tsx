@@ -54,7 +54,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
 
   useEffect(() => {
     if (nickname) {
-      ConnectedSocket = new HandleSocket('http://3.38.151.99/websocket');
+      ConnectedSocket = new HandleSocket('http://13.125.59.252/websocket');
       ConnectedSocket.connectSH(senderId, roomId);
     }
   }, [nickname]);
@@ -78,7 +78,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
 
   const handleUpdateNickname = async (enteredName: string) => {
     await axios
-      .post(`http://3.38.151.99/api/sixHat/user/nickname`, {
+      .post(`http://13.125.59.252/api/sixHat/user/nickname`, {
         shRoomId: Number(roomId),
         nickname: enteredName,
       })
