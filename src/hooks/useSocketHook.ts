@@ -75,7 +75,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
               dispatch(getUserHatInfo(userInfo));
             }
           },
-          { senderId: this._senderId },
+          { senderId: this._senderId, category: 'SH' },
         );
       });
     }

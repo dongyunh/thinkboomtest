@@ -25,7 +25,7 @@ const SixHat = () => {
   // TODO : 서버 주소 나오면 api 한곳에 모으기, 비동기 작업들 리덕스로 옮기기
   const handleMakeNewPage = async (title: string | null, headCount: number, timer: number) => {
     await axios
-      .post(`http://13.125.59.252/api/sixHat/rooms`, { title, headCount, timer })
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/sixHat/rooms`, { title, headCount, timer })
       .then(res => {
         const { shRoomId } = res.data;
         handleMoveSettingPage(title, shRoomId);

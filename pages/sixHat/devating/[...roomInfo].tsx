@@ -16,7 +16,6 @@ import CommentIcon from '@mui/icons-material/Comment';
 import styled from 'styled-components';
 import useSocketHook from '../../../src/hooks/useSocketHook';
 import { makeStyles } from '@mui/styles';
-import { themedPalette } from '../../../src/theme';
 
 const useStyles = makeStyles({
   icon: {
@@ -32,6 +31,7 @@ type SettingPageProps = {
 };
 
 let ConnectedSocket: any;
+// 52.78.192.124
 
 const SettingPage = ({ roomInfo }: SettingPageProps) => {
   const dispatch = useAppDispatch();
@@ -44,7 +44,7 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
 
   useEffect(() => {
     if (nickname) {
-      ConnectedSocket = new HandleSocket('http://13.125.59.252/websocket');
+      ConnectedSocket = new HandleSocket(`${process.env.NEXT_PUBLIC_API_URL}/websocket`);
       ConnectedSocket.connectSH(senderId, roomId);
     }
   }, [nickname]);

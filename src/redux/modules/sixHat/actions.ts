@@ -19,10 +19,13 @@ export const getNickname = createAsyncThunk(
   `${prefix}/GET_NICKNAME`,
   async ({ shRoomId, nickname }: GetNicknameArgType) => {
     console.log(shRoomId, nickname);
-    const response = await axios.post('http://13.125.59.252/api/sixHat/user/nickname', {
-      shRoomId: shRoomId,
-      nickname: nickname,
-    });
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/sixHat/user/nickname`,
+      {
+        shRoomId: shRoomId,
+        nickname: nickname,
+      },
+    );
     return response.data;
   },
 );
