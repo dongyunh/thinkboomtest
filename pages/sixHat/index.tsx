@@ -14,8 +14,8 @@ const SixHat = () => {
     dispatch(updateCurrentPage(pageNum));
   };
 
-  const handleMoveSettingPage = (roomId: number) => {
-    router.push(`/sixHat/devating/${roomId}`);
+  const handleMoveSettingPage = (title: string | null, roomId: number) => {
+    router.push(`/sixHat/devating/${title}/${roomId}`);
   };
 
   const handleUpdateAmdinState = () => {
@@ -28,7 +28,7 @@ const SixHat = () => {
       .post(`http://13.125.59.252/api/sixHat/rooms`, { title, headCount, timer })
       .then(res => {
         const { shRoomId } = res.data;
-        handleMoveSettingPage(shRoomId);
+        handleMoveSettingPage(title, shRoomId);
         handleUpdateAmdinState();
       });
   };

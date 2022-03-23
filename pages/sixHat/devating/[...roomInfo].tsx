@@ -28,18 +28,19 @@ const useStyles = makeStyles({
 export const WaitingRoomContext = createContext<any>(null);
 
 type SettingPageProps = {
-  roomId: string;
+  roomInfo: string[];
 };
 
 let ConnectedSocket: any;
 
-const SettingPage = ({ roomId }: SettingPageProps) => {
+const SettingPage = ({ roomInfo }: SettingPageProps) => {
   const dispatch = useAppDispatch();
   const { currentPage, nickname, chatHistory, senderId } = useAppSelector(sixHatSelector);
   const [subject, setSubject] = useState();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const HandleSocket = useSocketHook('sixhat');
   const classes = useStyles();
+  const [roomTitle, roomId] = roomInfo;
 
   useEffect(() => {
     if (nickname) {
@@ -94,7 +95,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   return (
     <WaitingRoomContext.Provider value={contextValue}>
       <InteractivePage pages={pages} currentPage={currentPage} />
-      {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />}
+      {!nickname && <NicknameModal title={roomTitle} onClick={handleUpdateNickname} />}
       <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>
         <CommentIcon className={classes.icon} />
       </ChatIcon>
@@ -134,11 +135,12 @@ const ChattingContainer = styled.div`
 `;
 
 export const getServerSideProps: GetServerSideProps = async context => {
+  console.log(context);
   const { query } = context;
-  const { roomId } = query;
+  const { roomInfo } = query;
   return {
     props: {
-      roomId,
+      roomInfo,
     },
   };
 };
