@@ -13,7 +13,7 @@ const ChatTextField = ({}) => {
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSendMessage;
+      handleSendMessage();
     }
   };
 
