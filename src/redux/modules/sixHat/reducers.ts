@@ -17,6 +17,7 @@ const initialState: SixHatState = {
   chatHistory: [],
   subject: undefined,
   userList: [],
+  myHat: null,
 };
 
 //createReducer로 reducer 생성.
