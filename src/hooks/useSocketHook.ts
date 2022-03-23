@@ -17,6 +17,15 @@ export type SixHatResponseData = {
   roomId: string | null;
   sender: string | null;
   senderId: number | null;
+  hat: HatType;
+  message: string | null;
+};
+
+export type SixHatSendData = {
+  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT';
+  roomId: string | null;
+  sender: string | null;
+  senderId: number | null;
   hat: HatType | null;
   message: string | null;
 };
@@ -82,7 +91,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
       }, 0.1);
     };
 
-    send = (data: SixHatResponseData) => {
+    send = (data: SixHatSendData) => {
       this.waitForConnection(this.StompClient, () => {
         this.StompClient.debug = () => {};
         console.log(data);
@@ -97,7 +106,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
     sendMessage = (sender: string, message: string) => {
       try {
         // send할 데이터
-        const data: SixHatResponseData = {
+        const data: SixHatSendData = {
           type: 'TALK',
           roomId: this._roomId,
           sender: sender,
@@ -114,7 +123,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
     sendHatData = (sender: string | null, hat: HatType) => {
       try {
         // send할 데이터
-        const data: SixHatResponseData = {
+        const data: SixHatSendData = {
           type: 'HAT',
           roomId: this._roomId,
           sender: sender,
@@ -131,7 +140,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
     submitSubject = (subject: string) => {
       try {
         // send할 데이터
-        const data: SixHatResponseData = {
+        const data: SixHatSendData = {
           type: 'SUBJECT',
           roomId: this._roomId,
           sender: null,
