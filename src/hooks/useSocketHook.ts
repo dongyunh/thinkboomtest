@@ -42,7 +42,8 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
 
     connectSH(senderId: number | null, roomId: string) {
       this._senderId = senderId;
-      this._roomId = roomId[0];
+      this._roomId = roomId;
+      console.log(senderId, roomId);
 
       this.StompClient.connect({ senderId: this._senderId }, () => {
         this.StompClient.subscribe(
