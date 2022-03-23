@@ -9,7 +9,7 @@ import Blue from '../../../../public/asset/bluehat.png';
 import { HatType } from '@redux/modules/sixHat/types';
 
 type HatImageProps = {
-  type: 'white' | 'black' | 'blue' | 'yellow' | 'green' | 'red';
+  type: HatType;
   width?: number;
   height?: number;
 };

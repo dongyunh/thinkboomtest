@@ -16,7 +16,6 @@ import CommentIcon from '@mui/icons-material/Comment';
 import styled from 'styled-components';
 import useSocketHook from '../../../src/hooks/useSocketHook';
 import { makeStyles } from '@mui/styles';
-import { themedPalette } from '../../../src/theme';
 
 const useStyles = makeStyles({
   icon: {
@@ -28,22 +27,24 @@ const useStyles = makeStyles({
 export const WaitingRoomContext = createContext<any>(null);
 
 type SettingPageProps = {
-  roomId: string;
+  roomInfo: string[];
 };
 
 let ConnectedSocket: any;
+// 52.78.192.124
 
-const SettingPage = ({ roomId }: SettingPageProps) => {
+const SettingPage = ({ roomInfo }: SettingPageProps) => {
   const dispatch = useAppDispatch();
   const { currentPage, nickname, chatHistory, senderId } = useAppSelector(sixHatSelector);
   const [subject, setSubject] = useState();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const HandleSocket = useSocketHook('sixhat');
   const classes = useStyles();
+  const [roomTitle, roomId] = roomInfo;
 
   useEffect(() => {
     if (nickname) {
-      ConnectedSocket = new HandleSocket('http://13.125.59.252/websocket');
+      ConnectedSocket = new HandleSocket(`${process.env.NEXT_PUBLIC_API_URL}/websocket`);
       ConnectedSocket.connectSH(senderId, roomId);
     }
   }, [nickname]);
@@ -94,7 +95,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   return (
     <WaitingRoomContext.Provider value={contextValue}>
       <InteractivePage pages={pages} currentPage={currentPage} />
-      {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />}
+      {!nickname && <NicknameModal title={roomTitle} onClick={handleUpdateNickname} />}
       <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>
         <CommentIcon className={classes.icon} />
       </ChatIcon>
@@ -134,11 +135,12 @@ const ChattingContainer = styled.div`
 `;
 
 export const getServerSideProps: GetServerSideProps = async context => {
+  console.log(context);
   const { query } = context;
-  const { roomId } = query;
+  const { roomInfo } = query;
   return {
     props: {
-      roomId,
+      roomInfo,
     },
   };
 };

@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
 import { Card } from '../../../common';
-const HatSrc = require('../../../../../public/asset/hat.png');
 import { HatImage } from '@components/common';
 import hatData from '../../../../mock/hatData';
+import { UserList } from '@redux/modules/sixHat/types';
 
 type SelectHatBoxProps = {
   subject: string;
   myHat?: string;
-  userList: string[];
+  userList: UserList;
   onClickHat?: (arg: any) => void;
   onClickRandom?: () => void;
 };
@@ -45,11 +45,16 @@ const SelectHatBox = ({
           <MyHatBox>
             <HatImage type="white" width={80} height={80} />
           </MyHatBox>
-          <UserList>
+          <UserListColumn>
             {userList.map(user => {
-              return <User>{user}</User>;
+              return (
+                <UserProfile>
+                  <HatImage type={user.hat} width={20} height={20} />
+                  <UserNickname>{user.nickname}</UserNickname>
+                </UserProfile>
+              );
             })}
-          </UserList>
+          </UserListColumn>
         </UserListBox>
         <CardListBox>
           {hatData.map((hat, idx) => {
@@ -153,13 +158,18 @@ const CardListBox = styled.div`
   padding: 32px 48px;
 `;
 
-const UserList = styled.div`
+const UserListColumn = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const User = styled.div`
-  margin-bottom: 8px;
+const UserNickname = styled.div``;
+
+const UserProfile = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
 `;
 
 const HatImg = styled.img<StyleProps>`
