@@ -14,12 +14,17 @@ const ChatTextField = ({}) => {
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleSendMessage();
+      setContent('');
     }
   };
 
   return (
     <TextFieldContainer>
-      <TextField onChange={e => setContent(e.target.value)} onKeyPress={e => onKeyPress(e)} />
+      <TextField
+        value={content}
+        onChange={e => setContent(e.target.value)}
+        onKeyPress={e => onKeyPress(e)}
+      />
       <Button onClick={handleSendMessage}>입력</Button>
     </TextFieldContainer>
   );
