@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
   updateCurrentPage,
-  updateNickname,
+  getNickname,
   updateAdminState,
   changeIsSubmitState,
   getMessages,
@@ -12,6 +12,7 @@ import { SixHatState } from './types';
 const initialState: SixHatState = {
   currentPage: 0,
   nickname: null,
+  senderId: null,
   isAdmin: false,
   isSubmit: false,
   chatHistory: [],
@@ -26,8 +27,10 @@ export const sixHatReducer = createReducer(initialState, builder => {
     .addCase(updateCurrentPage, (state, action) => {
       state.currentPage = action.payload;
     })
-    .addCase(updateNickname, (state, action) => {
-      state.nickname = action.payload;
+    .addCase(getNickname.fulfilled, (state, action) => {
+      const { nickname, userId } = action.payload;
+      state.nickname = nickname;
+      state.senderId = userId;
     })
     .addCase(updateAdminState, (state, action) => {
       state.isAdmin = action.payload;
