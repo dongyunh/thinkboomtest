@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SelectHatBox } from '../SixHat';
 import { CenterLayout, PrimaryButton } from '../../common';
 import styled from 'styled-components';
@@ -6,6 +6,7 @@ import userList from '../../../mock/userListData';
 import { useAppSelector } from '@redux/hooks';
 import { selectSixHat } from '@redux/modules/sixHat';
 import { HatType } from '@redux/modules/sixHat/types';
+import useCheckSelectHat from '@hooks/useCheckSelectHat';
 
 type SelectHatProps = {
   onClick?: (hat: HatType) => void;
@@ -13,11 +14,18 @@ type SelectHatProps = {
 };
 
 const SelectHat = ({ onClick, onClickComplete }: SelectHatProps) => {
-  const { myHat } = useAppSelector(selectSixHat);
+  const { myHat, isAdmin } = useAppSelector(selectSixHat);
+  const isAllHatSelect = useCheckSelectHat();
+  const [disabled, setDisabled] = useState(!(isAdmin && isAllHatSelect));
+
   const handeOnClick = (hat: HatType) => {
     if (!onClick) return;
     onClick(hat);
   };
+
+  useEffect(() => {
+    setDisabled(!(isAdmin && isAllHatSelect));
+  }, [isAllHatSelect]);
 
   const tmpSubject = '점심 뭐먹을까?';
 
@@ -32,7 +40,7 @@ const SelectHat = ({ onClick, onClickComplete }: SelectHatProps) => {
           onClickHat={handeOnClick}
         />
         <ButtonWrapper>
-          <PrimaryButton text="완료" onClick={onClickComplete} />
+          <PrimaryButton text="완료" disabled={disabled} onClick={onClickComplete} />
         </ButtonWrapper>
       </>
     </CenterLayout>
