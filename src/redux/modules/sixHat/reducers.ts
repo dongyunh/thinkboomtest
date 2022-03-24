@@ -9,6 +9,7 @@ import {
   getUserHatInfo,
   getMyHat,
   getUserList,
+  getRandomHatList,
 } from './actions';
 import { SixHatState } from './types';
 
@@ -62,6 +63,9 @@ export const sixHatReducer = createReducer(initialState, builder => {
       if (!nicknameList.includes(action.payload.nickname)) {
         state.userList.push(action.payload);
       }
+    })
+    .addCase(getRandomHatList, (state, action) => {
+      state.userList = action.payload;
     });
 });
 

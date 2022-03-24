@@ -8,6 +8,7 @@ import {
   getUserHatInfo,
   getUserList,
   sixHatSelector,
+  getRandomHatList,
 } from '../redux/modules/sixHat';
 import mixHatsHelper from '@utils/mixHatsHelper';
 
@@ -20,6 +21,7 @@ export type SixHatResponseData = {
   senderId: number | null;
   hat: HatType;
   message: string | null;
+  randomHat: UserList;
 };
 
 export type SixHatSendData = {
@@ -85,6 +87,10 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
                 hat: response.hat,
               };
               dispatch(getUserHatInfo(userInfo));
+            }
+
+            if (response.type === 'RANDOMHAT') {
+              dispatch(getRandomHatList(response.randomHat));
             }
           },
           { senderId: this._senderId, category: 'SH' },
