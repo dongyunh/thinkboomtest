@@ -4,11 +4,11 @@ import { themedPalette } from '../../../../theme/styleTheme';
 import { Card } from '../../../common';
 import { HatImage } from '@components/common';
 import hatData from '../../../../mock/hatData';
-import { UserList } from '@redux/modules/sixHat/types';
+import { UserList, HatType } from '@redux/modules/sixHat/types';
 
 type SelectHatBoxProps = {
   subject: string;
-  myHat?: string;
+  myHat: HatType;
   userList: UserList;
   onClickHat?: (arg: any) => void;
   onClickRandom?: () => void;
@@ -43,12 +43,12 @@ const SelectHatBox = ({
       <DownBox>
         <UserListBox>
           <MyHatBox>
-            <HatImage type="white" width={80} height={80} />
+            <HatImage type={myHat} width={80} height={80} />
           </MyHatBox>
           <UserListColumn>
-            {userList.map(user => {
+            {userList.map((user, idx) => {
               return (
-                <UserProfile>
+                <UserProfile key={idx}>
                   <HatImage type={user.hat} width={20} height={20} />
                   <UserNickname>{user.nickname}</UserNickname>
                 </UserProfile>
@@ -170,12 +170,6 @@ const UserProfile = styled.div`
   align-items: center;
   gap: 10px;
   padding-top: 10px;
-`;
-
-const HatImg = styled.img<StyleProps>`
-  width: ${props => props.width}px;
-  height: ${props => props.height}px;
-  padding: 15px;
 `;
 
 const HatBox = styled.div<StyleProps>`

@@ -15,16 +15,20 @@ type HatImageProps = {
 };
 
 const HatImage = ({ type, width, height }: HatImageProps) => {
-  const hatType = {
-    white: White,
-    red: Red,
-    black: Black,
-    blue: Blue,
-    green: Green,
-    yellow: Yellow,
+  const hatSrc = (type: HatType) => {
+    const hatType = {
+      white: White,
+      red: Red,
+      black: Black,
+      blue: Blue,
+      green: Green,
+      yellow: Yellow,
+    };
+
+    return hatType[type];
   };
 
-  return <Image src={hatType[type]} width={width} height={height} />;
+  return <Image src={hatSrc(type)} width={width} height={height} />;
 };
 
 export { HatImage };

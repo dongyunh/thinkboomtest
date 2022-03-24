@@ -9,6 +9,7 @@ import {
   changeIsSubmitState,
   sixHatSelector,
   getNickname,
+  getMyHat,
 } from '../../../src/redux/modules/sixHat';
 import { NicknameModal } from '../../../src/components/common';
 import { ChattingRoom } from '../../../src/components/common';
@@ -16,6 +17,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import styled from 'styled-components';
 import useSocketHook from '../../../src/hooks/useSocketHook';
 import { makeStyles } from '@mui/styles';
+import { HatType } from '@redux/modules/sixHat/types';
 
 const useStyles = makeStyles({
   icon: {
@@ -49,8 +51,9 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
     }
   }, [nickname]);
 
-  const sendHatData = (hat: string) => {
+  const sendHatData = (hat: HatType) => {
     ConnectedSocket.sendHatData(nickname, hat);
+    dispatch(getMyHat(hat));
   };
 
   const sendMessage = (message: string) => {

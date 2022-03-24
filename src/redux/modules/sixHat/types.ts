@@ -24,5 +24,5 @@ export type SixHatState = {
   chatHistory?: ChatHistoryType;
   subject?: string;
   userList: UserList;
-  myHat: HatType | null;
+  myHat: HatType;
 };
