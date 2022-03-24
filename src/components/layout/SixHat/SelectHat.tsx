@@ -11,9 +11,10 @@ import useCheckSelectHat from '@hooks/useCheckSelectHat';
 type SelectHatProps = {
   onClick?: (hat: HatType) => void;
   onClickComplete: () => void;
+  onClickRandom: () => void;
 };
 
-const SelectHat = ({ onClick, onClickComplete }: SelectHatProps) => {
+const SelectHat = ({ onClick, onClickComplete, onClickRandom }: SelectHatProps) => {
   const { myHat, isAdmin } = useAppSelector(selectSixHat);
   const isAllHatSelect = useCheckSelectHat();
   const [disabled, setDisabled] = useState(!(isAdmin && isAllHatSelect));
@@ -38,6 +39,7 @@ const SelectHat = ({ onClick, onClickComplete }: SelectHatProps) => {
           userList={userList}
           myHat={myHat}
           onClickHat={handeOnClick}
+          onClickRandom={onClickRandom}
         />
         <ButtonWrapper>
           <PrimaryButton text="완료" disabled={disabled} onClick={onClickComplete} />
