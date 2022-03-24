@@ -87,7 +87,13 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
       ),
     },
     {
-      component: <SelectHat onClick={sendHatData} onClickComplete={() => handleNextPage(2)} />,
+      component: (
+        <SelectHat
+          onClick={sendHatData}
+          onClickComplete={() => handleNextPage(2)}
+          onClickRandom={handleSendRandomHat}
+        />
+      ),
     },
     {
       component: <DevatingRoom />,
