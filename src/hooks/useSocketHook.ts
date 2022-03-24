@@ -15,7 +15,7 @@ import mixHatsHelper from '@utils/mixHatsHelper';
 import { UserList, UserData, HatType } from '@redux/modules/sixHat/types';
 
 export type SixHatResponseData = {
-  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT' | 'RANDOMHAT' | 'DEVATING';
+  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT' | 'RANDOMHAT' | 'DEBATING';
   roomId: string | null;
   sender: string;
   senderId: number | null;
@@ -25,7 +25,7 @@ export type SixHatResponseData = {
 };
 
 export type SixHatSendData = {
-  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT' | 'RANDOMHAT' | 'DEVATING';
+  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT' | 'RANDOMHAT' | 'DEBATING';
   roomId: string | null;
   sender: string | null;
   senderId: number | null;
@@ -64,6 +64,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
           `/subSH/api/sixHat/rooms/${roomId}`,
           data => {
             const response: SixHatResponseData = JSON.parse(data.body) as SixHatResponseData;
+            console.log(response);
             if (response.type === 'ENTER') {
               const userData = {
                 nickname: response.sender,
@@ -74,6 +75,15 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
             }
 
             if (response.type === 'TALK') {
+              const newMessage = {
+                nickname: response.sender,
+                message: response.message,
+              };
+              dispatch(getMessages(newMessage));
+            }
+
+            if (response.type === 'DEBATING') {
+              console.log('DEBATING이 잘 들어왔다.');
               const newMessage = {
                 nickname: response.sender,
                 message: response.message,
@@ -112,7 +122,6 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
     send = (data: SixHatSendData) => {
       this.waitForConnection(this.StompClient, () => {
         this.StompClient.debug = () => {};
-        console.log(data);
         this.StompClient.send(
           '/pubSH/api/sixHat/chat/message',
           { senderId: this._senderId },
@@ -142,7 +151,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
       try {
         // send할 데이터
         const data: SixHatSendData = {
-          type: 'DEVATING',
+          type: 'DEBATING',
           roomId: this._roomId,
           sender: sender,
           senderId: this._senderId,

@@ -60,6 +60,10 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
     ConnectedSocket.sendMessage(nickname, message);
   };
 
+  const handelSendDevatingMessage = (message: string) => {
+    ConnectedSocket.sendMessageDV(nickname, message);
+  };
+
   const handleNextPage = (pageNum: number) => {
     dispatch(updateCurrentPage(pageNum));
   };
@@ -96,7 +100,7 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
       ),
     },
     {
-      component: <DevatingRoom />,
+      component: <DevatingRoom onClick={handelSendDevatingMessage} />,
     },
   ];
 
