@@ -73,6 +73,10 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
     dispatch(getNickname({ shRoomId: roomId, nickname: enteredName }));
   };
 
+  const handleSendRandomHat = () => {
+    ConnectedSocket.sendRandomHatData();
+  };
+
   const pages = [
     {
       component: (
