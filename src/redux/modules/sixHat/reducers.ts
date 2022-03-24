@@ -8,6 +8,7 @@ import {
   getMessages,
   getUserHatInfo,
   getMyHat,
+  getUserList,
 } from './actions';
 import { SixHatState } from './types';
 
@@ -63,6 +64,11 @@ export const sixHatReducer = createReducer(initialState, builder => {
     })
     .addCase(getMyHat, (state, action) => {
       state.myHat = action.payload;
+    })
+    .addCase(getUserList, (state, action) => {
+      const settedUserList = new Set(state.userList);
+      settedUserList.add(action.payload);
+      state.userList = [...settedUserList];
     });
 });
 
