@@ -14,7 +14,7 @@ import { UserData, HatType } from '@redux/modules/sixHat/types';
 export type SixHatResponseData = {
   type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT';
   roomId: string | null;
-  sender: string | null;
+  sender: string;
   senderId: number | null;
   hat: HatType;
   message: string | null;
@@ -63,6 +63,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
                 nickname: response.sender,
                 hat: null,
               };
+              console.log(userData);
               dispatch(getUserList(userData));
             }
 

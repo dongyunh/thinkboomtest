@@ -7,7 +7,7 @@ export type ChatData = {
 };
 
 export type UserData = {
-  nickname: string | null;
+  nickname: string;
   hat: HatType | null;
 };
 
