@@ -1,4 +1,4 @@
-import { HatType } from '@redux/modules/sixHat/types';
+import { HatType, UserList } from '@redux/modules/sixHat/types';
 
 function getRandomInt(min: number, max: number) {
   min = Math.ceil(min);
@@ -8,21 +8,13 @@ function getRandomInt(min: number, max: number) {
 
 type User = { nickname: string; hat: HatType };
 
-type UserData = User[];
-
-type HatsData = string[];
-
-type MixHatsProps = {
-  users: UserData;
-};
-
 // 랜덤한 모자를 뿌려주는 Helper 함수
-const mixHatsHelper = ({ users }: MixHatsProps) => {
+const mixHatsHelper = (users: UserList) => {
   const hats: HatType[] = ['red', 'green', 'yellow', 'black', 'white', 'blue'];
   let tmpHatArr = new Set(hats);
-  const initialState: UserData = [];
+  const initialState: UserList = [];
 
-  const mixHats = users.reduce((sumedUser: User[], user, idx): User[] => {
+  const mixHats = users.reduce((sumedUser: UserList, user, idx): UserList => {
     const randomNum = getRandomInt(0, tmpHatArr.size - 1);
     const randomHat = [...tmpHatArr][randomNum];
     const setedUser: User = {
