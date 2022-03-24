@@ -59,6 +59,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
           `/subSH/api/sixHat/rooms/${roomId}`,
           data => {
             const response: SixHatResponseData = JSON.parse(data.body) as SixHatResponseData;
+
             if (response.type === 'TALK') {
               const newMessage = {
                 nickname: response.sender,

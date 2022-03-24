@@ -1,16 +1,20 @@
 import React from 'react';
 import { SelectHatBox } from '../SixHat';
-import { CenterLayout, HeaderBar, PrimaryButton } from '../../common';
+import { CenterLayout, PrimaryButton } from '../../common';
 import styled from 'styled-components';
 import userList from '../../../mock/userListData';
+import { useAppSelector } from '@redux/hooks';
+import { selectSixHat } from '@redux/modules/sixHat';
+import { HatType } from '@redux/modules/sixHat/types';
 
 type SelectHatProps = {
-  onClick?: (hat: string) => void;
+  onClick?: (hat: HatType) => void;
   onClickComplete: () => void;
 };
 
 const SelectHat = ({ onClick, onClickComplete }: SelectHatProps) => {
-  const handeOnClick = (hat: string) => {
+  const { myHat } = useAppSelector(selectSixHat);
+  const handeOnClick = (hat: HatType) => {
     if (!onClick) return;
     onClick(hat);
   };
@@ -24,7 +28,7 @@ const SelectHat = ({ onClick, onClickComplete }: SelectHatProps) => {
         <SelectHatBox
           subject={tmpSubject}
           userList={userList}
-          myHat="yellow"
+          myHat={myHat}
           onClickHat={handeOnClick}
         />
         <ButtonWrapper>

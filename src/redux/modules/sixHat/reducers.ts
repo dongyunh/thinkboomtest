@@ -1,4 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { Stats } from 'fs';
 import {
   updateCurrentPage,
   getNickname,
@@ -6,6 +7,7 @@ import {
   changeIsSubmitState,
   getMessages,
   getUserHatInfo,
+  getMyHat,
 } from './actions';
 import { SixHatState } from './types';
 
@@ -18,7 +20,7 @@ const initialState: SixHatState = {
   chatHistory: [],
   subject: undefined,
   userList: [],
-  myHat: null,
+  myHat: 'red',
 };
 
 //createReducer로 reducer 생성.
@@ -58,6 +60,9 @@ export const sixHatReducer = createReducer(initialState, builder => {
         //유저의 이름이 없다면, 해당 정보를 추가해주기.
         state.userList?.push(action.payload);
       }
+    })
+    .addCase(getMyHat, (state, action) => {
+      state.myHat = action.payload;
     });
 });
 
