@@ -3,11 +3,10 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
-  updateCurrentPage,
-  sixHatSelector,
   updateAdminState,
   getMessages,
   getUserHatInfo,
+  getUserList,
 } from '../redux/modules/sixHat';
 
 import { UserData, HatType } from '@redux/modules/sixHat/types';
@@ -15,7 +14,7 @@ import { UserData, HatType } from '@redux/modules/sixHat/types';
 export type SixHatResponseData = {
   type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT';
   roomId: string | null;
-  sender: string | null;
+  sender: string;
   senderId: number | null;
   hat: HatType;
   message: string | null;
@@ -59,6 +58,14 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
           `/subSH/api/sixHat/rooms/${roomId}`,
           data => {
             const response: SixHatResponseData = JSON.parse(data.body) as SixHatResponseData;
+            if (response.type === 'ENTER') {
+              const userData = {
+                nickname: response.sender,
+                hat: null,
+              };
+              console.log(userData);
+              dispatch(getUserList(userData));
+            }
 
             if (response.type === 'TALK') {
               const newMessage = {

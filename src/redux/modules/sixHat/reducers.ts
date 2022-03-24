@@ -8,6 +8,7 @@ import {
   getMessages,
   getUserHatInfo,
   getMyHat,
+  getUserList,
 } from './actions';
 import { SixHatState } from './types';
 
@@ -49,20 +50,18 @@ export const sixHatReducer = createReducer(initialState, builder => {
       const { nickname, hat } = action.payload;
       //닉네임만 뽑아낸 리스트
       const nicknameList = state.userList?.map(item => item.nickname);
-
-      //그 닉네임 리스트중에서 지금 들어온 유저의 이름이 있는지 확인
-      if (nicknameList?.includes(nickname)) {
-        //유저의 이름이 있으면, 해당 유저의 인덱스를 찾기
-        const idx = nicknameList.indexOf(nickname);
-        //userlist에서 해당 인덱스에 있는 요소의 모자 값에 지금 들어온 모자값을 넣어주기
-        state.userList[idx].hat = hat;
-      } else {
-        //유저의 이름이 없다면, 해당 정보를 추가해주기.
-        state.userList?.push(action.payload);
-      }
+      console.log(nicknameList);
+      const idx = nicknameList.indexOf(nickname);
+      state.userList[idx].hat = hat;
     })
     .addCase(getMyHat, (state, action) => {
       state.myHat = action.payload;
+    })
+    .addCase(getUserList, (state, action) => {
+      const nicknameList = state.userList?.map(user => user.nickname);
+      if (!nicknameList.includes(action.payload.nickname)) {
+        state.userList.push(action.payload);
+      }
     });
 });
 

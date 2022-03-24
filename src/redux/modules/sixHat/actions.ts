@@ -14,6 +14,7 @@ export const changeIsSubmitState = createAction<boolean>(`${prefix}/CHANGE_IS_SU
 export const getMessages = createAction<ChatData>(`${prefix}/GET_MESSAGES`);
 export const getUserHatInfo = createAction<UserData>(`${prefix}/GET_USER_HAT_INFO`);
 export const getMyHat = createAction<HatType>(`${prefix}/GET_MY_HAT`);
+export const getUserList = createAction<UserData>(`${prefix}/GET_USER_LIST`);
 
 export const getNickname = createAsyncThunk(
   `${prefix}/GET_NICKNAME`,
