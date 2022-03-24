@@ -15,7 +15,7 @@ import mixHatsHelper from '@utils/mixHatsHelper';
 import { UserList, UserData, HatType } from '@redux/modules/sixHat/types';
 
 export type SixHatResponseData = {
-  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT' | 'RANDOMHAT';
+  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT' | 'RANDOMHAT' | 'DEVATING';
   roomId: string | null;
   sender: string;
   senderId: number | null;
@@ -25,7 +25,7 @@ export type SixHatResponseData = {
 };
 
 export type SixHatSendData = {
-  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT' | 'RANDOMHAT';
+  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT' | 'RANDOMHAT' | 'DEVATING';
   roomId: string | null;
   sender: string | null;
   senderId: number | null;
@@ -126,6 +126,23 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
         // send할 데이터
         const data: SixHatSendData = {
           type: 'TALK',
+          roomId: this._roomId,
+          sender: sender,
+          senderId: this._senderId,
+          hat: null,
+          message: message,
+        };
+        this.send(data);
+      } catch (e) {
+        console.log('message 소켓 함수 에러', e);
+      }
+    };
+
+    sendMessageDV = (sender: string, message: string) => {
+      try {
+        // send할 데이터
+        const data: SixHatSendData = {
+          type: 'DEVATING',
           roomId: this._roomId,
           sender: sender,
           senderId: this._senderId,
