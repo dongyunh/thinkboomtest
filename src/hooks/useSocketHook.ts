@@ -7,30 +7,36 @@ import {
   getMessages,
   getUserHatInfo,
   getUserList,
+  sixHatSelector,
+  getRandomHatList,
 } from '../redux/modules/sixHat';
+import mixHatsHelper from '@utils/mixHatsHelper';
 
-import { UserData, HatType } from '@redux/modules/sixHat/types';
+import { UserList, UserData, HatType } from '@redux/modules/sixHat/types';
 
 export type SixHatResponseData = {
-  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT';
+  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT' | 'RANDOMHAT';
   roomId: string | null;
   sender: string;
   senderId: number | null;
   hat: HatType;
   message: string | null;
+  randomHat: UserList;
 };
 
 export type SixHatSendData = {
-  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT';
+  type: 'ENTER' | 'TALK' | 'HAT' | 'QUIT' | 'SUBJECT' | 'RANDOMHAT';
   roomId: string | null;
   sender: string | null;
   senderId: number | null;
   hat: HatType | null;
   message: string | null;
+  randomHat?: UserList;
 };
 
 export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
   const dispatch = useAppDispatch();
+  const { userList } = useAppSelector(sixHatSelector);
   const _api = type == 'sixhat' ? '/subSH/api/sixHat/rooms/' : '/sub/api/brainWriting/rooms/';
   const _messageApi =
     type == 'sixhat' ? '/pubSH/api/sixHat/chat/message' : '/pub/api/brainWriting/chat/message';
@@ -81,6 +87,10 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
                 hat: response.hat,
               };
               dispatch(getUserHatInfo(userInfo));
+            }
+
+            if (response.type === 'RANDOMHAT') {
+              dispatch(getRandomHatList(response.randomHat));
             }
           },
           { senderId: this._senderId, category: 'SH' },
@@ -138,6 +148,24 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
           senderId: this._senderId,
           hat: hat,
           message: null,
+        };
+        this.send(data);
+      } catch (e) {
+        console.log('message 소켓 함수 에러', e);
+      }
+    };
+
+    sendRandomHatData = () => {
+      try {
+        // send할 데이터
+        const data: SixHatSendData = {
+          type: 'RANDOMHAT',
+          roomId: this._roomId,
+          sender: null,
+          senderId: this._senderId,
+          hat: null,
+          message: null,
+          randomHat: mixHatsHelper(userList),
         };
         this.send(data);
       } catch (e) {
