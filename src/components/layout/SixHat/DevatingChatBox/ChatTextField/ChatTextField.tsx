@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../../theme/styleTheme';
 
 type ChatTextFieldProps = {
   onChange?: () => void;
+  onClick: (arg: string) => void;
 };
 
-const ChatTextField = ({ onChange }: ChatTextFieldProps) => {
+const ChatTextField = ({ onChange, onClick }: ChatTextFieldProps) => {
+  const [contents, setContents] = useState<string>('');
+
+  const handleSendMessage = () => {
+    onClick(contents);
+  };
+
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+      setContents('');
+    }
+  };
+
   return (
     <TextFieldContainer>
-      <TextField />
-      <Button>입력</Button>
+      <TextField
+        value={contents}
+        onChange={e => setContents(e.target.value)}
+        onKeyPress={onKeyPress}
+      />
+      <Button onClick={handleSendMessage}>입력</Button>
     </TextFieldContainer>
   );
 };

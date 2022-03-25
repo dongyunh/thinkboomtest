@@ -14,8 +14,8 @@ const SixHat = () => {
     dispatch(updateCurrentPage(pageNum));
   };
 
-  const handleMoveSettingPage = (roomId: number) => {
-    router.push(`/sixHat/devating/${roomId}`);
+  const handleMoveSettingPage = (title: string | null, roomId: number) => {
+    router.push(`/sixHat/devating/${title}/${roomId}`);
   };
 
   const handleUpdateAmdinState = () => {
@@ -23,12 +23,16 @@ const SixHat = () => {
   };
 
   // TODO : 서버 주소 나오면 api 한곳에 모으기, 비동기 작업들 리덕스로 옮기기
-  const handleMakeNewPage = async (title: string, headCount: number, timer: number) => {
+  const handleMakeNewPage = async (title: string | null, headCount: number, timer: number) => {
     await axios
+<<<<<<< HEAD
       .post(`https://thinkboom.shop/api/sixHat/rooms`, { title, headCount, timer })
+=======
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/sixHat/rooms`, { title, headCount, timer })
+>>>>>>> eeb2e7e1001ba8a59d5db567ab8c9a80fd486c4f
       .then(res => {
         const { shRoomId } = res.data;
-        handleMoveSettingPage(shRoomId);
+        handleMoveSettingPage(title, shRoomId);
         handleUpdateAmdinState();
       });
   };
@@ -43,8 +47,9 @@ const SixHat = () => {
     {
       component: (
         <StartPage
-          title="Six Thinking Hat"
-          desc="학교 동아리, 게임 그룹, 세계 예술 감상 커뮤니티에 소속되어 유대감을 느낄 수 있는"
+          pageType="sixhat"
+          title="6가지 모자"
+          desc="여섯가지 색상의 모자가 지닌 역할에 맞춰 생각함으로써 다양한 측면에서 폭넓은 사고를 할 수 있도록 도와주는 기법입니다."
           onClick={() => handleNextPage(1)}
         />
       ),

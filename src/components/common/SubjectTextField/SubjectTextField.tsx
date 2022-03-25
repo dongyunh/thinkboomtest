@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import { themedPalette } from '../../../theme/styleTheme';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useAppDispatch } from '../../../redux/hooks';
-import { getSubject } from '@redux/modules/randomWord/actions';
+import { getSubjectRW } from '@redux/modules/randomWord/actions';
+import { getSubjectSH } from '@redux/modules/sixHat/actions';
 
 type SubjectTextFieldProps = {
-  type: 'randomWord' | 'sixHat';
+  type?: 'randomWord' | 'sixHat';
   onChange?: (e: string) => void;
   onClick?: () => void;
 };
@@ -18,7 +19,15 @@ const SubjectTextField = ({ type, onChange, onClick }: SubjectTextFieldProps) =>
 
   const handleGetSubject = () => {
     if (type == 'randomWord') {
-      dispatch(getSubject(subject));
+      dispatch(getSubjectRW(subject));
+      if (!onClick) return;
+      onClick();
+    }
+
+    if (type == 'sixHat') {
+      dispatch(getSubjectSH(subject));
+      if (!onClick) return;
+      onClick();
     }
   };
 

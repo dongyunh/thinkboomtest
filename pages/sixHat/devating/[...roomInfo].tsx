@@ -1,23 +1,28 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
-import { InteractivePage, WaitingRoom } from '../../../src/components/common';
+import { InteractivePage, WaitingRoom, Share } from '../../../src/components/common';
 import { SelectHat, DevatingRoom } from '../../../src/components/layout/SixHat';
 import { useAppDispatch, useAppSelector } from '../../../src/redux/hooks';
 import {
   updateCurrentPage,
-  updateNickname,
   changeIsSubmitState,
   sixHatSelector,
+  getNickname,
+  getMyHat,
+  clearChatHistory,
 } from '../../../src/redux/modules/sixHat';
 import { NicknameModal } from '../../../src/components/common';
 import { ChattingRoom } from '../../../src/components/common';
-import axios from 'axios';
 import CommentIcon from '@mui/icons-material/Comment';
 import styled from 'styled-components';
 import useSocketHook from '../../../src/hooks/useSocketHook';
 import { makeStyles } from '@mui/styles';
-import { themedPalette } from '../../../src/theme';
+import { HatType, UserList } from '@redux/modules/sixHat/types';
+import { ToastContainer } from 'react-toastify';
+import copyUrlHelper from '@utils/copyUrlHelper';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles({
   icon: {
@@ -28,42 +33,40 @@ const useStyles = makeStyles({
 //TODO : any 수정하기
 export const WaitingRoomContext = createContext<any>(null);
 
-export type message = {
-  nickname: string;
-  content: string;
-};
-
 type SettingPageProps = {
-  roomId: string;
+  roomInfo: string[];
 };
 
 let ConnectedSocket: any;
+// 52.78.192.124
 
-const SettingPage = ({ roomId }: SettingPageProps) => {
+const SettingPage = ({ roomInfo }: SettingPageProps) => {
   const dispatch = useAppDispatch();
-  const { currentPage, nickname, chatHistory } = useAppSelector(sixHatSelector);
-  const [_nickname, setNickname] = useState<string>();
-  const [subject, setSubject] = useState();
+  const { currentPage, nickname, chatHistory, senderId, subject } = useAppSelector(sixHatSelector);
+
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const localSenderId = localStorage.getItem('senderId');
-  const [senderId, setSenderId] = useState(localSenderId ? Number(localSenderId) : null);
   const HandleSocket = useSocketHook('sixhat');
-  const router = useRouter();
   const classes = useStyles();
+  const [roomTitle, roomId] = roomInfo;
 
   useEffect(() => {
     if (nickname) {
-      ConnectedSocket = new HandleSocket('https://thinkboom.shop/websocket');
+      ConnectedSocket = new HandleSocket(`${process.env.NEXT_PUBLIC_API_URL}/websocket`);
       ConnectedSocket.connectSH(senderId, roomId);
     }
   }, [nickname]);
 
-  const sendHatData = (hat: string) => {
+  const sendHatData = (hat: HatType) => {
     ConnectedSocket.sendHatData(nickname, hat);
+    dispatch(getMyHat(hat));
   };
 
   const sendMessage = (message: string) => {
     ConnectedSocket.sendMessage(nickname, message);
+  };
+
+  const handelSendDevatingMessage = (message: string) => {
+    ConnectedSocket.sendMessageDB(nickname, message);
   };
 
   const handleNextPage = (pageNum: number) => {
@@ -71,21 +74,21 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   };
 
   const handleSubmitSubject = () => {
+    ConnectedSocket.submitSubject(subject);
     dispatch(changeIsSubmitState(true));
-    ConnectedSocket.sendSubject(subject);
   };
 
   const handleUpdateNickname = async (enteredName: string) => {
-    await axios
-      .post(`https://thinkboom.shop/api/sixHat/user/nickname`, {
-        shRoomId: Number(roomId),
-        nickname: enteredName,
-      })
-      .then(res => {
-        localStorage.setItem('senderId', res.data.userId);
-        setSenderId(res.data.userId);
-        dispatch(updateNickname(enteredName));
-      });
+    dispatch(getNickname({ shRoomId: roomId, nickname: enteredName }));
+  };
+
+  const handleSendRandomHat = (userHatList: UserList) => {
+    ConnectedSocket.sendRandomHatData(userHatList);
+  };
+
+  const handleCompleteSelect = () => {
+    handleNextPage(2);
+    dispatch(clearChatHistory());
   };
 
   const pages = [
@@ -98,25 +101,34 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
       ),
     },
     {
-      component: <SelectHat onClick={sendHatData} onClickComplete={() => handleNextPage(2)} />,
+      component: (
+        <SelectHat
+          onClick={sendHatData}
+          onClickComplete={handleCompleteSelect}
+          onClickRandom={handleSendRandomHat}
+        />
+      ),
     },
     {
-      component: <DevatingRoom />,
+      component: <DevatingRoom onClick={handelSendDevatingMessage} />,
     },
   ];
 
   const contextValue = {
-    setSubject: setSubject,
     sendMessage,
   };
 
   return (
     <WaitingRoomContext.Provider value={contextValue}>
+      <ToastContainer position="bottom-left" autoClose={3000} theme="dark" />
       <InteractivePage pages={pages} currentPage={currentPage} />
-      {!nickname && <NicknameModal title="항해7팀" onClick={handleUpdateNickname} />}
+      {!nickname && <NicknameModal title={roomTitle} onClick={handleUpdateNickname} />}
       <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>
         <CommentIcon className={classes.icon} />
       </ChatIcon>
+      <ShareIconWrapper onClick={copyUrlHelper}>
+        <Share />
+      </ShareIconWrapper>
       {isChatOpen && (
         <ChattingContainer>
           <ChattingRoom
@@ -146,6 +158,13 @@ const ChatIcon = styled.div`
   border-radius: 50%;
 `;
 
+const ShareIconWrapper = styled.div`
+  position: fixed;
+  right: 140px;
+  bottom: 70px;
+  cursor: pointer;
+`;
+
 const ChattingContainer = styled.div`
   position: fixed;
   right: 70px;
@@ -153,11 +172,12 @@ const ChattingContainer = styled.div`
 `;
 
 export const getServerSideProps: GetServerSideProps = async context => {
+  console.log(context);
   const { query } = context;
-  const { roomId } = query;
+  const { roomInfo } = query;
   return {
     props: {
-      roomId,
+      roomInfo,
     },
   };
 };
