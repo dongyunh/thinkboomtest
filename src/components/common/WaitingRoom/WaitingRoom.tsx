@@ -39,7 +39,7 @@ const WaitingRoom = ({ onClickSubmit, onClickComplete, onChange }: WaitingRoomPr
         <Empty />
         <TextFieldWrapper>
           <Title text="회의 주제" />
-          <SubjectTextField onChange={handleOnChange} onClick={handleOnclickSubmit} />
+          <SubjectTextField type="sixHat" onChange={handleOnChange} onClick={handleOnclickSubmit} />
         </TextFieldWrapper>
         <PrimaryButton text="완료" onClick={handleOnClickComplete} disabled={isSubmit && isAdmin} />
       </Grid>
