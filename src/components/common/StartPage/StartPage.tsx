@@ -8,6 +8,7 @@ import RandomWord from '../../../../public/asset/randomWord.png';
 import BrainWriting from '../../../../public/asset/brainWriting.png';
 import Image from 'next/image';
 
+
 type StartProps = {
   title: string;
   desc: string;
@@ -92,5 +93,6 @@ const ImageWrapper = styled.div`
   border-radius: 18px;
   overflow: hidden;
 `;
+
 
 export { StartPage };
