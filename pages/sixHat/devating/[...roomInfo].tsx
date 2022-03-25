@@ -41,8 +41,8 @@ let ConnectedSocket: any;
 
 const SettingPage = ({ roomInfo }: SettingPageProps) => {
   const dispatch = useAppDispatch();
-  const { currentPage, nickname, chatHistory, senderId } = useAppSelector(sixHatSelector);
-  const [subject, setSubject] = useState();
+  const { currentPage, nickname, chatHistory, senderId, subject } = useAppSelector(sixHatSelector);
+
   const [isChatOpen, setIsChatOpen] = useState(false);
   const HandleSocket = useSocketHook('sixhat');
   const classes = useStyles();
@@ -73,9 +73,8 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
   };
 
   const handleSubmitSubject = () => {
-    toast.info('주제가 공유되었습니다');
+    ConnectedSocket.submitSubject(subject);
     dispatch(changeIsSubmitState(true));
-    ConnectedSocket.sendSubject(subject);
   };
 
   const handleUpdateNickname = async (enteredName: string) => {
@@ -115,7 +114,6 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
   ];
 
   const contextValue = {
-    setSubject: setSubject,
     sendMessage,
   };
 
