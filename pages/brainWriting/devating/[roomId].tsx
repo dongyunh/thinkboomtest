@@ -2,14 +2,13 @@ import React, { useState, useEffect, createContext } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { InteractivePage, WaitingRoom } from '../../../src/components/common';
-import { SelectHat, DevatingRoom } from '../../../src/components/layout/SixHat';
+// import { SelectHat, DevatingRoom } from '../../../src/components/layout/SixHat';y
 import { useAppDispatch, useAppSelector } from '../../../src/redux/hooks';
 import {
   updateCurrentPage,
   updateNickname,
-  changeIsSubmitState,
-  sixHatSelector,
-} from '../../../src/redux/modules/sixHat';
+  brainWritingSelector,
+} from '../../../src/redux/modules/brainWriting';
 import { NicknameModal } from '../../../src/components/common';
 import { ChattingRoom } from '../../../src/components/common';
 import axios from 'axios';
@@ -41,15 +40,18 @@ let ConnectedSocket: any;
 
 const SettingPage = ({ roomId }: SettingPageProps) => {
   const dispatch = useAppDispatch();
-  const { currentPage, nickname, chatHistory } = useAppSelector(sixHatSelector);
+  const { currentPage, nickname } = useAppSelector(brainWritingSelector);
   const [_nickname, setNickname] = useState<string>();
   const [subject, setSubject] = useState();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const localSenderId = localStorage.getItem('senderId');
   const [senderId, setSenderId] = useState(localSenderId ? Number(localSenderId) : null);
-  const HandleSocket = useSocketHook('sixhat');
+  const HandleSocket = useSocketHook('brainwriting');
   const router = useRouter();
   const classes = useStyles();
+
+  console.log(nickname);
+  console.log(roomId);
 
   useEffect(() => {
     if (nickname) {
@@ -71,17 +73,18 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
   };
 
   const handleSubmitSubject = () => {
-    dispatch(changeIsSubmitState(true));
+    // dispatch(changeIsSubmitState(true));
     ConnectedSocket.sendSubject(subject);
   };
 
   const handleUpdateNickname = async (enteredName: string) => {
     await axios
-      .post(`https://thinkboom.shop/api/sixHat/user/nickname`, {
-        shRoomId: Number(roomId),
+      .post(`https://thinkboom.shop/api/brainwriting/user/nickname/${roomId}`, {
+        // bwRoomid: roomId,
         nickname: enteredName,
       })
       .then(res => {
+        console.log(res);
         localStorage.setItem('senderId', res.data.userId);
         setSenderId(res.data.userId);
         dispatch(updateNickname(enteredName));
@@ -97,12 +100,12 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
         />
       ),
     },
-    {
-      component: <SelectHat onClick={sendHatData} onClickComplete={() => handleNextPage(2)} />,
-    },
-    {
-      component: <DevatingRoom />,
-    },
+    // {
+    //   component: <SelectHat onClick={sendHatData} onClickComplete={() => handleNextPage(2)} />,
+    // },
+    // {
+    //   component: <DevatingRoom />,
+    // },
   ];
 
   const contextValue = {
@@ -121,7 +124,7 @@ const SettingPage = ({ roomId }: SettingPageProps) => {
         <ChattingContainer>
           <ChattingRoom
             myNickname={nickname}
-            chatHistory={chatHistory}
+            // chatHistory={chatHistory}
             onClick={() => setIsChatOpen(!isChatOpen)}
           />
         </ChattingContainer>
@@ -155,6 +158,7 @@ const ChattingContainer = styled.div`
 export const getServerSideProps: GetServerSideProps = async context => {
   const { query } = context;
   const { roomId } = query;
+  console.log(roomId);
   return {
     props: {
       roomId,
