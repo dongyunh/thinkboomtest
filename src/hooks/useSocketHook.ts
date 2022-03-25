@@ -147,7 +147,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
       }
     };
 
-    sendMessageDV = (sender: string, message: string) => {
+    sendMessageDB = (sender: string, message: string) => {
       try {
         // send할 데이터
         const data: SixHatSendData = {

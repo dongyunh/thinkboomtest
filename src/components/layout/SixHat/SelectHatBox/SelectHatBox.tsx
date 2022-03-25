@@ -48,7 +48,7 @@ const SelectHatBox = ({
           <UserListColumn>
             {userList.map((user, idx) => {
               return (
-                <UserProfile key={idx}>
+                <UserProfile key={user.nickname}>
                   {user.hat !== null && <HatImage type={user.hat} width={20} height={20} />}
                   <UserNickname>{user.nickname}</UserNickname>
                 </UserProfile>
