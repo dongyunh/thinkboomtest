@@ -19,6 +19,9 @@ import styled from 'styled-components';
 import useSocketHook from '../../../src/hooks/useSocketHook';
 import { makeStyles } from '@mui/styles';
 import { HatType, UserList } from '@redux/modules/sixHat/types';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles({
   icon: {
@@ -70,6 +73,7 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
   };
 
   const handleSubmitSubject = () => {
+    toast.info('주제가 공유되었습니다');
     dispatch(changeIsSubmitState(true));
     ConnectedSocket.sendSubject(subject);
   };
@@ -117,6 +121,7 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
 
   return (
     <WaitingRoomContext.Provider value={contextValue}>
+      <ToastContainer position="bottom-left" autoClose={3000} theme="dark" />
       <InteractivePage pages={pages} currentPage={currentPage} />
       {!nickname && <NicknameModal title={roomTitle} onClick={handleUpdateNickname} />}
       <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>

@@ -11,6 +11,7 @@ import {
   getRandomHatList,
 } from '../redux/modules/sixHat';
 import mixHatsHelper from '@utils/mixHatsHelper';
+import { toast } from 'react-toastify';
 
 import { UserList, UserData, HatType } from '@redux/modules/sixHat/types';
 
@@ -80,6 +81,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
                 message: response.message,
               };
               dispatch(getMessages(newMessage));
+              toast.info('메시지가 도착했습니다');
             }
 
             if (response.type === 'DEBATING') {

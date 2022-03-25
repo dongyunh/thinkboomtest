@@ -23,6 +23,11 @@ const SubjectTextField = ({ type, onChange, onClick }: SubjectTextFieldProps) =>
       if (!onClick) return;
       onClick();
     }
+
+    if (type == 'sixHat') {
+      if (!onClick) return;
+      onClick();
+    }
   };
 
   return (
