@@ -10,6 +10,7 @@ import {
   sixHatSelector,
   getNickname,
   getMyHat,
+  clearChatHistory,
 } from '../../../src/redux/modules/sixHat';
 import { NicknameModal } from '../../../src/components/common';
 import { ChattingRoom } from '../../../src/components/common';
@@ -81,6 +82,11 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
     ConnectedSocket.sendRandomHatData(userHatList);
   };
 
+  const handleCompleteSelect = () => {
+    handleNextPage(2);
+    dispatch(clearChatHistory());
+  };
+
   const pages = [
     {
       component: (
@@ -94,7 +100,7 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
       component: (
         <SelectHat
           onClick={sendHatData}
-          onClickComplete={() => handleNextPage(2)}
+          onClickComplete={handleCompleteSelect}
           onClickRandom={handleSendRandomHat}
         />
       ),
