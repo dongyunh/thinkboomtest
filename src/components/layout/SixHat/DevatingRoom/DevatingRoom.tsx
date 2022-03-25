@@ -3,10 +3,14 @@ import styled from 'styled-components';
 import { CenterLayout } from '../../../common';
 import { DevatingChatBox } from '../DevatingChatBox';
 
-const DevatingRoom = () => {
+type DevatingRoom = {
+  onClick: (arg: string) => void;
+};
+
+const DevatingRoom = ({ onClick }: DevatingRoom) => {
   return (
     <CenterLayout>
-      <DevatingChatBox />
+      <DevatingChatBox onClick={onClick} />
     </CenterLayout>
   );
 };
