@@ -127,6 +127,7 @@ const RandomButton = styled.button`
   right: 70px;
   border: none;
   border-radius: 12px;
+  cursor: pointer;
 `;
 
 const DownBox = styled.div`
