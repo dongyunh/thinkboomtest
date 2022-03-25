@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { HeaderBar } from '../HeaderBar';
 import { SubjectTextField } from '../SubjectTextField';
 import { PrimaryButton } from '../PrimaryButton';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { useAppSelector } from '../../../redux/hooks';
 import { sixHatSelector } from '../../../redux/modules/sixHat';
-import { Title, Desc } from '../../common';
+import { Title } from '../../common';
 
 type WaitingRoomProps = {
   onClickSubmit?: () => void;
@@ -14,7 +14,7 @@ type WaitingRoomProps = {
 };
 
 const WaitingRoom = ({ onClickSubmit, onClickComplete, onChange }: WaitingRoomProps) => {
-  const { isAdmin, isSubmit } = useAppSelector(sixHatSelector);
+  const { isAdmin, subject } = useAppSelector(sixHatSelector);
   const handleOnclickSubmit = () => {
     if (!onClickSubmit) return;
     onClickSubmit();
@@ -41,7 +41,11 @@ const WaitingRoom = ({ onClickSubmit, onClickComplete, onChange }: WaitingRoomPr
           <Title text="회의 주제" />
           <SubjectTextField type="sixHat" onChange={handleOnChange} onClick={handleOnclickSubmit} />
         </TextFieldWrapper>
-        <PrimaryButton text="완료" onClick={handleOnClickComplete} disabled={isSubmit && isAdmin} />
+        <PrimaryButton
+          text="완료"
+          onClick={handleOnClickComplete}
+          disabled={!(subject && isAdmin)}
+        />
       </Grid>
     </>
   );
