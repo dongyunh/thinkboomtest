@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
 import { Message, ChatTextField } from '../DevatingChatBox';
-import { ChatHistoryType } from '../../../../redux/modules/sixHat/types';
 import { sixHatSelector } from '../../../../redux/modules/sixHat';
 import { useAppSelector } from '../../../../redux/hooks';
 import { HatImage } from '@components/common';
@@ -150,6 +149,11 @@ const MessageBox = styled.div`
   height: 380px;
   overflow-y: scroll;
   margin-bottom: 10px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 
 export { DevatingChatBox };

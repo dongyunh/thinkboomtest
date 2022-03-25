@@ -10,6 +10,7 @@ import {
   getMyHat,
   getUserList,
   getRandomHatList,
+  clearChatHistory,
 } from './actions';
 import { SixHatState } from './types';
 
@@ -76,6 +77,9 @@ export const sixHatReducer = createReducer(initialState, builder => {
       });
       state.myHat = mappedList.get(state.nickname);
       state.userList = action.payload;
+    })
+    .addCase(clearChatHistory, state => {
+      state.chatHistory = [];
     });
 });
 

@@ -16,6 +16,7 @@ export const getUserHatInfo = createAction<UserData>(`${prefix}/GET_USER_HAT_INF
 export const getMyHat = createAction<HatType>(`${prefix}/GET_MY_HAT`);
 export const getUserList = createAction<UserData>(`${prefix}/GET_USER_LIST`);
 export const getRandomHatList = createAction<UserList>(`${prefix}/GET_RANDOM_HAT_LIST`);
+export const clearChatHistory = createAction(`${prefix}/CLEAR_CHAT_HISTORY`);
 
 export const getNickname = createAsyncThunk(
   `${prefix}/GET_NICKNAME`,
