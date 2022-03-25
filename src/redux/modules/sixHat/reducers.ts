@@ -59,12 +59,18 @@ export const sixHatReducer = createReducer(initialState, builder => {
       state.myHat = action.payload;
     })
     .addCase(getUserList, (state, action) => {
+      if (state.userList.length === 0) {
+        console.log('실행?')
+        state.userList.push(action.payload);
+        return
+      }
       const nicknameList = state.userList?.map(user => user.nickname);
       if (!nicknameList.includes(action.payload.nickname)) {
         state.userList.push(action.payload);
       }
     })
     .addCase(getRandomHatList, (state, action) => {
+      console.log(action.payload);
       state.userList = action.payload;
     });
 });

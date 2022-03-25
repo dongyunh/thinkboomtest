@@ -11,7 +11,7 @@ type SelectHatBoxProps = {
   myHat: HatType;
   userList: UserList;
   onClickHat?: (arg: any) => void;
-  onClickRandom?: () => void;
+  onClickRandom: (userHatList: UserList) => void;
 };
 
 type StyleProps = {
@@ -38,7 +38,7 @@ const SelectHatBox = ({
     <Container>
       <SubjectBox>
         {subject}
-        <RandomButton onClick={onClickRandom}>랜덤</RandomButton>
+        <RandomButton onClick={() => onClickRandom(userList)}>랜덤</RandomButton>
       </SubjectBox>
       <DownBox>
         <UserListBox>

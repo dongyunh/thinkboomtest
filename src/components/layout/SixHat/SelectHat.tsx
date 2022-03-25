@@ -2,20 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { SelectHatBox } from '../SixHat';
 import { CenterLayout, PrimaryButton } from '../../common';
 import styled from 'styled-components';
-import userList from '../../../mock/userListData';
 import { useAppSelector } from '@redux/hooks';
 import { selectSixHat } from '@redux/modules/sixHat';
-import { HatType } from '@redux/modules/sixHat/types';
+import { HatType, UserList } from '@redux/modules/sixHat/types';
 import useCheckSelectHat from '@hooks/useCheckSelectHat';
 
 type SelectHatProps = {
   onClick?: (hat: HatType) => void;
   onClickComplete: () => void;
-  onClickRandom: () => void;
+  onClickRandom: (userHatList: UserList) => void;
 };
 
 const SelectHat = ({ onClick, onClickComplete, onClickRandom }: SelectHatProps) => {
-  const { myHat, isAdmin } = useAppSelector(selectSixHat);
+  const { myHat, isAdmin, userList } = useAppSelector(selectSixHat);
   const isAllHatSelect = useCheckSelectHat();
   const [disabled, setDisabled] = useState(!(isAdmin && isAllHatSelect));
 

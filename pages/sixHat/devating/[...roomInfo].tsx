@@ -17,7 +17,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import styled from 'styled-components';
 import useSocketHook from '../../../src/hooks/useSocketHook';
 import { makeStyles } from '@mui/styles';
-import { HatType } from '@redux/modules/sixHat/types';
+import { HatType, UserList } from '@redux/modules/sixHat/types';
 
 const useStyles = makeStyles({
   icon: {
@@ -77,8 +77,8 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
     dispatch(getNickname({ shRoomId: roomId, nickname: enteredName }));
   };
 
-  const handleSendRandomHat = () => {
-    ConnectedSocket.sendRandomHatData();
+  const handleSendRandomHat = (userHatList: UserList) => {
+    ConnectedSocket.sendRandomHatData(userHatList);
   };
 
   const pages = [
