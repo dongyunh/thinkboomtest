@@ -8,7 +8,7 @@ import { getSubject } from '@redux/modules/randomWord/actions';
 import { useRouter } from 'next/router';
 
 type SubjectTextFieldProps = {
-  type: 'randomWord' | 'sixHat';
+  type?: 'randomWord' | 'sixHat';
   onChange?: (e: string) => void;
   onClick?: () => void;
 };

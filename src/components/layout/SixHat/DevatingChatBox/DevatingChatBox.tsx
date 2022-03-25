@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { themedPalette } from '../../../../theme/styleTheme';
 import { Message, ChatTextField } from '../DevatingChatBox';
-import { ChatHistoryType } from '../../../../redux/modules/sixHat/types';
 import { sixHatSelector } from '../../../../redux/modules/sixHat';
 import { useAppSelector } from '../../../../redux/hooks';
+import { HatImage } from '@components/common';
 
-import { HatImage } from '@components/common/HatImage';
-import { HatType } from '@redux/modules/sixHat/types';
+type DevatingChatBoxProps = {
+  onClick: (arg: string) => void;
+};
 
 type StyleProps = {
   width?: number;
@@ -15,7 +16,7 @@ type StyleProps = {
   isMouseOver?: boolean;
 };
 
-const DevatingChatBox = ({}) => {
+const DevatingChatBox = ({ onClick }: DevatingChatBoxProps) => {
   const { subject, chatHistory, nickname, userList, myHat } = useAppSelector(sixHatSelector);
 
   const hatName = {
@@ -32,28 +33,37 @@ const DevatingChatBox = ({}) => {
       <SubjectBox>{subject}</SubjectBox>
       <DownBox>
         <UserListBox>
-          <MyHatBox>{/* <HatImage type={myHat} width={70} /> */}</MyHatBox>
+          <MyHatBox>
+            <HatImage type={myHat} width={70} height={70} />
+          </MyHatBox>
           <UserList>
-            {chatHistory?.map(data => {
-              return <User key={data.nickname}>{data.nickname}</User>;
+            {userList.map(user => {
+              return (
+                <UserProfile key={user.nickname}>
+                  {user.hat !== null && <HatImage type={user.hat} width={20} height={20} />}
+                  <User>{user.nickname}</User>
+                </UserProfile>
+              );
             })}
           </UserList>
         </UserListBox>
         <ChatViewBox>
           <MessageBox>
             {chatHistory?.map(data => {
-              return (
-                <Message
-                  key={data.nickname}
-                  isMe={data.nickname === nickname}
-                  message={data.message}
-                  hatName={hatName[data.hat]}
-                  hat={data.hat}
-                />
-              );
+              if (data.hat) {
+                return (
+                  <Message
+                    key={data.nickname}
+                    isMe={data.nickname === nickname}
+                    message={data.message}
+                    hatName={hatName[data.hat]}
+                    hat={data.hat}
+                  />
+                );
+              }
             })}
           </MessageBox>
-          <ChatTextField />
+          <ChatTextField onClick={onClick} />
         </ChatViewBox>
       </DownBox>
     </Container>
@@ -122,14 +132,15 @@ const UserList = styled.div`
   flex-direction: column;
 `;
 
-const User = styled.div`
-  margin-bottom: 8px;
+const UserProfile = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
 `;
 
-const HatImg = styled.img<StyleProps>`
-  width: ${props => props.width}px;
-  height: ${props => props.height}px;
-  padding: 15px;
+const User = styled.div`
+  margin-bottom: 8px;
 `;
 
 const MessageBox = styled.div`
@@ -138,6 +149,11 @@ const MessageBox = styled.div`
   height: 380px;
   overflow-y: scroll;
   margin-bottom: 10px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 
 export { DevatingChatBox };
