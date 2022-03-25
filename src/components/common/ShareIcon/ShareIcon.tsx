@@ -1,11 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import ShareIcon from '@mui/icons-material/Share';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  icon: {
+    color: '#FFFFFF',
+  },
+});
 
 const Share = () => {
+  const classes = useStyles();
   return (
     <Circle>
-      <ShareIcon />
+      <ShareIcon className={classes.icon} />
     </Circle>
   );
 };

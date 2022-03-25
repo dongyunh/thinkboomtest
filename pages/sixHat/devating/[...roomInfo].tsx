@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
-import { InteractivePage, WaitingRoom } from '../../../src/components/common';
+import { InteractivePage, WaitingRoom, Share } from '../../../src/components/common';
 import { SelectHat, DevatingRoom } from '../../../src/components/layout/SixHat';
 import { useAppDispatch, useAppSelector } from '../../../src/redux/hooks';
 import {
@@ -19,7 +19,8 @@ import styled from 'styled-components';
 import useSocketHook from '../../../src/hooks/useSocketHook';
 import { makeStyles } from '@mui/styles';
 import { HatType, UserList } from '@redux/modules/sixHat/types';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import copyUrlHelper from '@utils/copyUrlHelper';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -125,6 +126,9 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
       <ChatIcon onClick={() => setIsChatOpen(!isChatOpen)}>
         <CommentIcon className={classes.icon} />
       </ChatIcon>
+      <ShareIconWrapper onClick={copyUrlHelper}>
+        <Share />
+      </ShareIconWrapper>
       {isChatOpen && (
         <ChattingContainer>
           <ChattingRoom
@@ -152,6 +156,13 @@ const ChatIcon = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+`;
+
+const ShareIconWrapper = styled.div`
+  position: fixed;
+  right: 140px;
+  bottom: 70px;
+  cursor:pointer;
 `;
 
 const ChattingContainer = styled.div`
