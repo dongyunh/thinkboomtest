@@ -62,7 +62,7 @@ const SettingPage = ({ roomInfo }: SettingPageProps) => {
   };
 
   const handelSendDevatingMessage = (message: string) => {
-    ConnectedSocket.sendMessageDV(nickname, message);
+    ConnectedSocket.sendMessageDB(nickname, message);
   };
 
   const handleNextPage = (pageNum: number) => {
