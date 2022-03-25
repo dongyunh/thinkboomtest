@@ -36,7 +36,7 @@ export type SixHatSendData = {
 
 export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
   const dispatch = useAppDispatch();
-  const { userList } = useAppSelector(sixHatSelector);
+  const { userList, myHat } = useAppSelector(sixHatSelector);
   console.log('유저리스트', userList);
   const _api = type == 'sixhat' ? '/subSH/api/sixHat/rooms/' : '/sub/api/brainWriting/rooms/';
   const _messageApi =
@@ -86,6 +86,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
               const newMessage = {
                 nickname: response.sender,
                 message: response.message,
+                hat: response.hat,
               };
               dispatch(getMessages(newMessage));
             }
@@ -154,7 +155,7 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
           roomId: this._roomId,
           sender: sender,
           senderId: this._senderId,
-          hat: null,
+          hat: myHat,
           message: message,
         };
         this.send(data);
