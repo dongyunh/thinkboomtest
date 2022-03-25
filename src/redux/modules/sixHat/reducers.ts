@@ -60,9 +60,9 @@ export const sixHatReducer = createReducer(initialState, builder => {
     })
     .addCase(getUserList, (state, action) => {
       if (state.userList.length === 0) {
-        console.log('실행?')
+        console.log('실행?');
         state.userList.push(action.payload);
-        return
+        return;
       }
       const nicknameList = state.userList?.map(user => user.nickname);
       if (!nicknameList.includes(action.payload.nickname)) {
@@ -70,7 +70,11 @@ export const sixHatReducer = createReducer(initialState, builder => {
       }
     })
     .addCase(getRandomHatList, (state, action) => {
-      console.log(action.payload);
+      const mappedList = new Map();
+      action.payload.forEach(item => {
+        mappedList.set(item.nickname, item.hat);
+      });
+      state.myHat = mappedList.get(state.nickname);
       state.userList = action.payload;
     });
 });

@@ -65,13 +65,12 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
           `/subSH/api/sixHat/rooms/${roomId}`,
           data => {
             const response: SixHatResponseData = JSON.parse(data.body) as SixHatResponseData;
-            console.log(response);
+
             if (response.type === 'ENTER') {
               const userData = {
                 nickname: response.sender,
                 hat: null,
               };
-              console.log(userData);
               dispatch(getUserList(userData));
             }
 
@@ -84,7 +83,6 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
             }
 
             if (response.type === 'DEBATING') {
-              console.log('DEBATING이 잘 들어왔다.');
               const newMessage = {
                 nickname: response.sender,
                 message: response.message,
@@ -101,7 +99,6 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
             }
 
             if (response.type === 'RANDOMHAT') {
-              console.log(response);
               dispatch(getRandomHatList(response.randomHat));
             }
           },
@@ -185,7 +182,6 @@ export default function useSocketHook(type: 'sixhat' | 'brainwriting') {
 
     sendRandomHatData = (userHatList: UserList) => {
       try {
-        console.log('확인할 데이터', userHatList);
         // send할 데이터
         const data: SixHatSendData = {
           type: 'RANDOMHAT',
