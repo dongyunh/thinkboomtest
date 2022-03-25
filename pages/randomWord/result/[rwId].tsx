@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { themedPalette } from '../../../src/theme/styleTheme';
 import { useAppSelector, useAppDispatch } from '@redux/hooks';
 import { selectRandomWord, getResultWord } from '@redux/modules/randomWord';
-import shareUrlHelper from '../../../src/utils/shareUrlHelper';
+// import shareUrlHelper from '../../../src/utils/shareUrlHelper';
 
 type ResultProps = {
   rwId: string;
@@ -40,13 +40,13 @@ const Result = ({ rwId }: ResultProps) => {
           })}
         </ResultGrid>
         {isOpen && <ResultModal onClickBtn1={handleCancel} onClickBtn2={handleConfirm} />}
-        <ShareBox
+        {/* <ShareBox
           onClick={() =>
             shareUrlHelper('랜덤워드', '랜덤워드를 통해서 참신한 아이디어를 떠올려보세요!')
           }
         >
           <Share />
-        </ShareBox>
+        </ShareBox> */}
       </>
     </CenterLayout>
   );
